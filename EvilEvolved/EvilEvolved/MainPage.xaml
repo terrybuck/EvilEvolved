@@ -9,6 +9,6 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-        <canvas:CanvasControl Draw="CanvasControl_Draw" ClearColor="CornflowerBlue"/>
+        <canvas:CanvasControl Draw="CanvasControl_Draw" ClearColor="Wheat" CreateResources="CanvasControl_CreateResources"/>
     </Grid>
 </Page>

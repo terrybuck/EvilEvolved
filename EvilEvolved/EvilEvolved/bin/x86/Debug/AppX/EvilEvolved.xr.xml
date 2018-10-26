@@ -13,6 +13,7 @@
     <RootType FullName="Microsoft.Graphics.Canvas.UI.Xaml.CanvasControl">
       <RootProperty Name="ClearColor" />
       <RootEvent Name="Draw" />
+      <RootEvent Name="CreateResources" />
     </RootType>
     <RootType FullName="EvilEvolved.MainPage" />
   </Roots.RootTypes>

@@ -9,6 +9,7 @@ using Windows.UI.Xaml;
 using Windows.UI;
 using Windows.UI.Xaml.Controls;
 using Microsoft.Graphics.Canvas.UI.Xaml;
+using Microsoft.Graphics.Canvas;
 using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
@@ -21,6 +22,8 @@ namespace EvilEvolved
 {
     public sealed partial class MainPage : Page
     {
+        CanvasBitmap Hero;
+
         public MainPage()
         {
             this.InitializeComponent();
@@ -30,6 +33,13 @@ namespace EvilEvolved
         {
             args.DrawingSession.DrawEllipse(155, 115, 80, 30, Colors.Black, 3);
             args.DrawingSession.DrawText("Hello, world!", 100, 100, Colors.Yellow);
+            args.DrawingSession.FillEllipse(115, 155, 80, 30, Colors.AntiqueWhite);
+            args.DrawingSession.DrawImage(Hero, 300, 500);
+        }
+
+        private async void CanvasControl_CreateResources(CanvasControl sender, Microsoft.Graphics.Canvas.UI.CanvasCreateResourcesEventArgs args)
+        {
+          Hero = await CanvasBitmap.LoadAsync(sender, @"Assets/amg1_fr2.gif");
         }
     }
 }

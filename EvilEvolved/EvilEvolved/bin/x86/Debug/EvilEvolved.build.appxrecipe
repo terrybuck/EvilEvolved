@@ -376,6 +376,9 @@
     <AppxPackagedFile Include="C:\Users\terry\.nuget\packages\win2d.uwp\1.23.0\lib\uap10.0\Microsoft.Graphics.Canvas.winmd">
       <PackagePath>Microsoft.Graphics.Canvas.winmd</PackagePath>
     </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Workspace\Game\EvilEvolved\EvilEvolved\EvilEvolved\Assets\amg1_fr2.gif">
+      <PackagePath>Assets\amg1_fr2.gif</PackagePath>
+    </AppxPackagedFile>
     <AppxPackagedFile Include="D:\Workspace\Game\EvilEvolved\EvilEvolved\EvilEvolved\Properties\Default.rd.xml">
       <PackagePath>Properties\Default.rd.xml</PackagePath>
     </AppxPackagedFile>
