@@ -16,13 +16,15 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
+using Evilution;
+
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
 namespace EvilEvolved
 {
     public sealed partial class MainPage : Page
     {
-        CanvasBitmap Hero;
+        public bool IsAllImagesLoaded = false;
 
         public MainPage()
         {
@@ -34,12 +36,27 @@ namespace EvilEvolved
             args.DrawingSession.DrawEllipse(155, 115, 80, 30, Colors.Black, 3);
             args.DrawingSession.DrawText("Hello, world!", 100, 100, Colors.Yellow);
             args.DrawingSession.FillEllipse(115, 155, 80, 30, Colors.AntiqueWhite);
-            args.DrawingSession.DrawImage(Hero, 300, 500);
+            //args.DrawingSession.DrawImage(Hero, 300, 500);
+
+            if (IsAllImagesLoaded)
+            {
+                CanvasBitmap cb = null;
+                if(Manage_Imported_Images.ImageDictionary.TryGetValue("Hero", out cb))
+                {
+                    args.DrawingSession.DrawImage(cb, 500, 500);
+                }
+            }
         }
 
         private async void CanvasControl_CreateResources(CanvasControl sender, Microsoft.Graphics.Canvas.UI.CanvasCreateResourcesEventArgs args)
         {
-          Hero = await CanvasBitmap.LoadAsync(sender, @"Assets/amg1_fr2.gif");
+
+            //set parent canvas for image manager
+            Manage_Imported_Images.ParentCanvas = sender;
+
+            await Manage_Imported_Images.AddImage("Hero", @"Assets/amg1_fr2.gif");
+            IsAllImagesLoaded = true;
+            sender.Invalidate();
         }
     }
 }
