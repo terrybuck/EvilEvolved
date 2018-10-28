@@ -26,11 +26,40 @@ namespace EvilEvolved
     {
         public bool IsAllImagesLoaded = false;
 
-        List<GenericItem> objects = new List<GenericItem>();
+        GenericScene gs = new GenericScene("test");
 
         public MainPage()
         {
             this.InitializeComponent();
+        }
+
+        /// <summary>
+        /// Assets are loaded in from the CreateResources method
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="args"></param>
+        private async void CanvasControl_CreateResources(CanvasControl sender, Microsoft.Graphics.Canvas.UI.CanvasCreateResourcesEventArgs args)
+        {
+
+            //set parent canvas for image manager
+            Manage_Imported_Images.ParentCanvas = sender;
+            //add hero sprite to image dictionary
+            await Manage_Imported_Images.AddImage("Hero", @"Assets/imageedit_4_4742766674.gif");
+
+            Random r = new Random();
+            for (int i = 0; i < 50; i++)
+            {
+
+                GenericItem gi = new GenericItem("test");
+                gi.Location = new System.Numerics.Vector2(r.Next(0, 1000), r.Next(0, 800));
+                gi.SetBitmapFromImageDictionary("Hero");
+                gs.AddObject(gi);
+            }
+
+            
+            IsAllImagesLoaded = true;
+            //indicate the canvas content needs to be redrawn
+            sender.Invalidate();
         }
 
         /// <summary>
@@ -45,40 +74,9 @@ namespace EvilEvolved
 
             if (IsAllImagesLoaded)
             {
-                foreach (GenericItem gi in objects)
-                {
-                    gi.Draw(cds);
-                }
+                gs.Draw(cds);
             }
         }
 
-        /// <summary>
-        /// Assets are loaded in from the CreateResources method
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="args"></param>
-        private async void CanvasControl_CreateResources(CanvasControl sender, Microsoft.Graphics.Canvas.UI.CanvasCreateResourcesEventArgs args)
-        {
-
-            //set parent canvas for image manager
-            Manage_Imported_Images.ParentCanvas = sender;
-            //add hero sprite to image dictionary
-            await Manage_Imported_Images.AddImage("Hero", @"Assets/amg1_fr2.gif");
-
-            Random r = new Random();
-            for (int i = 0; i < 50; i++)
-            {
-
-                GenericItem gi = new GenericItem("test");
-                gi.Location = new System.Numerics.Vector2(r.Next(0, 1000), r.Next(0, 800));
-                gi.SetBitmapFromImageDictionary("Hero");
-                objects.Add(gi);
-            }
-
-            
-            IsAllImagesLoaded = true;
-            //indicate the canvas content needs to be redrawn
-            sender.Invalidate();
-        }
     }
 }

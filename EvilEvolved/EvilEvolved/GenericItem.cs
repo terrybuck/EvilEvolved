@@ -25,7 +25,7 @@ namespace Evilution
         ///Update the GenericItem
         ///</summary>
         ///<param name= "dt"> A delta time since the last update was called.</param>
-       public void Update(TimeSpan dt)
+       public virtual void Update(TimeSpan dt)
         {
         }
 
@@ -33,7 +33,7 @@ namespace Evilution
         ///Draw the GenericItem
         ///</summary>
         ///<param name= "cds"> A surface to draw on.</param>
-        public void Draw(CanvasDrawingSession cds)
+        public virtual void Draw(CanvasDrawingSession cds)
         {
             if (null == Bitmap)
                 return;
