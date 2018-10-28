@@ -49,7 +49,7 @@ namespace EvilEvolved
             GenericScene gs = new GenericScene("test");
 
             Random r = new Random();
-            for (int i = 0; i < 50; i++)
+            for (int i = 0; i < 1; i++)
             {
 
                 GenericItem gi = new GenericItem("test");
@@ -62,8 +62,10 @@ namespace EvilEvolved
             StoryBoard.CurrentScene = gs;
 
             IsAllImagesLoaded = true;
+
+            GameTimer gt = new GameTimer(sender, 60, 30);
             //indicate the canvas content needs to be redrawn
-            sender.Invalidate();
+            //sender.Invalidate();
         }
 
         /// <summary>

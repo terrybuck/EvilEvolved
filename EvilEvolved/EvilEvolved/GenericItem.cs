@@ -27,6 +27,7 @@ namespace Evilution
         ///<param name= "dt"> A delta time since the last update was called.</param>
        public virtual void Update(TimeSpan dt)
         {
+            //this.Location = new Vector2(this.Location.X, this.Location.Y + 1);
         }
 
         ///<summary>
