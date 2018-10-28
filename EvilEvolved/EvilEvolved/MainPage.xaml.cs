@@ -46,6 +46,8 @@ namespace EvilEvolved
             //add hero sprite to image dictionary
             await Manage_Imported_Images.AddImage("Hero", @"Assets/imageedit_4_4742766674.gif");
 
+            GenericScene gs = new GenericScene("test");
+
             Random r = new Random();
             for (int i = 0; i < 50; i++)
             {
@@ -56,7 +58,9 @@ namespace EvilEvolved
                 gs.AddObject(gi);
             }
 
-            
+            StoryBoard.AddScene(gs);
+            StoryBoard.CurrentScene = gs;
+
             IsAllImagesLoaded = true;
             //indicate the canvas content needs to be redrawn
             sender.Invalidate();
@@ -72,9 +76,9 @@ namespace EvilEvolved
             // get the drawing session
             CanvasDrawingSession cds = args.DrawingSession;
 
-            if (IsAllImagesLoaded)
+            if(null != StoryBoard.CurrentScene)
             {
-                gs.Draw(cds);
+                StoryBoard.CurrentScene.Draw(cds);
             }
         }
 

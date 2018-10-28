@@ -18,7 +18,7 @@ namespace Evilution
         {
             this.Name = name;
 
-            this.DrawBoundingRectangle = false;
+            this.DrawBoundingRectangle = true;
         }
 
         ///<summary>

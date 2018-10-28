@@ -8,7 +8,7 @@ using Microsoft.Graphics.Canvas;
 
 namespace Evilution
 {
-    class GenericScene : GenericItem
+    public class GenericScene : GenericItem
     {
         public GenericScene(string name)
             :base(name)
