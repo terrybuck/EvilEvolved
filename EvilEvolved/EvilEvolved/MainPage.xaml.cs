@@ -26,36 +26,58 @@ namespace EvilEvolved
     {
         public bool IsAllImagesLoaded = false;
 
+        List<GenericItem> objects = new List<GenericItem>();
+
         public MainPage()
         {
             this.InitializeComponent();
         }
 
+        /// <summary>
+        /// Draw function
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="args"></param>
         void CanvasControl_Draw(CanvasControl sender, CanvasDrawEventArgs args)
         {
-            args.DrawingSession.DrawEllipse(155, 115, 80, 30, Colors.Black, 3);
-            args.DrawingSession.DrawText("Hello, world!", 100, 100, Colors.Yellow);
-            args.DrawingSession.FillEllipse(115, 155, 80, 30, Colors.AntiqueWhite);
-            //args.DrawingSession.DrawImage(Hero, 300, 500);
+            // get the drawing session
+            CanvasDrawingSession cds = args.DrawingSession;
 
             if (IsAllImagesLoaded)
             {
-                CanvasBitmap cb = null;
-                if(Manage_Imported_Images.ImageDictionary.TryGetValue("Hero", out cb))
+                foreach (GenericItem gi in objects)
                 {
-                    args.DrawingSession.DrawImage(cb, 500, 500);
+                    gi.Draw(cds);
                 }
             }
         }
 
+        /// <summary>
+        /// Assets are loaded in from the CreateResources method
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="args"></param>
         private async void CanvasControl_CreateResources(CanvasControl sender, Microsoft.Graphics.Canvas.UI.CanvasCreateResourcesEventArgs args)
         {
 
             //set parent canvas for image manager
             Manage_Imported_Images.ParentCanvas = sender;
-
+            //add hero sprite to image dictionary
             await Manage_Imported_Images.AddImage("Hero", @"Assets/amg1_fr2.gif");
+
+            Random r = new Random();
+            for (int i = 0; i < 50; i++)
+            {
+
+                GenericItem gi = new GenericItem("test");
+                gi.Location = new System.Numerics.Vector2(r.Next(0, 1000), r.Next(0, 800));
+                gi.SetBitmapFromImageDictionary("Hero");
+                objects.Add(gi);
+            }
+
+            
             IsAllImagesLoaded = true;
+            //indicate the canvas content needs to be redrawn
             sender.Invalidate();
         }
     }
