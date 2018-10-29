@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Evilution
+namespace EvilutionClass
 {
     /// <summary>
     /// Storyboard class.  This class contains all the scenes inside the application.  This class also dictates what the CurrentScene is.

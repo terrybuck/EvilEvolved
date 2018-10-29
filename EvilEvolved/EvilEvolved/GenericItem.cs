@@ -9,7 +9,7 @@ using Microsoft.Graphics.Canvas;
 using System.Numerics;
 using Windows.Foundation;
 
-namespace Evilution
+namespace EvilutionClass
 {
     public class GenericItem
     {
@@ -51,7 +51,7 @@ namespace Evilution
         public bool SetBitmapFromImageDictionary(string key)
         {
             CanvasBitmap cb = null;
-            if(Manage_Imported_Images.ImageDictionary.TryGetValue(key, out cb))
+            if(ImageManager.ImageDictionary.TryGetValue(key, out cb))
             {
                 this.Bitmap = cb;
                 this.Size = this.Bitmap.SizeInPixels;

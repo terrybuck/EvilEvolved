@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 using Microsoft.Graphics.Canvas;
 using Microsoft.Graphics.Canvas.UI.Xaml;
 
-namespace Evilution
+namespace EvilutionClass
 {
     //Class used to import sprites and images into game
-    public static class Manage_Imported_Images
+    public static class ImageManager
     {
         static public Dictionary<string, CanvasBitmap> ImageDictionary = new Dictionary<string, CanvasBitmap>();
 

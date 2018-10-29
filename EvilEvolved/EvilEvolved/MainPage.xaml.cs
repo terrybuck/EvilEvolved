@@ -16,7 +16,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
-using Evilution;
+using EvilutionClass;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -42,9 +42,9 @@ namespace EvilEvolved
         {
 
             //set parent canvas for image manager
-            Manage_Imported_Images.ParentCanvas = sender;
+            ImageManager.ParentCanvas = sender;
             //add hero sprite to image dictionary
-            await Manage_Imported_Images.AddImage("Hero", @"Assets/imageedit_4_4742766674.gif");
+            await ImageManager.AddImage("Hero", @"Assets/imageedit_4_4742766674.gif");
 
             GenericScene gs = new GenericScene("test");
 
@@ -84,5 +84,50 @@ namespace EvilEvolved
             }
         }
 
+        private void CanvasControl_PointerMoved(object sender, PointerRoutedEventArgs e)
+        {
+            Windows.UI.Input.PointerPoint p = e.GetCurrentPoint((UIElement)sender);
+
+            MouseGenericInput mgi = new MouseGenericInput((float)p.Position.X, (float)p.Position.Y);
+            mgi.Name = "mouse_move";
+            mgi.MouseInputType = MouseGenericInputType.MouseMove;
+            mgi.IsLeftButtonPress = p.Properties.IsLeftButtonPressed;
+            mgi.IsMiddleButtonPress = p.Properties.IsMiddleButtonPressed;
+            mgi.IsRightButtonPress = p.Properties.IsRightButtonPressed;
+            mgi.MouseDown = mgi.IsRightButtonPress | mgi.IsMiddleButtonPress | mgi.IsLeftButtonPress;
+
+            InputManager.AddInputItem(mgi);
+
+        }
+
+        private void CanvasControl_PointerPressed(object sender, PointerRoutedEventArgs e)
+        {
+            Windows.UI.Input.PointerPoint p = e.GetCurrentPoint((UIElement)sender);
+
+            MouseGenericInput mgi = new MouseGenericInput((float)p.Position.X, (float)p.Position.Y);
+            mgi.Name = "mouse_down";
+            mgi.MouseInputType = MouseGenericInputType.MousePressed;
+            mgi.IsLeftButtonPress = p.Properties.IsLeftButtonPressed;
+            mgi.IsMiddleButtonPress = p.Properties.IsMiddleButtonPressed;
+            mgi.IsRightButtonPress = p.Properties.IsRightButtonPressed;
+            mgi.MouseDown = mgi.IsRightButtonPress | mgi.IsMiddleButtonPress | mgi.IsLeftButtonPress;
+
+            InputManager.AddInputItem(mgi);
+        }
+
+        private void CanvasControl_PointerReleased(object sender, PointerRoutedEventArgs e)
+        {
+            Windows.UI.Input.PointerPoint p = e.GetCurrentPoint((UIElement)sender);
+
+            MouseGenericInput mgi = new MouseGenericInput((float)p.Position.X, (float)p.Position.Y);
+            mgi.Name = "mouse_up";
+            mgi.MouseInputType = MouseGenericInputType.MouseReleased;
+            mgi.IsLeftButtonPress = p.Properties.IsLeftButtonPressed;
+            mgi.IsMiddleButtonPress = p.Properties.IsMiddleButtonPressed;
+            mgi.IsRightButtonPress = p.Properties.IsRightButtonPressed;
+            mgi.MouseDown = mgi.IsRightButtonPress | mgi.IsMiddleButtonPress | mgi.IsLeftButtonPress;
+
+            InputManager.AddInputItem(mgi);
+        }
     }
 }
