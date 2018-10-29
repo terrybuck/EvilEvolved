@@ -16,11 +16,11 @@ namespace Evilution
 
         }
 
-        public override void Update(TimeSpan dt)
+        public override void Update(TimeSpan dt, GenericInput input)
         {
             foreach (GenericItem gi in objects)
             {
-                gi.Update(dt);
+                gi.Update(dt, input);
             }
         }
 

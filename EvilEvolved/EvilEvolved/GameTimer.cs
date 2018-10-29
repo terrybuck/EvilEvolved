@@ -45,9 +45,13 @@ namespace Evilution
                 //Update the total app time
                 TotalAppTime += dt;
 
+                //get the current input from the input manager
+                GenericInput gi = InputManager.Update();
+
+
                 if (null != StoryBoard.CurrentScene)
                 {
-                    StoryBoard.CurrentScene.Update(dt);
+                    StoryBoard.CurrentScene.Update(dt, gi);
                 }
 
                 //Figure out if we need to refresh the screen
