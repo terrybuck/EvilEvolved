@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 using Microsoft.Graphics.Canvas;
 
-namespace Evilution
+namespace EvilutionClass
 {
     public class GenericScene : GenericItem
     {

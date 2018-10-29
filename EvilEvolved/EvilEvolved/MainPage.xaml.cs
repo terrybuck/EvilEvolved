@@ -16,7 +16,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
-using Evilution;
+using EvilutionClass;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -42,9 +42,9 @@ namespace EvilEvolved
         {
 
             //set parent canvas for image manager
-            Manage_Imported_Images.ParentCanvas = sender;
+            ImageManager.ParentCanvas = sender;
             //add hero sprite to image dictionary
-            await Manage_Imported_Images.AddImage("Hero", @"Assets/imageedit_4_4742766674.gif");
+            await ImageManager.AddImage("Hero", @"Assets/imageedit_4_4742766674.gif");
 
             GenericScene gs = new GenericScene("test");
 

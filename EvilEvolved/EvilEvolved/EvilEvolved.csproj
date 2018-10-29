@@ -99,7 +99,7 @@
     <Compile Include="GameTimer.cs" />
     <Compile Include="GenericScene.cs" />
     <Compile Include="GenericItem.cs" />
-    <Compile Include="manage_imported_images.cs" />
+    <Compile Include="ImageManager.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>

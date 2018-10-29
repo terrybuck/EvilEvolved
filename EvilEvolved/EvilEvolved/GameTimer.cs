@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Microsoft.Graphics.Canvas.UI.Xaml;
 
-namespace Evilution
+namespace EvilutionClass
 {
     public class GameTimer
     {
