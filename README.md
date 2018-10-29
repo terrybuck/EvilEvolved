@@ -1,4 +1,4 @@
-# EvilEvolved
+# Evilution
 2D Game where one attempts to thwart an ever evolving evil monster
 
 This isn't a real readme, more of an intro to the steps taken, and thought process behind making Evilution.
