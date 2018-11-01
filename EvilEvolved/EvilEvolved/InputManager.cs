@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace EvilutionClass
 {
+    #region ----------[These are GenericInput Types,]
     public class GenericInput
     {
         public GenericInput(string name)
@@ -16,8 +17,8 @@ namespace EvilutionClass
         public string Name { get; set; }
         public string TargetScene { get; set; }
         public string TargetItem { get; set; }
-
     }
+
 
     public enum MouseGenericInputType { unknown, MouseMove, MousePressed, MouseReleased, MouseClick };
     public enum MouseButtonType { None, Left, Middle, Right};
@@ -52,14 +53,14 @@ namespace EvilutionClass
 
     }
 
+    #endregion
+
     /// <summary>
     /// A Manager that handles all inputs.
     /// </summary>
     public static class InputManager
     {
         private static object input_queue_lock = new object();
-
-        private static Queue<GenericInput> InputQueue = new Queue<GenericInput>();
 
         /// <summary>
         /// Returns the current GenericInput for processing.
@@ -70,9 +71,36 @@ namespace EvilutionClass
             lock(input_queue_lock)
             {
                 if (InputQueue.Count == 0)
+                {
                     return null;
+                }
                 else
-                    return InputQueue.Dequeue();
+                {
+                    GenericInput gi = InputQueue.Dequeue();
+
+                    if (gi is MouseGenericInput)
+                    {
+                        MouseGenericInput mgi = (MouseGenericInput)gi;
+
+                        if (MouseGenericInputType.MousePressed == mgi.MouseInputType)
+                        {
+                            IsMouseDown = true;
+                        }
+                        else if (MouseGenericInputType.MouseReleased == mgi.MouseInputType)
+                        {
+                            if(IsMouseDown)
+                            {
+                                MouseGenericInput mouse_click_event = new MouseGenericInput(mgi.X, mgi.Y);
+                                mouse_click_event.MouseInputType = MouseGenericInputType.MouseClick;
+                                InputManager.AddInputItem(mouse_click_event);
+                            }
+
+                            IsMouseDown = false;
+                        }
+                    }
+
+                    return gi;
+                }
             }
         }
 
@@ -97,5 +125,28 @@ namespace EvilutionClass
                     return false;
             }
         }
+
+        public static GenericInput PeekAndTake(Type t)
+        {
+            lock(input_queue_lock)
+            {
+                if(InputQueue.Count <= 0)
+                    return null;
+
+                GenericInput gi = InputQueue.Peek();
+                if(gi.GetType() == t)
+                {
+                    return Update();
+                }
+                else
+                {
+                    return null;
+                }
+            }
+        }
+
+        private static Queue<GenericInput> InputQueue = new Queue<GenericInput>();
+        public static bool IsMouseDown { get; set; }
+
     }
 }

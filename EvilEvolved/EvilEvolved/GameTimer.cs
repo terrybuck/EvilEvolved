@@ -51,7 +51,18 @@ namespace EvilutionClass
 
                 if (null != StoryBoard.CurrentScene)
                 {
-                    StoryBoard.CurrentScene.Update(dt, gi);
+                    if (gi is MouseGenericInput)
+                    {
+                        while(gi is MouseGenericInput)
+                        {
+                            StoryBoard.CurrentScene.Update(dt, gi);
+                            gi = InputManager.PeekAndTake(typeof(MouseGenericInput));
+                        }
+                    }
+                    else
+                    {
+                        StoryBoard.CurrentScene.Update(dt, gi);
+                    }
                 }
 
                 //Figure out if we need to refresh the screen
