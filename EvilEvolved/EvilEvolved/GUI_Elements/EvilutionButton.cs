@@ -43,7 +43,10 @@ namespace EvilutionClass
 
                     case MouseGenericInputType.MouseClick:
                         {
-                            this.Text = "Click";
+                            if (IsHover)
+                            {
+                                this.Text = "Click";
+                            }
                         }
                         break; 
                 }
