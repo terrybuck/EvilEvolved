@@ -14,6 +14,9 @@
       <RootProperty Name="ClearColor" />
       <RootEvent Name="Draw" />
       <RootEvent Name="CreateResources" />
+      <RootEvent Name="PointerMoved" />
+      <RootEvent Name="PointerPressed" />
+      <RootEvent Name="PointerReleased" />
     </RootType>
     <RootType FullName="EvilEvolved.MainPage" />
   </Roots.RootTypes>
