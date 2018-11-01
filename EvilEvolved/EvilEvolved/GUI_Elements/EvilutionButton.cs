@@ -27,16 +27,25 @@ namespace EvilutionClass
                 switch(mgi.MouseInputType)
                 {
                     case MouseGenericInputType.MouseMove:
-                        if (mgi.X >this.Location.X && mgi.X < this.Location.X+this.Size.Width &&
-                            mgi.Y > this.Location.Y && mgi.Y < this.Location.Y+this.Size.Height)
                         {
-                            IsHover = true;
-                        }
-                        else
-                        {
-                            IsHover = false;
+                                //hit test
+                            if (mgi.X > this.Location.X && mgi.X < this.Location.X + this.Size.Width &&
+                                mgi.Y > this.Location.Y && mgi.Y < this.Location.Y + this.Size.Height)
+                            {
+                                IsHover = true;
+                            }
+                            else
+                            {
+                                IsHover = false;
+                            }
                         }
                         break;
+
+                    case MouseGenericInputType.MouseClick:
+                        {
+                            this.Text = "Click";
+                        }
+                        break; 
                 }
             }
            // base.Update(dt, input);
