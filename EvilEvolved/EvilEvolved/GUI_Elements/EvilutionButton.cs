@@ -9,26 +9,39 @@ using Windows.UI;
 
 namespace EvilutionClass
 {
-    class EvilutionButton : GenericItem
+    /// <summary>
+    /// A Generic Button that responds the OnClick event.
+    /// </summary>
+    public class EvilutionButton : EvilutionLabel
     {
-        public EvilutionButton(string text = "")
-            :base()
+        /// <summary>
+        /// EvilutionButton constructor.
+        /// </summary>
+        /// <param name="text">The text to show in the middle of the button.</param>
+        /// <param name="foreground_color">The color of the text.</param>
+        /// <param name="width">The default width.</param>
+        /// <param name="height">the default height.</param>
+        public EvilutionButton(string text = "", Color foreground_color = default(Color), uint width = 100, uint height = 50)
+            : base(text, foreground_color, width, height)
         {
-            this.Text = text;
-            this.BorderColor = Colors.White;
             this.HighlightBorderColor = Colors.Lime;
         }
 
-        public override void Update(TimeSpan dt, GenericInput input)
+        /// <summary>
+        /// Update.
+        /// </summary>
+        /// <param name="dt">The delta time.</param>
+        /// <param name="gi">The input item if any.</param>
+        public override void Update(TimeSpan dt, GenericInput gi)
         {
-            if (input is MouseGenericInput)
+            if (gi is MouseGenericInput)
             {
-                MouseGenericInput mgi = (MouseGenericInput)input;
-                switch(mgi.MouseInputType)
+                MouseGenericInput mgi = (MouseGenericInput)gi;
+                switch (mgi.MouseInputType)
                 {
                     case MouseGenericInputType.MouseMove:
                         {
-                                //hit test
+                            // do hit test
                             if (mgi.X > this.Location.X && mgi.X < this.Location.X + this.Size.Width &&
                                 mgi.Y > this.Location.Y && mgi.Y < this.Location.Y + this.Size.Height)
                             {
@@ -45,41 +58,89 @@ namespace EvilutionClass
                         {
                             if (IsHover)
                             {
-                                this.Text = "Click";
+                                // raise the event
+                                OnButtonClicked(null);
                             }
                         }
-                        break; 
+                        break;
                 }
             }
-           // base.Update(dt, input);
         }
 
-        public override void Draw(CanvasDrawingSession cds)
+        /// <summary>
+        /// Draw.
+        /// </summary>
+        /// <param name="cds">The surface to draw on.</param>
+        public override void Draw(Microsoft.Graphics.Canvas.CanvasDrawingSession cds)
         {
-            //test rectangle
-            Windows.Foundation.Rect rect = new Windows.Foundation.Rect(Location.X, Location.Y, Size.Width, Size.Height);
+            // the bounding rectangle
+            Windows.Foundation.Rect r = new Windows.Foundation.Rect(Location.X, Location.Y, Size.Width, Size.Height);
 
-            //draw the border
+            // draw the border
             if (IsHover)
             {
-                cds.DrawRectangle(rect, HighlightBorderColor);
+                cds.DrawRectangle(r, HighlightBorderColor);
             }
             else
             {
-                cds.DrawRectangle(rect, BorderColor);
+                cds.DrawRectangle(r, BorderColor);
             }
 
+            // create the text description
             Microsoft.Graphics.Canvas.Text.CanvasTextFormat ctf = new Microsoft.Graphics.Canvas.Text.CanvasTextFormat();
             ctf.VerticalAlignment = Microsoft.Graphics.Canvas.Text.CanvasVerticalAlignment.Center;
             ctf.HorizontalAlignment = Microsoft.Graphics.Canvas.Text.CanvasHorizontalAlignment.Center;
+            ctf.FontSize = this.FontSize;
 
-            cds.DrawText(Text, rect, Colors.Red, ctf);
+            // draw the text
+            cds.DrawText(Text, r, ForegroundColor, ctf);
         }
 
-        public Color BorderColor { get; set; }
+        /// <summary>
+        /// Reset the button.
+        /// </summary>
+        public override void Reset()
+        {
+            this.IsHover = false;
+        }
+
+
+        #region [Properties --------------------------------------------------]
+
         public Color HighlightBorderColor { get; set; }
+
         private bool IsHover { get; set; }
 
-        public string Text { get; set; }
+        #endregion
+
+
+        #region [Events ------------------------------------------------------]
+
+        public delegate void EvilutionButton_Event_Handler(object sender, EvilutionButton_Event e);
+
+        private event EvilutionButton_Event_Handler _button_click;
+        public event EvilutionButton_Event_Handler ButtonClick
+        {
+            add { _button_click += value; }
+            remove { _button_click -= value; }
+        }
+        protected virtual void OnButtonClicked(EvilutionButton_Event e)
+        {
+
+            if (_button_click != null)
+            {
+                _button_click.Invoke(this, e);
+            }
+        }
+
+        #endregion
+    }
+
+    /// <summary>
+    /// Alias for the Button Event.
+    /// </summary>
+    public class EvilutionButton_Event : EventArgs
+    {
     }
 }
+

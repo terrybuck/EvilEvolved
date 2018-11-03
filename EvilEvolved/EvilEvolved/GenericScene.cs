@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -108,8 +109,50 @@ namespace EvilutionClass
             
         }
 
-        // Properties
+        #region [Helpers Functions -------------------------------------------]
+
+        /// <summary>
+        /// Centers the GenericItem on the screen.
+        /// </summary>
+        /// <param name="gi">The GenericItem to center.</param>
+        /// <param name="center_on_width">If true, center horizontally.</param>
+        /// <param name="center_on_height">If true, center vertically.</param>
+        protected void CenterObject(GenericItem gi, bool center_on_width = true, bool center_on_height = true)
+        {
+            if (gi == null)
+                return;
+
+            Vector2 correction = new Vector2();
+            if (center_on_width)
+            {
+                correction.X = (int)(this._width / 2 - gi.Size.Width / 2);
+            }
+            else
+            {
+                correction.X = gi.Location.X;
+            }
+
+            if (center_on_height)
+            {
+                correction.Y = (int)(this._height / 2 - gi.Size.Height / 2);
+            }
+            else
+            {
+                correction.Y = gi.Location.Y;
+            }
+
+            gi.Location = correction;
+        }
+
+        #endregion
+
+        #region [Properties --------------------------------------------------]
         protected List<GenericItem> objects = new List<GenericItem>();
+
+        protected int _width;
+        protected int _height;
+
+        #endregion
 
         //TODO: remove on release or turn into test cases
         #region ----------[DEBUG_MOUSE_PROPERTIES]

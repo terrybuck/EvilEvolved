@@ -27,8 +27,8 @@ namespace EvilutionClass
         ///<param name= "dt"> A delta time since the last update was called.</param>
        public virtual void Update(TimeSpan dt, GenericInput input)
         {
-            float velocity = (float)(1.0 * (dt.TotalMilliseconds)/60.0);
-            this.Location = new Vector2(this.Location.X + velocity, this.Location.Y + velocity);
+//            float velocity = (float)(1.0 * (dt.TotalMilliseconds)/60.0);
+//           this.Location = new Vector2(this.Location.X + velocity, this.Location.Y + velocity);
         }
 
         ///<summary>
@@ -61,6 +61,27 @@ namespace EvilutionClass
             return false;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="width"></param>
+        /// <param name="height"></param>
+        public void SetSize(uint width, uint height)
+        {
+            BitmapSize new_size;
+            new_size.Width = width;
+            new_size.Height = height;
+            this.Size = new_size;
+        }
+
+        /// <summary>
+        /// This should reset the GenericItem back to its default state.
+        /// </summary>
+        public virtual void Reset()
+        {
+        }
+
+
         //Properties
         public string Name { get; set; }
         public Vector2 Location { get; set; }
@@ -69,6 +90,29 @@ namespace EvilutionClass
         public Rect BoundingRectangle { get { return new Rect(Location.X, Location.Y, Size.Width-1, Size.Height-1); } }
         public bool DrawBoundingRectangle { get; set; }
 
+        public int X
+        {
+            get { return (int)Location.X; }
+            set
+            {
+                if (Location.X != value)
+                {
+                    Location = new Vector2(value, Location.Y);
+                }
+            }
+        }
+
+        public int Y
+        {
+            get { return (int)Location.Y; }
+            set
+            {
+                if (Location.Y != value)
+                {
+                    Location = new Vector2(Location.X, value);
+                }
+            }
+        }
 
 
     }

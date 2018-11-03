@@ -65,12 +65,19 @@ namespace EvilEvolved
             gs.AddObject(eb);
             eb.Location = new System.Numerics.Vector2(400, 400);
 
-            StoryBoard.AddScene(gs);
-            StoryBoard.CurrentScene = gs;
+
             BitmapSize button_size;
             button_size.Width = 250;
             button_size.Height = 50;
             eb.Size = button_size;
+
+            StoryBoard.AddScene(gs);
+            StoryBoard.CurrentScene = gs;
+
+            CanvasControl cc = sender;
+            TitleScene ts = new TitleScene((int)cc.RenderSize.Width, (int)cc.RenderSize.Height);
+            StoryBoard.AddScene(ts);
+            StoryBoard.CurrentScene = ts;
 
             IsAllImagesLoaded = true;
 
