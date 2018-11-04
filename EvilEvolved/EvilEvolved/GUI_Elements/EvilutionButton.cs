@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.Graphics.Canvas;
 
 using Windows.UI;
+using static EvilutionClass.MouseGenericInput;
 
 namespace EvilutionClass
 {

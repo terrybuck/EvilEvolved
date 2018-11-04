@@ -48,30 +48,23 @@ namespace EvilutionClass
                 //get the current input from the input manager
                 GenericInput gi = InputManager.Update();
 
-
-                if (null != StoryBoard.CurrentScene)
+                if (StoryBoard.Update(dt, gi))
                 {
-                    StoryBoard.CurrentScene.Update(dt, gi);
-                    gi = InputManager.PeekAndTake(typeof(MouseGenericInput));
-                    while (gi is MouseGenericInput)
-                    {
-                        StoryBoard.CurrentScene.Update(TimeSpan.Zero, gi);
-                        gi = InputManager.PeekAndTake(typeof(MouseGenericInput));
-                    }
-                    /*
-                    if (gi is MouseGenericInput)
-                    {
-                        while(gi is MouseGenericInput)
-                        {
-                            StoryBoard.CurrentScene.Update(dt, gi);
-                            gi = InputManager.PeekAndTake(typeof(MouseGenericInput));
-                        }
-                    }
-                    else
+
+                }
+                else
+                {
+                    if (null != StoryBoard.CurrentScene)
                     {
                         StoryBoard.CurrentScene.Update(dt, gi);
+                        gi = InputManager.PeekAndTake(typeof(MouseGenericInput));
+                        while (gi is MouseGenericInput)
+                        {
+                            StoryBoard.CurrentScene.Update(TimeSpan.Zero, gi);
+                            gi = InputManager.PeekAndTake(typeof(MouseGenericInput));
+                        }
+
                     }
-                    */
                 }
 
                 //Figure out if we need to refresh the screen

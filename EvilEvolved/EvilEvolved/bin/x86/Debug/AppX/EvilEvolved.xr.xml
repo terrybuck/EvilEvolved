@@ -17,6 +17,8 @@
       <RootEvent Name="PointerMoved" />
       <RootEvent Name="PointerPressed" />
       <RootEvent Name="PointerReleased" />
+      <RootEvent Name="KeyDown" />
+      <RootEvent Name="KeyUp" />
     </RootType>
     <RootType FullName="EvilEvolved.MainPage" />
   </Roots.RootTypes>

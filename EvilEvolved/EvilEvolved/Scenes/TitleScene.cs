@@ -17,6 +17,11 @@ namespace EvilutionClass
             SetupScene();
         }
 
+        public override void Update(TimeSpan dt, GenericInput input)
+        {
+            base.Update(dt, input);
+        }
+
         public void SetupScene()
         {
 
@@ -28,7 +33,6 @@ namespace EvilutionClass
 
 
             _start_button = new EvilutionButton("New Game", Colors.White, 350, 50);
-
             _top_score_button = new EvilutionButton("View The Current Top Scores", Colors.White, 350, 50);
             _credits_button = new EvilutionButton("Credits", Colors.DarkGray, 350, 50);
 
@@ -40,7 +44,6 @@ namespace EvilutionClass
             this.AddObject(_start_button);
             this.AddObject(_top_score_button);
             this.AddObject(_credits_button);
-
 
             // event callbacks
             _start_button.ButtonClick += _start_button_ButtonClick;

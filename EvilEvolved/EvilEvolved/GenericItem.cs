@@ -27,7 +27,7 @@ namespace EvilutionClass
         ///<param name= "dt"> A delta time since the last update was called.</param>
        public virtual void Update(TimeSpan dt, GenericInput input)
         {
-//            float velocity = (float)(1.0 * (dt.TotalMilliseconds)/60.0);
+//           float velocity = (float)(1.0 * (dt.TotalMilliseconds)/60.0);
 //           this.Location = new Vector2(this.Location.X + velocity, this.Location.Y + velocity);
         }
 

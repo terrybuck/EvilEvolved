@@ -18,9 +18,8 @@ using Windows.UI.Xaml.Navigation;
 
 using EvilutionClass;
 using Windows.Graphics.Imaging;
-
-
-// The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
+using Windows.System;
+using static EvilutionClass.MouseGenericInput;
 
 namespace EvilEvolved
 {
@@ -28,7 +27,7 @@ namespace EvilEvolved
     {
         public bool IsAllImagesLoaded = false;
 
-        GenericScene gs = new GenericScene("test");
+ //       GenericScene gs = new GenericScene("test");
 
         public MainPage()
         {
@@ -45,39 +44,36 @@ namespace EvilEvolved
 
             //set parent canvas for image manager
             ImageManager.ParentCanvas = sender;
-            //add hero sprite to image dictionary
+
+            #region -------[Load images]
+
             await ImageManager.AddImage("Hero", @"Assets/imageedit_4_4742766674.gif");
+            #endregion
 
-            GenericScene gs = new GenericScene("test");
+            //EvilutionButton eb = new EvilutionButton("My First Button");
 
-            Random r = new Random();
-            for (int i = 0; i < 1; i++)
-            {
-
-                GenericItem gi = new GenericItem("test");
-                gi.Location = new System.Numerics.Vector2(r.Next(0, 1000), r.Next(0, 800));
-                gi.SetBitmapFromImageDictionary("Hero");
-                gs.AddObject(gi);
-            }
-
-            EvilutionButton eb = new EvilutionButton("My First Button");
-
-            gs.AddObject(eb);
-            eb.Location = new System.Numerics.Vector2(400, 400);
+            //gs.AddObject(eb);
+            //eb.Location = new System.Numerics.Vector2(400, 400);
 
 
-            BitmapSize button_size;
-            button_size.Width = 250;
-            button_size.Height = 50;
-            eb.Size = button_size;
+            //BitmapSize button_size;
+            //button_size.Width = 250;
+            //button_size.Height = 50;
+            //eb.Size = button_size;
 
-            StoryBoard.AddScene(gs);
-            StoryBoard.CurrentScene = gs;
+            //StoryBoard.AddScene(gs);
+            //StoryBoard.CurrentScene = gs;
 
             CanvasControl cc = sender;
             TitleScene ts = new TitleScene((int)cc.RenderSize.Width, (int)cc.RenderSize.Height);
             StoryBoard.AddScene(ts);
             StoryBoard.CurrentScene = ts;
+
+            //create scenes
+            GameScene game_scene = new GameScene((int)cc.RenderSize.Width, (int)cc.RenderSize.Height);
+
+            //add scenes to storyboard
+            StoryBoard.AddScene(game_scene);
 
             IsAllImagesLoaded = true;
 
@@ -150,5 +146,33 @@ namespace EvilEvolved
         }
 
         #endregion
+
+        private void CanvasControl_KeyDown(object sender, KeyRoutedEventArgs e)
+        {
+            //switch (virtualKey)
+            //{
+            //    case VirtualKey.A: //keyboard
+            //    case VirtualKey.GamepadDPadLeft: //controller
+            //        MoveLeft();
+            //        break;
+            //    case VirtualKey.D:
+            //    case VirtualKey.GamepadDPadRight:
+            //        MoveRight();
+            //        break;
+            //    case VirtualKey.W:
+            //    case VirtualKey.GamepadDPadUp:
+            //        MoveUp();
+            //        break;
+            //    case VirtualKey.S:
+            //    case VirtualKey.GamepadDPadDown:
+            //        MoveDown();
+            //        break;
+            //}
+        }
+
+        private void CanvasControl_KeyUp(object sender, KeyRoutedEventArgs e)
+        {
+
+        }
     }
 }

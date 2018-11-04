@@ -9,6 +9,6 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-        <canvas:CanvasControl Draw="CanvasControl_Draw" ClearColor="Wheat" CreateResources="CanvasControl_CreateResources" PointerMoved="CanvasControl_PointerMoved" PointerPressed="CanvasControl_PointerPressed" PointerReleased="CanvasControl_PointerReleased"/>
+        <canvas:CanvasControl Draw="CanvasControl_Draw" ClearColor="Black" CreateResources="CanvasControl_CreateResources" PointerMoved="CanvasControl_PointerMoved" PointerPressed="CanvasControl_PointerPressed" PointerReleased="CanvasControl_PointerReleased" KeyDown="CanvasControl_KeyDown" KeyUp="CanvasControl_KeyUp"/>
     </Grid>
 </Page>

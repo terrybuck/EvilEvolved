@@ -9,7 +9,7 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-        <canvas:CanvasControl x:ConnectionId='2'                           ClearColor="Wheat"                                                                                                                                                                                        />
+        <canvas:CanvasControl x:ConnectionId='2'                           ClearColor="Black"                                                                                                                                                                                                                                                    />
     </Grid>
 </Page>
 
