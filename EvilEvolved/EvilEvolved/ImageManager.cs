@@ -9,11 +9,19 @@ using Microsoft.Graphics.Canvas.UI.Xaml;
 
 namespace EvilutionClass
 {
-    //Class used to import sprites and images into game
+    /// <summary>
+    /// The pipeline for all Bitmap Images.  This provides a path to access any images that have been loaded.
+    /// </summary>
     public static class ImageManager
     {
         static public Dictionary<string, CanvasBitmap> ImageDictionary = new Dictionary<string, CanvasBitmap>();
 
+        /// <summary>
+        /// Loads a bitmap from a file and adds it to the ImageDictionary.
+        /// </summary>
+        /// <param name="key">A unique id to give to bitmap.</param>
+        /// <param name="file_path">Path to the file to load.</param>
+        /// <returns>Returns true if the image has been loaded and added to the ImageDictionary.  Else false.</returns>
         static public async Task<bool> AddImage(string key, string file_path)
         {
 

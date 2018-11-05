@@ -45,6 +45,12 @@ namespace EvilutionClass
             this.AddObject(_top_score_button);
             this.AddObject(_credits_button);
 
+            //Random r = new Random();
+            //GenericItem item = new GenericItem("Arrow");
+            //item.Location = new System.Numerics.Vector2(r.Next(0, 1000), r.Next(0, 800));
+            //item.SetBitmapFromImageDictionary("Arrow");
+            //this.AddObject(item);
+
             // event callbacks
             _start_button.ButtonClick += _start_button_ButtonClick;
             _top_score_button.ButtonClick += _top_score_button_ButtonClick;

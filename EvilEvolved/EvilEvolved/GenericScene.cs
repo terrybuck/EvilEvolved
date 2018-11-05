@@ -58,13 +58,21 @@ namespace EvilutionClass
                 gi.Draw(cds);
             }
 
+            #region ------[Display mouse debug properties]
             cds.DrawText("X:" + this.X, new System.Numerics.Vector2(0, 100), Windows.UI.Colors.White);
             cds.DrawText("Y:" + this.Y, new System.Numerics.Vector2(0, 120), Windows.UI.Colors.White);
             cds.DrawText("LB:" + this.LeftButton, new System.Numerics.Vector2(10, 140), Windows.UI.Colors.White);
             cds.DrawText("MB:" + this.MiddleButton, new System.Numerics.Vector2(10, 160), Windows.UI.Colors.White);
             cds.DrawText("RB:" + this.RightButton, new System.Numerics.Vector2(10, 180), Windows.UI.Colors.White);
             cds.DrawText("MD:" + InputManager.IsMouseDown, new System.Numerics.Vector2(10, 200), Windows.UI.Colors.White);
-            cds.DrawText("KP:" + InputManager.IsWKeyPress, new System.Numerics.Vector2(10, 220), Windows.UI.Colors.White);
+            #endregion
+
+            #region ------[Display keyboard debug properties]
+            cds.DrawText("KW:" + InputManager.IsWKeyPress, new System.Numerics.Vector2(10, 220), Windows.UI.Colors.White);
+            cds.DrawText("KA:" + InputManager.IsAKeyPress, new System.Numerics.Vector2(10, 240), Windows.UI.Colors.White);
+            cds.DrawText("KS:" + InputManager.IsSKeyPress, new System.Numerics.Vector2(10, 260), Windows.UI.Colors.White);
+            cds.DrawText("KD:" + InputManager.IsDKeyPress, new System.Numerics.Vector2(10, 280), Windows.UI.Colors.White);
+            #endregion
         }
 
         /// <summary>
@@ -157,7 +165,7 @@ namespace EvilutionClass
         #endregion
 
         //TODO: remove on release or turn into test cases
-        #region ----------[DEBUG_MOUSE_PROPERTIES]
+        #region ----------[DEBUG_PROPERTIES]
         public float X { get; set; }
         public float Y { get; set; }
         public bool LeftButton { get; set; }
@@ -165,6 +173,9 @@ namespace EvilutionClass
         public bool RightButton { get; set; }
         public bool IsMouseDown { get; set; }
         public bool IsWKeyPress { get; set; }
+        public bool IsAKeyPress { get; set; }
+        public bool IsSKeyPress { get; set; }
+        public bool IsDKeyPress { get; set; }
         #endregion
 
     }

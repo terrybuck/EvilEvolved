@@ -376,11 +376,8 @@
     <AppxPackagedFile Include="C:\Users\terry\.nuget\packages\win2d.uwp\1.23.0\lib\uap10.0\Microsoft.Graphics.Canvas.winmd">
       <PackagePath>Microsoft.Graphics.Canvas.winmd</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="D:\Workspace\Game\EvilEvolved\EvilEvolved\EvilEvolved\Assets\imageedit_4_4742766674.gif">
-      <PackagePath>Assets\imageedit_4_4742766674.gif</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="D:\Workspace\Game\EvilEvolved\EvilEvolved\EvilEvolved\Properties\Default.rd.xml">
-      <PackagePath>Properties\Default.rd.xml</PackagePath>
+    <AppxPackagedFile Include="D:\Workspace\Game\EvilEvolved\EvilEvolved\EvilEvolved\Assets\arrow.png">
+      <PackagePath>Assets\arrow.png</PackagePath>
     </AppxPackagedFile>
     <AppxPackagedFile Include="D:\Workspace\Game\EvilEvolved\EvilEvolved\EvilEvolved\Assets\LockScreenLogo.scale-200.png">
       <PackagePath>Assets\LockScreenLogo.scale-200.png</PackagePath>
@@ -408,6 +405,12 @@
     <AppxPackagedFile Include="D:\Workspace\Game\EvilEvolved\EvilEvolved\EvilEvolved\Assets\Wide310x150Logo.scale-200.png">
       <PackagePath>Assets\Wide310x150Logo.scale-200.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Workspace\Game\EvilEvolved\EvilEvolved\EvilEvolved\Assets\imageedit_4_4742766674.gif">
+      <PackagePath>Assets\imageedit_4_4742766674.gif</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Workspace\Game\EvilEvolved\EvilEvolved\EvilEvolved\Properties\Default.rd.xml">
+      <PackagePath>Properties\Default.rd.xml</PackagePath>
     </AppxPackagedFile>
     <AppxPackagedFile Include="D:\Workspace\Game\EvilEvolved\EvilEvolved\EvilEvolved\bin\x86\Debug\EvilEvolved.xr.xml">
       <PackagePath>EvilEvolved.xr.xml</PackagePath>

@@ -55,6 +55,9 @@ namespace EvilutionClass
                     {
                         GenericKeyboardInput ki = (GenericKeyboardInput)gi;
                         IsWKeyPress = ki.IsWKeyPress;
+                        IsAKeyPress = ki.IsAKeyPress;
+                        IsSKeyPress = ki.IsSKeyPress;
+                        IsDKeyPress = ki.IsDKeyPress;
                     }
 
                     return gi;
@@ -106,6 +109,9 @@ namespace EvilutionClass
         private static Queue<GenericInput> InputQueue = new Queue<GenericInput>();
         public static bool IsMouseDown { get; set; }
         public static bool IsWKeyPress { get; set; }
+        public static bool IsAKeyPress { get; set; }
+        public static bool IsSKeyPress { get; set; }
+        public static bool IsDKeyPress { get; set; }
 
     }
 }

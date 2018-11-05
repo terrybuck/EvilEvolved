@@ -31,13 +31,13 @@
     <AppXManifest Include="D:\Workspace\Game\EvilEvolved\EvilEvolved\EvilEvolved\bin\x86\Debug\Core\AppxManifest.xml">
       <PackagePath>AppxManifest.xml</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2018-11-05T04:24:41.501</Modified>
+      <Modified>2018-11-05T22:18:24.088</Modified>
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
     <AppxPackagedFile Include="D:\Workspace\Game\EvilEvolved\EvilEvolved\EvilEvolved\bin\x86\Debug\EvilEvolved.exe">
       <PackagePath>entrypoint\EvilEvolved.exe</PackagePath>
-      <Modified>2018-11-05T04:24:41.304</Modified>
+      <Modified>2018-11-05T22:18:23.887</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Program Files %28x86%29\Microsoft SDKs\UWPNuGetPackages\microsoft.csharp\4.0.1\lib\netcore50\Microsoft.CSharp.dll">
       <PackagePath>Microsoft.CSharp.dll</PackagePath>
@@ -503,13 +503,9 @@
       <PackagePath>Microsoft.Graphics.Canvas.winmd</PackagePath>
       <Modified>2018-05-18T00:15:26.000</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="D:\Workspace\Game\EvilEvolved\EvilEvolved\EvilEvolved\Assets\imageedit_4_4742766674.gif">
-      <PackagePath>Assets\imageedit_4_4742766674.gif</PackagePath>
-      <Modified>2018-10-28T17:45:51.041</Modified>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="D:\Workspace\Game\EvilEvolved\EvilEvolved\EvilEvolved\Properties\Default.rd.xml">
-      <PackagePath>Properties\Default.rd.xml</PackagePath>
-      <Modified>2018-10-25T20:17:17.066</Modified>
+    <AppxPackagedFile Include="D:\Workspace\Game\EvilEvolved\EvilEvolved\EvilEvolved\Assets\arrow.png">
+      <PackagePath>Assets\arrow.png</PackagePath>
+      <Modified>2018-11-05T21:02:34.670</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="D:\Workspace\Game\EvilEvolved\EvilEvolved\EvilEvolved\Assets\LockScreenLogo.scale-200.png">
       <PackagePath>Assets\LockScreenLogo.scale-200.png</PackagePath>
@@ -545,17 +541,25 @@
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
       <Modified>2018-10-28T16:34:21.527</Modified>
     </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Workspace\Game\EvilEvolved\EvilEvolved\EvilEvolved\Assets\imageedit_4_4742766674.gif">
+      <PackagePath>Assets\imageedit_4_4742766674.gif</PackagePath>
+      <Modified>2018-10-28T17:45:51.041</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Workspace\Game\EvilEvolved\EvilEvolved\EvilEvolved\Properties\Default.rd.xml">
+      <PackagePath>Properties\Default.rd.xml</PackagePath>
+      <Modified>2018-10-25T20:17:17.066</Modified>
+    </AppxPackagedFile>
     <AppxPackagedFile Include="D:\Workspace\Game\EvilEvolved\EvilEvolved\EvilEvolved\bin\x86\Debug\EvilEvolved.xr.xml">
       <PackagePath>EvilEvolved.xr.xml</PackagePath>
       <Modified>2018-11-05T00:41:51.295</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="D:\Workspace\Game\EvilEvolved\EvilEvolved\EvilEvolved\bin\x86\Debug\App.xbf">
       <PackagePath>App.xbf</PackagePath>
-      <Modified>2018-11-05T04:24:41.178</Modified>
+      <Modified>2018-11-05T22:18:23.763</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="D:\Workspace\Game\EvilEvolved\EvilEvolved\EvilEvolved\bin\x86\Debug\MainPage.xbf">
       <PackagePath>MainPage.xbf</PackagePath>
-      <Modified>2018-11-05T04:24:41.179</Modified>
+      <Modified>2018-11-05T22:18:23.764</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Program Files %28x86%29\Windows Kits\10\UnionMetadata\10.0.17134.0\Windows.winmd">
       <PackagePath>WinMetadata\Windows.winmd</PackagePath>
@@ -564,11 +568,11 @@
     <AppxPackagedFile Include="D:\Workspace\Game\EvilEvolved\EvilEvolved\EvilEvolved\bin\x86\Debug\resources.pri">
       <PackagePath>resources.pri</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2018-11-05T01:16:57.378</Modified>
+      <Modified>2018-11-05T21:52:14.057</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="D:\Workspace\Game\EvilEvolved\EvilEvolved\EvilEvolved\bin\x86\Debug\Core\EvilEvolved.exe">
       <PackagePath>EvilEvolved.exe</PackagePath>
-      <Modified>2018-11-05T04:24:41.498</Modified>
+      <Modified>2018-11-05T22:18:24.084</Modified>
     </AppxPackagedFile>
   </ItemGroup>
   <ItemGroup>

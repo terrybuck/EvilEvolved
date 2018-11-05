@@ -30,8 +30,13 @@ namespace EvilutionClass
             {
                 GenericKeyboardInput gki = (GenericKeyboardInput)input;
                 DetermineDirection(gki);
+                this.Location = new Vector2(this.Location.X + (float)(DirectionX * Velocity * dt.Milliseconds), this.Location.Y + (float)(DirectionY * Velocity) * dt.Milliseconds);
             }
-          this.Location = new Vector2(this.Location.X + (float)(DirectionX*Velocity*dt.Milliseconds), this.Location.Y + (float)(DirectionY*Velocity)*dt.Milliseconds);
+            //if (input is MouseGenericInput)
+            //{
+            //    this.Location = new Vector2(this.Location.X + (float)(DirectionX * Velocity * dt.Milliseconds), this.Location.Y + (float)(DirectionY * Velocity) * dt.Milliseconds);
+            //}
+          
         }
 
         //simple method for determining the direction of the hero
@@ -62,6 +67,10 @@ namespace EvilutionClass
                 this.DirectionX = 0;
             }
         }
+        //public void FireArrow()
+        //{
+
+        //}
 
         //properties
         public float Velocity { get; set; }
