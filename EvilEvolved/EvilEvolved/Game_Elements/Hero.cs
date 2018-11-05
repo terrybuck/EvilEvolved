@@ -20,7 +20,7 @@ namespace EvilutionClass
         public Hero(string name)
             : base(name)
         {
-            Velocity = (float)(5.0/60.0);
+            Velocity = (float)(10.0/60.0);
             DirectionY = 0;
             DirectionX = 0;
         }
@@ -30,12 +30,11 @@ namespace EvilutionClass
             {
                 GenericKeyboardInput gki = (GenericKeyboardInput)input;
                 DetermineDirection(gki);
-                
             }
           this.Location = new Vector2(this.Location.X + (float)(DirectionX*Velocity*dt.Milliseconds), this.Location.Y + (float)(DirectionY*Velocity)*dt.Milliseconds);
         }
 
-        //simple method for determining the direction of the hero, badly implemeted, causes input lag
+        //simple method for determining the direction of the hero
         public void DetermineDirection(GenericKeyboardInput gki)
         {
             if (gki.IsWKeyPress)
@@ -46,7 +45,7 @@ namespace EvilutionClass
             {
                 this.DirectionY = 1;
             }
-            if (!gki.IsWKeyPress && !gki.IsSKeyPress)
+            if (!gki.IsWKeyPress && !gki.IsSKeyPress || gki.IsWKeyPress && gki.IsSKeyPress)
             {
                 this.DirectionY = 0;
             }
@@ -58,7 +57,7 @@ namespace EvilutionClass
             {
                 this.DirectionX = 1;
             }
-            if (!gki.IsAKeyPress && !gki.IsDKeyPress)
+            if (!gki.IsAKeyPress && !gki.IsDKeyPress || gki.IsAKeyPress && gki.IsDKeyPress)
             {
                 this.DirectionX = 0;
             }

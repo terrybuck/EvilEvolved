@@ -148,38 +148,18 @@ namespace EvilEvolved
 
             GenericKeyboardInput gki = new GenericKeyboardInput();
 
-            switch (e.Key)
-            {
-                case VirtualKey.W:
-                    {
-                        gki.IsWKeyPress = true;
-                        InputManager.AddInputItem(gki);
-                        break;
-                    }
-                case VirtualKey.S:
-                    {
-                        gki.IsSKeyPress = true;
-                        InputManager.AddInputItem(gki);
-                        break;
-                    }
-                case VirtualKey.A:
-                    {
-                        gki.IsAKeyPress = true;
-                        InputManager.AddInputItem(gki);
-                        break;
-                    }
-                case VirtualKey.D:
-                    {
-                        gki.IsDKeyPress = true;
-                        InputManager.AddInputItem(gki);
-                        break;
-                    }
-                //default:
-                //    {
-                //        InputManager.AddInputItem(gki);
-                //        break;
-                //    }
-            }
+
+            bool CheckW = Windows.UI.Core.CoreWindow.GetForCurrentThread().GetAsyncKeyState(VirtualKey.W).HasFlag(Windows.UI.Core.CoreVirtualKeyStates.Down);
+            bool CheckA = Windows.UI.Core.CoreWindow.GetForCurrentThread().GetAsyncKeyState(VirtualKey.A).HasFlag(Windows.UI.Core.CoreVirtualKeyStates.Down);
+            bool CheckS = Windows.UI.Core.CoreWindow.GetForCurrentThread().GetAsyncKeyState(VirtualKey.S).HasFlag(Windows.UI.Core.CoreVirtualKeyStates.Down);
+            bool CheckD = Windows.UI.Core.CoreWindow.GetForCurrentThread().GetAsyncKeyState(VirtualKey.D).HasFlag(Windows.UI.Core.CoreVirtualKeyStates.Down);
+
+            gki.IsWKeyPress = CheckW;
+            gki.IsAKeyPress = CheckA;
+            gki.IsSKeyPress = CheckS;
+            gki.IsDKeyPress = CheckD;
+            InputManager.AddInputItem(gki);
+
         }
         private void CanvasControl_KeyUp(object sender, KeyRoutedEventArgs e)
         {
@@ -187,41 +167,19 @@ namespace EvilEvolved
 
             GenericKeyboardInput gki = new GenericKeyboardInput();
 
-            switch (e.Key)
-            {
-                case VirtualKey.W:
-                    {
-                        gki.IsWKeyPress = false;
-                        InputManager.AddInputItem(gki);
-                        break;
-                    }
-                case VirtualKey.S:
-                    {
-                        gki.IsSKeyPress = false;
-                        InputManager.AddInputItem(gki);
-                        break;
-                    }
-                case VirtualKey.A:
-                    {
-                        gki.IsAKeyPress = false;
-                        InputManager.AddInputItem(gki);
-                        break;
-                    }
-                case VirtualKey.D:
-                    {
-                        gki.IsDKeyPress = false;
-                        InputManager.AddInputItem(gki);
-                        break;
-                    }
-                    //default:
-                    //    {
-                    //        InputManager.AddInputItem(gki);
-                    //        break;
-                    //    }
-            }
+
+            bool CheckW = Windows.UI.Core.CoreWindow.GetForCurrentThread().GetAsyncKeyState(VirtualKey.W).HasFlag(Windows.UI.Core.CoreVirtualKeyStates.Down);
+            bool CheckA = Windows.UI.Core.CoreWindow.GetForCurrentThread().GetAsyncKeyState(VirtualKey.A).HasFlag(Windows.UI.Core.CoreVirtualKeyStates.Down);
+            bool CheckS = Windows.UI.Core.CoreWindow.GetForCurrentThread().GetAsyncKeyState(VirtualKey.S).HasFlag(Windows.UI.Core.CoreVirtualKeyStates.Down);
+            bool CheckD = Windows.UI.Core.CoreWindow.GetForCurrentThread().GetAsyncKeyState(VirtualKey.D).HasFlag(Windows.UI.Core.CoreVirtualKeyStates.Down);
+
+            gki.IsWKeyPress = CheckW;
+            gki.IsAKeyPress = CheckA;
+            gki.IsSKeyPress = CheckS;
+            gki.IsDKeyPress = CheckD;
+            InputManager.AddInputItem(gki);
+
         }
-
-
 
         #endregion
     }
