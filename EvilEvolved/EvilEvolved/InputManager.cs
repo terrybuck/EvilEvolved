@@ -7,21 +7,6 @@ using static EvilutionClass.MouseGenericInput;
 
 namespace EvilutionClass
 {
-    #region ----------[These are GenericInput Types,]
-    public class GenericInput
-    {
-        public GenericInput(string name)
-        {
-            this.Name = name;
-        }
-
-        public string Name { get; set; }
-        public string TargetScene { get; set; }
-        public string TargetItem { get; set; }
-    }
-
-
-    #endregion
 
     /// <summary>
     /// A Manager that handles all inputs.
@@ -65,6 +50,11 @@ namespace EvilutionClass
 
                             IsMouseDown = false;
                         }
+                    }
+                    if (gi is GenericKeyboardInput)
+                    {
+                        GenericKeyboardInput ki = (GenericKeyboardInput)gi;
+                        IsWKeyPress = ki.IsWKeyPress;
                     }
 
                     return gi;
@@ -115,6 +105,7 @@ namespace EvilutionClass
 
         private static Queue<GenericInput> InputQueue = new Queue<GenericInput>();
         public static bool IsMouseDown { get; set; }
+        public static bool IsWKeyPress { get; set; }
 
     }
 }

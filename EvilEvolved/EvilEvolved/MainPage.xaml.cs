@@ -20,6 +20,7 @@ using EvilutionClass;
 using Windows.Graphics.Imaging;
 using Windows.System;
 using static EvilutionClass.MouseGenericInput;
+using static EvilutionClass.GenericKeyboardInput;
 
 namespace EvilEvolved
 {
@@ -27,10 +28,11 @@ namespace EvilEvolved
     {
         public bool IsAllImagesLoaded = false;
 
- //       GenericScene gs = new GenericScene("test");
+        //       GenericScene gs = new GenericScene("test");
 
         public MainPage()
         {
+            Focus(FocusState.Programmatic);
             this.InitializeComponent();
         }
 
@@ -48,21 +50,8 @@ namespace EvilEvolved
             #region -------[Load images]
 
             await ImageManager.AddImage("Hero", @"Assets/imageedit_4_4742766674.gif");
+
             #endregion
-
-            //EvilutionButton eb = new EvilutionButton("My First Button");
-
-            //gs.AddObject(eb);
-            //eb.Location = new System.Numerics.Vector2(400, 400);
-
-
-            //BitmapSize button_size;
-            //button_size.Width = 250;
-            //button_size.Height = 50;
-            //eb.Size = button_size;
-
-            //StoryBoard.AddScene(gs);
-            //StoryBoard.CurrentScene = gs;
 
             CanvasControl cc = sender;
             TitleScene ts = new TitleScene((int)cc.RenderSize.Width, (int)cc.RenderSize.Height);
@@ -91,7 +80,7 @@ namespace EvilEvolved
             // get the drawing session
             CanvasDrawingSession cds = args.DrawingSession;
 
-            if(null != StoryBoard.CurrentScene)
+            if (null != StoryBoard.CurrentScene)
             {
                 StoryBoard.CurrentScene.Draw(cds);
             }
@@ -117,6 +106,9 @@ namespace EvilEvolved
 
         private void CanvasControl_PointerPressed(object sender, PointerRoutedEventArgs e)
         {
+            e.Handled = true;
+            
+
             Windows.UI.Input.PointerPoint p = e.GetCurrentPoint((UIElement)sender);
 
             MouseGenericInput mgi = new MouseGenericInput((float)p.Position.X, (float)p.Position.Y);
@@ -145,34 +137,40 @@ namespace EvilEvolved
             InputManager.AddInputItem(mgi);
         }
 
+
         #endregion
+
+        #region ----------[Keyboard inputs]
 
         private void CanvasControl_KeyDown(object sender, KeyRoutedEventArgs e)
         {
-            //switch (virtualKey)
-            //{
-            //    case VirtualKey.A: //keyboard
-            //    case VirtualKey.GamepadDPadLeft: //controller
-            //        MoveLeft();
-            //        break;
-            //    case VirtualKey.D:
-            //    case VirtualKey.GamepadDPadRight:
-            //        MoveRight();
-            //        break;
-            //    case VirtualKey.W:
-            //    case VirtualKey.GamepadDPadUp:
-            //        MoveUp();
-            //        break;
-            //    case VirtualKey.S:
-            //    case VirtualKey.GamepadDPadDown:
-            //        MoveDown();
-            //        break;
-            //}
-        }
+            e.Handled = true;
 
+            GenericKeyboardInput gki = new GenericKeyboardInput();
+
+            switch (e.Key)
+            {
+                case VirtualKey.W:
+                    {
+                        gki.IsWKeyPress = true;
+                        InputManager.AddInputItem(gki);
+                        break;
+                    }
+                case VirtualKey.S:
+                    {
+                        gki.IsSKeyPress = true;
+                        InputManager.AddInputItem(gki);
+                        break;
+                    }
+            }
+        }
         private void CanvasControl_KeyUp(object sender, KeyRoutedEventArgs e)
         {
 
         }
+
+
+
+        #endregion
     }
 }

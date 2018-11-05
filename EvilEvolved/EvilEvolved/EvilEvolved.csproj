@@ -103,7 +103,8 @@
     <Compile Include="GameTimer.cs" />
     <Compile Include="GenericScene.cs" />
     <Compile Include="GenericItem.cs" />
-    <Compile Include="Inputs\KeyboardInput.cs" />
+    <Compile Include="Inputs\GenericInput.cs" />
+    <Compile Include="Inputs\GenericKeyboardInput.cs" />
     <Compile Include="Inputs\GenericMouseInput.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>

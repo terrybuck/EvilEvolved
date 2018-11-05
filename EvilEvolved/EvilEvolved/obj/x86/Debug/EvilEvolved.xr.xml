@@ -12,6 +12,7 @@
     </RootType>
     <RootType FullName="Microsoft.Graphics.Canvas.UI.Xaml.CanvasControl">
       <RootProperty Name="ClearColor" />
+      <RootProperty Name="IsTabStop" />
       <RootEvent Name="Draw" />
       <RootEvent Name="CreateResources" />
       <RootEvent Name="PointerMoved" />

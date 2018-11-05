@@ -31,13 +31,13 @@
     <AppXManifest Include="D:\Workspace\Game\EvilEvolved\EvilEvolved\EvilEvolved\bin\x86\Debug\Core\AppxManifest.xml">
       <PackagePath>AppxManifest.xml</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2018-11-04T17:03:55.399</Modified>
+      <Modified>2018-11-05T00:37:24.966</Modified>
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
     <AppxPackagedFile Include="D:\Workspace\Game\EvilEvolved\EvilEvolved\EvilEvolved\bin\x86\Debug\EvilEvolved.exe">
       <PackagePath>entrypoint\EvilEvolved.exe</PackagePath>
-      <Modified>2018-11-04T17:03:53.830</Modified>
+      <Modified>2018-11-05T00:37:24.596</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Program Files %28x86%29\Microsoft SDKs\UWPNuGetPackages\microsoft.csharp\4.0.1\lib\netcore50\Microsoft.CSharp.dll">
       <PackagePath>Microsoft.CSharp.dll</PackagePath>
@@ -547,15 +547,15 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="D:\Workspace\Game\EvilEvolved\EvilEvolved\EvilEvolved\bin\x86\Debug\EvilEvolved.xr.xml">
       <PackagePath>EvilEvolved.xr.xml</PackagePath>
-      <Modified>2018-11-04T17:03:53.658</Modified>
+      <Modified>2018-11-04T23:05:54.716</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="D:\Workspace\Game\EvilEvolved\EvilEvolved\EvilEvolved\bin\x86\Debug\App.xbf">
       <PackagePath>App.xbf</PackagePath>
-      <Modified>2018-11-04T17:03:53.683</Modified>
+      <Modified>2018-11-05T00:37:24.444</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="D:\Workspace\Game\EvilEvolved\EvilEvolved\EvilEvolved\bin\x86\Debug\MainPage.xbf">
       <PackagePath>MainPage.xbf</PackagePath>
-      <Modified>2018-11-04T17:03:53.683</Modified>
+      <Modified>2018-11-05T00:37:24.445</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Program Files %28x86%29\Windows Kits\10\UnionMetadata\10.0.17134.0\Windows.winmd">
       <PackagePath>WinMetadata\Windows.winmd</PackagePath>
@@ -564,11 +564,11 @@
     <AppxPackagedFile Include="D:\Workspace\Game\EvilEvolved\EvilEvolved\EvilEvolved\bin\x86\Debug\resources.pri">
       <PackagePath>resources.pri</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2018-11-04T17:03:54.405</Modified>
+      <Modified>2018-11-04T20:22:40.575</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="D:\Workspace\Game\EvilEvolved\EvilEvolved\EvilEvolved\bin\x86\Debug\Core\EvilEvolved.exe">
       <PackagePath>EvilEvolved.exe</PackagePath>
-      <Modified>2018-11-04T17:03:55.392</Modified>
+      <Modified>2018-11-05T00:37:24.958</Modified>
     </AppxPackagedFile>
   </ItemGroup>
   <ItemGroup>

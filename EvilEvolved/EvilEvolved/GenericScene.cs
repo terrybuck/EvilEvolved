@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 using Microsoft.Graphics.Canvas;
 
+
 namespace EvilutionClass
 {
     public class GenericScene : GenericItem
@@ -63,6 +64,7 @@ namespace EvilutionClass
             cds.DrawText("MB:" + this.MiddleButton, new System.Numerics.Vector2(10, 160), Windows.UI.Colors.White);
             cds.DrawText("RB:" + this.RightButton, new System.Numerics.Vector2(10, 180), Windows.UI.Colors.White);
             cds.DrawText("MD:" + InputManager.IsMouseDown, new System.Numerics.Vector2(10, 200), Windows.UI.Colors.White);
+            cds.DrawText("KP:" + InputManager.IsWKeyPress, new System.Numerics.Vector2(10, 220), Windows.UI.Colors.White);
         }
 
         /// <summary>
@@ -162,6 +164,7 @@ namespace EvilutionClass
         public bool MiddleButton { get; set; }
         public bool RightButton { get; set; }
         public bool IsMouseDown { get; set; }
+        public bool IsWKeyPress { get; set; }
         #endregion
 
     }
