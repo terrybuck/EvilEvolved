@@ -23,11 +23,10 @@ namespace EvilutionClass
         public void SetupScene()
         {
             Random r = new Random();
-            GenericItem gi = new GenericItem("Hero");
-            gi.Location = new System.Numerics.Vector2(r.Next(0, 1000), r.Next(0, 800));
-            gi.SetBitmapFromImageDictionary("Hero");
-            this.AddObject(gi);
-
+            Hero hero = new Hero("Hero");
+            hero.Location = new System.Numerics.Vector2(r.Next(0, 1000), r.Next(0, 800));
+            hero.SetBitmapFromImageDictionary("Hero");
+            this.AddObject(hero);
 
         }
     }

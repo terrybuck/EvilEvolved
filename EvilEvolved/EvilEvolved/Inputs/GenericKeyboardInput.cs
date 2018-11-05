@@ -8,7 +8,7 @@ namespace EvilutionClass
 {
     public class GenericKeyboardInput : GenericInput
     {
-        public enum KeyboardInputType { unknown, KeyPressed, KeyReleased };
+        public enum GenericKeyboardInputType { unknown, KeyPressed, KeyReleased };
 
         public GenericKeyboardInput() : base("keyboard_input")
         {
@@ -17,17 +17,19 @@ namespace EvilutionClass
             this.IsSKeyPress = false;
             this.IsDKeyPress = false;
             this.IsKeyPress = false;
-            this.keyboardInputType = KeyboardInputType.unknown;
+            this.NumKeysPress = 0;
+            this.keyboardInputType = GenericKeyboardInputType.unknown;
 
         }
 
         //Properties
+        public int NumKeysPress { get; set; }
         public bool IsWKeyPress { get; set; }
         public bool IsAKeyPress { get; set; }
         public bool IsSKeyPress { get; set; }
         public bool IsDKeyPress { get; set; }
         public bool IsKeyPress { get; set; }
 
-        public KeyboardInputType keyboardInputType { get; set; }
+        public GenericKeyboardInputType keyboardInputType { get; set; }
     }
 }

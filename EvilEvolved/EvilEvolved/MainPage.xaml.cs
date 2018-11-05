@@ -162,11 +162,63 @@ namespace EvilEvolved
                         InputManager.AddInputItem(gki);
                         break;
                     }
+                case VirtualKey.A:
+                    {
+                        gki.IsAKeyPress = true;
+                        InputManager.AddInputItem(gki);
+                        break;
+                    }
+                case VirtualKey.D:
+                    {
+                        gki.IsDKeyPress = true;
+                        InputManager.AddInputItem(gki);
+                        break;
+                    }
+                //default:
+                //    {
+                //        InputManager.AddInputItem(gki);
+                //        break;
+                //    }
             }
         }
         private void CanvasControl_KeyUp(object sender, KeyRoutedEventArgs e)
         {
+            e.Handled = true;
 
+            GenericKeyboardInput gki = new GenericKeyboardInput();
+
+            switch (e.Key)
+            {
+                case VirtualKey.W:
+                    {
+                        gki.IsWKeyPress = false;
+                        InputManager.AddInputItem(gki);
+                        break;
+                    }
+                case VirtualKey.S:
+                    {
+                        gki.IsSKeyPress = false;
+                        InputManager.AddInputItem(gki);
+                        break;
+                    }
+                case VirtualKey.A:
+                    {
+                        gki.IsAKeyPress = false;
+                        InputManager.AddInputItem(gki);
+                        break;
+                    }
+                case VirtualKey.D:
+                    {
+                        gki.IsDKeyPress = false;
+                        InputManager.AddInputItem(gki);
+                        break;
+                    }
+                    //default:
+                    //    {
+                    //        InputManager.AddInputItem(gki);
+                    //        break;
+                    //    }
+            }
         }
 
 
