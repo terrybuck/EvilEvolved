@@ -149,7 +149,6 @@ namespace EvilEvolved
 
             GenericKeyboardInput gki = new GenericKeyboardInput();
 
-
             bool CheckW = Windows.UI.Core.CoreWindow.GetForCurrentThread().GetAsyncKeyState(VirtualKey.W).HasFlag(Windows.UI.Core.CoreVirtualKeyStates.Down);
             bool CheckA = Windows.UI.Core.CoreWindow.GetForCurrentThread().GetAsyncKeyState(VirtualKey.A).HasFlag(Windows.UI.Core.CoreVirtualKeyStates.Down);
             bool CheckS = Windows.UI.Core.CoreWindow.GetForCurrentThread().GetAsyncKeyState(VirtualKey.S).HasFlag(Windows.UI.Core.CoreVirtualKeyStates.Down);

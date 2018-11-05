@@ -24,14 +24,6 @@ namespace EvilutionClass
 
         public override void Update(TimeSpan dt, GenericInput input)
         {
-            if (input is GenericKeyboardInput)
-            {
-                this.Location = new Vector2(this.Location.X + (float)(DirectionX * Velocity * dt.Milliseconds), this.Location.Y + (float)(DirectionY * Velocity) * dt.Milliseconds);
-            }
-            if (input is MouseGenericInput)
-            {
-
-            }
 
         }
 
