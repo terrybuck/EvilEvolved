@@ -17,8 +17,8 @@ namespace EvilutionClass
         public GenericItem(string name = "")
         {
             this.Name = name;
-
-            this.DrawBoundingRectangle = true;
+            //toggle to see rect around objects
+            this.DrawBoundingRectangle = false;
         }
 
         ///<summary>

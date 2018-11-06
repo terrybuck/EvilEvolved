@@ -379,6 +379,9 @@
     <AppxPackagedFile Include="D:\Workspace\Game\EvilEvolved\EvilEvolved\EvilEvolved\Assets\arrow.png">
       <PackagePath>Assets\arrow.png</PackagePath>
     </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Workspace\Game\EvilEvolved\EvilEvolved\EvilEvolved\Assets\BossEdit.png">
+      <PackagePath>Assets\BossEdit.png</PackagePath>
+    </AppxPackagedFile>
     <AppxPackagedFile Include="D:\Workspace\Game\EvilEvolved\EvilEvolved\EvilEvolved\Assets\LockScreenLogo.scale-200.png">
       <PackagePath>Assets\LockScreenLogo.scale-200.png</PackagePath>
     </AppxPackagedFile>

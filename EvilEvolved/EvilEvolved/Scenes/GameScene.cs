@@ -39,6 +39,11 @@ namespace EvilutionClass
             hero.SetBitmapFromImageDictionary("Hero");
             this.AddObject(hero);
 
+            GenericItem boss = new GenericItem("Boss");
+            boss.Location = new System.Numerics.Vector2(1000, 70);
+            boss.SetBitmapFromImageDictionary("Boss");
+            this.AddObject(boss);
+
         }
     }
 }
