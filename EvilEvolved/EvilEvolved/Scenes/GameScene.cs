@@ -17,14 +17,25 @@ namespace EvilutionClass
 
         public override void Update(TimeSpan dt, GenericInput input)
         {
-            base.Update(dt, input);
+            foreach (GenericItem gi in objects)
+            {
+                gi.Update(dt, input);
+            }
+
+            if (input is Message_HeroAttack)
+            {
+                Message_HeroAttack mhe = (Message_HeroAttack)input;
+
+                    Arrow arrow= new Arrow(mhe.Name, mhe.DirectionX, mhe.DirectionY, mhe.Location);
+                    arrow.SetBitmapFromImageDictionary("Arrow");
+                    this.AddObject(arrow);
+            }
         }
 
         public void SetupScene()
         {
-            Random r = new Random();
             Hero hero = new Hero("Hero");
-            hero.Location = new System.Numerics.Vector2(r.Next(0, 1000), r.Next(0, 800));
+            hero.Location = new System.Numerics.Vector2(700,700);
             hero.SetBitmapFromImageDictionary("Hero");
             this.AddObject(hero);
 

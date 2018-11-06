@@ -33,7 +33,14 @@ namespace EvilutionClass
             }           
             if (input is MouseGenericInput)
             {
-               
+                MouseGenericInput mgi = (MouseGenericInput)input;
+
+                if (mgi.MouseInputType == MouseGenericInput.MouseGenericInputType.MouseClick && (DirectionX*DirectionX + DirectionY * DirectionY) != 0)
+                {
+                    // create the scene switch message to switch the current scene to the top score scene
+                    Message_HeroAttack heroAttack = new Message_HeroAttack("Arrow", this.DirectionX, this.DirectionY, Location);
+                    InputManager.AddInputItem(heroAttack);
+                }
             }
             this.Location = new Vector2(this.Location.X + (float)(DirectionX * Velocity * dt.Milliseconds), this.Location.Y + (float)(DirectionY * Velocity * dt.Milliseconds));
         }
@@ -66,15 +73,12 @@ namespace EvilutionClass
                 this.DirectionX = 0;
             }
         }
-        //public void FireArrow()
-        //{
-
-        //}
 
         //properties
         public float Velocity { get; set; }
-        int DirectionX { get; set; }
-        int DirectionY { get; set; }
+        public int DirectionX { get; set; }
+        public int DirectionY { get; set; }
+        public int Hitpoints { get; set; }
 
 
     }

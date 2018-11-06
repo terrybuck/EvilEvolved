@@ -166,8 +166,8 @@ namespace EvilutionClass
 
         //TODO: remove on release or turn into test cases
         #region ----------[DEBUG_PROPERTIES]
-        public float X { get; set; }
-        public float Y { get; set; }
+        public new float X { get; set; }
+        public new float Y { get; set; }
         public bool LeftButton { get; set; }
         public bool MiddleButton { get; set; }
         public bool RightButton { get; set; }

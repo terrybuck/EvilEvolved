@@ -24,7 +24,7 @@ namespace EvilutionClass
 
         public override void Update(TimeSpan dt, GenericInput input)
         {
-
+            this.Location = new Vector2(this.Location.X + (float)(DirectionX * Velocity * dt.Milliseconds), this.Location.Y + (float)(DirectionY * Velocity * dt.Milliseconds));
         }
 
         //properties

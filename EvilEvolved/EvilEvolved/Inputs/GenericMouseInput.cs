@@ -9,7 +9,7 @@ namespace EvilutionClass
     public class MouseGenericInput : GenericInput
     {
         public enum MouseGenericInputType { unknown, MouseMove, MousePressed, MouseReleased, MouseClick };
-        public enum MouseButtonType { None, Left, Middle, Right };
+        public enum MouseGenericButtonType { None, Left, Middle, Right };
 
 
         public MouseGenericInput(float x, float y) : base("mouse_input")
@@ -22,6 +22,7 @@ namespace EvilutionClass
             this.IsMiddleButtonPress = false;
 
             this.MouseInputType = MouseGenericInputType.unknown;
+            this.MouseButtonType = MouseGenericButtonType.None;
 
         }
 
@@ -37,6 +38,8 @@ namespace EvilutionClass
         public bool MouseDown { get; set; }
 
         public MouseGenericInputType MouseInputType { get; set; }
+        public MouseGenericButtonType MouseButtonType { get; set; }
+
 
     }
 }
