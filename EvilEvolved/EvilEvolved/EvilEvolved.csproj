@@ -96,6 +96,7 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Game_Elements\Arrow.cs" />
+    <Compile Include="Game_Elements\Boss.cs" />
     <Compile Include="Game_Elements\Hero.cs" />
     <Compile Include="GUI_Elements\EvilutionButton.cs" />
     <Compile Include="GUI_Elements\EvilutionLabel.cs" />
@@ -111,6 +112,7 @@
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Messages\Message_GoBack.cs" />
+    <Compile Include="Messages\Message_ArrowHitbox.cs" />
     <Compile Include="Messages\Message_HeroAttack.cs" />
     <Compile Include="Messages\Message_SceneSwitch.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

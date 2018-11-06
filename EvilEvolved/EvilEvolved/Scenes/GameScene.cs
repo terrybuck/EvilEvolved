@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.Foundation;
+using Windows.UI.Xaml;
 
 namespace EvilutionClass
 {
@@ -26,11 +28,21 @@ namespace EvilutionClass
             {
                 Message_HeroAttack mhe = (Message_HeroAttack)input;
 
-                    Arrow arrow= new Arrow(mhe.Name, mhe.DirectionX, mhe.DirectionY, mhe.Location);
-                    arrow.SetBitmapFromImageDictionary("Arrow");
-                    this.AddObject(arrow);
+                Arrow arrow= new Arrow(mhe.Name, mhe.DirectionX, mhe.DirectionY, mhe.Location);
+                arrow.SetBitmapFromImageDictionary("Arrow");
+                this.AddObject(arrow);
             }
+
+            //if(input is Message_ArrowHitbox)
+            //{
+            //    Message_ArrowHitbox arrowLocation = (Message_ArrowHitbox)input;
+            //    if(RectHelper.Intersect(BossHitbox, arrowLocation.Hitbox) == Rect.Empty)
+            //    {
+                    
+            //    }
+            //}
         }
+             
 
         public void SetupScene()
         {
@@ -38,12 +50,18 @@ namespace EvilutionClass
             hero.Location = new System.Numerics.Vector2(700,700);
             hero.SetBitmapFromImageDictionary("Hero");
             this.AddObject(hero);
+            HeroHitbox = hero.BoundingRectangle;
 
-            GenericItem boss = new GenericItem("Boss");
+            Boss boss = new Boss("Boss");
             boss.Location = new System.Numerics.Vector2(1000, 70);
             boss.SetBitmapFromImageDictionary("Boss");
             this.AddObject(boss);
+            BossHitbox = boss.BoundingRectangle;
 
         }
+
+        //properties
+        Rect HeroHitbox;
+        Rect BossHitbox;
     }
 }
