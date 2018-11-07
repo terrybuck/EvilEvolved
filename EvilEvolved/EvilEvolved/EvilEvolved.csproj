@@ -97,6 +97,7 @@
     </Compile>
     <Compile Include="Game_Elements\Arrow.cs" />
     <Compile Include="Game_Elements\Boss.cs" />
+    <Compile Include="Game_Elements\BossAttack.cs" />
     <Compile Include="Game_Elements\Hero.cs" />
     <Compile Include="GUI_Elements\EvilutionButton.cs" />
     <Compile Include="GUI_Elements\EvilutionLabel.cs" />

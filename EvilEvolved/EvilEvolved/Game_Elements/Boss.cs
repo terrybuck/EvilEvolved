@@ -49,7 +49,7 @@ namespace EvilutionClass
         float Velocity { get; set; }
         public float DirectionX { get; set; }
         public float DirectionY { get; set; }
-
+        public Vector2 HeroLocation { get; set; }
 
     }
 }

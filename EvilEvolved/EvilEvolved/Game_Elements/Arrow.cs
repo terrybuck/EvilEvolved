@@ -41,11 +41,11 @@ namespace EvilutionClass
 
         //properties
         public float Velocity { get; set; }
-        int DirectionX { get; set; }
-        int DirectionY { get; set; }
-        Vector2 Origin { get; set; }
-        double Range { get; set; }
-        double Distance { get; set; }
-        double Damage { get; set; }
+        public int DirectionX { get; set; }
+        public int DirectionY { get; set; }
+        public Vector2 Origin { get; set; }
+        public double Range { get; set; }
+        public double Distance { get; set; }
+        public double Damage { get; set; }
     }
 }

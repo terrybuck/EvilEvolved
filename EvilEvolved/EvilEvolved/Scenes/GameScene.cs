@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.Foundation;
@@ -23,9 +24,10 @@ namespace EvilutionClass
             {
                 gi.Update(dt, input);
 
-                if (gi is Boss)
+                if (gi is Boss boss)
                 {
-                    BossHitbox = gi.BoundingRectangle;
+                    boss.HeroLocation = new Vector2((float)HeroHitbox.Left + (float)(HeroHitbox.Width / 2), (float)HeroHitbox.Y + (float)(HeroHitbox.Height / 2));
+                    BossHitbox = gi.BoundingRectangle;     
                 }
 
                 if (gi is Hero)
@@ -33,7 +35,7 @@ namespace EvilutionClass
                    HeroHitbox = gi.BoundingRectangle;
                 }
                                
-                if (gi is Arrow)
+                if (gi is Arrow && !(gi is BossAttack))
                 {
  
                     if (RectHelper.Intersect(BossHitbox, gi.BoundingRectangle) != Rect.Empty)
@@ -62,7 +64,7 @@ namespace EvilutionClass
                         }
                     case (Message_Attack.AttackType.Boss_Arrow):
                         {
-                            Arrow arrow = new Arrow(mhe.Name, mhe.DirectionX, mhe.DirectionY, mhe.Location);
+                            BossAttack arrow = new BossAttack(mhe.Name, mhe.DirectionX, mhe.DirectionY, mhe.Location);
                             arrow.SetBitmapFromImageDictionary("Arrow");
                             this.AddObject(arrow);
                             break;
@@ -78,7 +80,6 @@ namespace EvilutionClass
 
 
         }
-             
 
         public void SetupScene()
         {
