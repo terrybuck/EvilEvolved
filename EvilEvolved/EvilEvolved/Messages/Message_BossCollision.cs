@@ -11,20 +11,20 @@ namespace EvilutionClass
     /// <summary>
     /// A Message telling the GameScene where the arrow's bounding rectangle is located within the scene
     /// </summary>
-    public class Message_ArrowHitbox : EvilutionClass.GenericInput
+    public class Message_BossCollision : EvilutionClass.GenericInput
     {
         /// <summary>
         /// Message Constructor.
         /// </summary>
         /// <param name="Attack">The name of the scene we want to switch to.</param>
         /// <param name="Hitbox"> The bounding rectangle on the arrow</param>
-        public Message_ArrowHitbox(string name, Rect rect)
-            : base("Arrow_Hitbox")
+        public Message_BossCollision(string name, GenericItem gi)
+            : base("Boss_Collision")
         {
             this.Name = name;
-            this.Hitbox = rect;
+            this.CollisionItem = gi;
         }
 
-        public Rect Hitbox;
+        public GenericItem CollisionItem;
     }
 }

@@ -63,7 +63,18 @@ namespace EvilutionClass
                             StoryBoard.CurrentScene.Update(TimeSpan.Zero, gi);
                             gi = InputManager.PeekAndTake(typeof(MouseGenericInput));
                         }
-
+                        gi = InputManager.PeekAndTake(typeof(Message_Attack));
+                        while (gi is Message_Attack)
+                        {
+                            StoryBoard.CurrentScene.Update(TimeSpan.Zero, gi);
+                            gi = InputManager.PeekAndTake(typeof(Message_Attack));
+                        }                        
+                        gi = InputManager.PeekAndTake(typeof(Message_BossCollision));
+                        while (gi is Message_BossCollision)
+                        {
+                            StoryBoard.CurrentScene.Update(TimeSpan.Zero, gi);
+                            gi = InputManager.PeekAndTake(typeof(Message_BossCollision));
+                        }
                     }
                 }
 

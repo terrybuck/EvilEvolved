@@ -20,22 +20,31 @@ namespace EvilutionClass
             DirectionY = directionY;
             DirectionX = directionX;
             this.Location = location;
+            this.Origin = location;
+            Distance = 0.0;
+            Range = 100;
             
         }
 
         public override void Update(TimeSpan dt, GenericInput input)
         {
             this.Location = new Vector2(this.Location.X + (float)(DirectionX * Velocity * dt.Milliseconds), this.Location.Y + (float)(DirectionY * Velocity * dt.Milliseconds));
-            // create the scene switch message to switch the current scene to the top score scene
-            //Message_ArrowHitbox arrowLocation = new Message_ArrowHitbox("Arrow_Location", this.BoundingRectangle);
-            //InputManager.AddInputItem(arrowLocation);
+
+            Distance = Math.Sqrt((double)((Location.X - Origin.X) * (Location.X - Origin.X) + (Location.Y - Origin.Y) * (Location.Y - Origin.Y)));
+
+            if (Distance > Range)
+            {
+                
+            }
+
         }
 
         //properties
         public float Velocity { get; set; }
         int DirectionX { get; set; }
         int DirectionY { get; set; }
-        
-
+        Vector2 Origin { get; set; }
+        double Range { get; set; }
+        double Distance { get; set; }
     }
 }

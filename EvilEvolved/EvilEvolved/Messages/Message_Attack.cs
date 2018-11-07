@@ -10,25 +10,27 @@ namespace EvilutionClass
     /// <summary>
     /// A Message telling the GameEngine that we need to switch the current scene to a specific scene in the StoryBoard.
     /// </summary>
-    public class Message_HeroAttack : EvilutionClass.GenericInput
+    public class Message_Attack : EvilutionClass.GenericInput
     {
+        public enum AttackType { none, Hero_Arrow, Boss_Arrow}
         /// <summary>
         /// Message Constructor.
         /// </summary>
         /// <param name="Attack">The name of the scene we want to switch to.</param>
         /// <param name="location"> The location of the hero at the time of attack</param>
-        public Message_HeroAttack(string attack, int directionX, int directionY, Vector2 location)
+        public Message_Attack(string attack, int directionX, int directionY, Vector2 location, AttackType type)
             : base("Attack")
         {
             Location = location;
             Name = attack;
             DirectionY = directionY;
             DirectionX = directionX;
+            Type = type;
         }
 
         public Vector2 Location { get; set; }
         public int DirectionX { get; set; }
         public int DirectionY { get; set; }
-        // public new string Name { get; set; }
+        public AttackType Type { get; set; }
     }
 }

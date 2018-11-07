@@ -111,9 +111,10 @@
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Math\DetermineDistance.cs" />
     <Compile Include="Messages\Message_GoBack.cs" />
-    <Compile Include="Messages\Message_ArrowHitbox.cs" />
-    <Compile Include="Messages\Message_HeroAttack.cs" />
+    <Compile Include="Messages\Message_BossCollision.cs" />
+    <Compile Include="Messages\Message_Attack.cs" />
     <Compile Include="Messages\Message_SceneSwitch.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Scenes\GameScene.cs" />
