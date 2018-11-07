@@ -60,6 +60,13 @@ namespace EvilutionClass
                             this.AddObject(arrow);
                             break;
                         }
+                    case (Message_Attack.AttackType.Boss_Arrow):
+                        {
+                            Arrow arrow = new Arrow(mhe.Name, mhe.DirectionX, mhe.DirectionY, mhe.Location);
+                            arrow.SetBitmapFromImageDictionary("Arrow");
+                            this.AddObject(arrow);
+                            break;
+                        }
                 }
             }
 

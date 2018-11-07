@@ -46,5 +46,6 @@ namespace EvilutionClass
         Vector2 Origin { get; set; }
         double Range { get; set; }
         double Distance { get; set; }
+        double Damage { get; set; }
     }
 }
