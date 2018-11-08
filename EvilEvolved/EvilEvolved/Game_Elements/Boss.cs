@@ -16,11 +16,15 @@ namespace EvilutionClass
         public Boss(string name)
             : base(name)
         {
+
             TimeBetweenAttacks = 1;
             LastAttack = DateTime.Now;
-            Velocity = (float)(10.0 / 60.0);
+            Velocity = (float)(5.0 / 60.0);
             DirectionY = 0;
             DirectionX = 0;
+            //MaxHealth = 500.0f;
+            //CurrentHealth = 500.0f;
+
         }
 
         /// <summary>
@@ -40,7 +44,7 @@ namespace EvilutionClass
 
                 if (TimeSinceAttack.Seconds > TimeBetweenAttacks)
                 {
-                    Message_Attack BossAttack = new Message_Attack("Boss_Attack", -1, 1, this.Location, Message_Attack.AttackType.Boss_Arrow, 200);
+                    Message_Attack BossAttack = new Message_Attack("Boss_Attack", -0.707107f, 0.707107f, this.Location, Message_Attack.AttackType.Boss_Arrow, 200, 100.0f);
                     InputManager.AddInputItem(BossAttack);
                     LastAttack = DateTime.Now;
                 }
@@ -48,8 +52,9 @@ namespace EvilutionClass
                 //Update bosses location on call to update
             this.Location = new Vector2(this.Location.X + (float)(DirectionX * Velocity * dt.Milliseconds), this.Location.Y + (float)(DirectionY * Velocity * dt.Milliseconds));
 
-
         }
+
+
         #region -----[Properties]
 
         public int TimeBetweenAttacks { get; set; }
@@ -59,6 +64,7 @@ namespace EvilutionClass
         public float DirectionX { get; set; }
         public float DirectionY { get; set; }
         public Vector2 HeroLocation { get; set; }
+        public int Level { get; set; }
 
         #endregion
 

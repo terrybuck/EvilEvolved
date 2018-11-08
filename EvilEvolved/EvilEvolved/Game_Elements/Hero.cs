@@ -48,7 +48,7 @@ namespace EvilutionClass
                 if (mgi.MouseInputType == MouseGenericInput.MouseGenericInputType.MouseClick && (DirectionX*DirectionX + DirectionY * DirectionY) != 0)
                 {
                     // create the scene switch message to switch the current scene to the top score scene
-                    Message_Attack heroAttack = new Message_Attack("Arrow", this.DirectionX, this.DirectionY, Location, Message_Attack.AttackType.Hero_Arrow, 100);
+                    Message_Attack heroAttack = new Message_Attack("Arrow", this.DirectionX, this.DirectionY, Location, Message_Attack.AttackType.Hero_Arrow, 100, 100.0f);
                     InputManager.AddInputItem(heroAttack);
                 }
             }

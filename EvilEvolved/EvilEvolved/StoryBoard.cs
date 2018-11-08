@@ -61,7 +61,7 @@ namespace EvilutionClass
         }
 
         /// <summary>
-        /// Add a scene into the SceneManger.  Applies a key for easy access.
+        /// Add a scene into the StoryBoard.  Applies a key for easy access.
         /// </summary>
         /// <param name="key">A unique name for the scene.</param>
         /// <param name="scene">The scene to add to the SceneDictionary.</param>

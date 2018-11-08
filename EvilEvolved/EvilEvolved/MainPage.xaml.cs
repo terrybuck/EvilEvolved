@@ -62,8 +62,11 @@ namespace EvilEvolved
             //create scenes
             GameScene game_scene = new GameScene((int)cc.RenderSize.Width, (int)cc.RenderSize.Height);
 
+            GameOverScene game_over_scene = new GameOverScene((int)cc.RenderSize.Width, (int)cc.RenderSize.Height);
+
             //add scenes to storyboard
             StoryBoard.AddScene(game_scene);
+            StoryBoard.AddScene(game_over_scene);
 
             IsAllImagesLoaded = true;
 

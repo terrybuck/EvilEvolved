@@ -19,7 +19,7 @@ namespace EvilutionClass
         /// <param name="directionY"> -1 to 1 value representing the left to right direction of the attack</param>
         /// <param name="location"> the origin point from which the attack was fired</param>
         /// <param name="type"> type of attack</param>
-        public Attack(string name, float directionX, float directionY, Vector2 location, AttackType type, int range)
+        public Attack(string name, float directionX, float directionY, Vector2 location, AttackType type, int range, float damage)
             : base(name)
         {
             Velocity = (float)(20.0 / 60.0);
@@ -30,6 +30,7 @@ namespace EvilutionClass
             Distance = 0.0f;
             Range = range;
             Type = type;
+            Damage = damage;
             
         }
         /// <summary>

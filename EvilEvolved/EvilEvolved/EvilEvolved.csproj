@@ -113,10 +113,11 @@
     </Compile>
     <Compile Include="Math\DetermineDistance.cs" />
     <Compile Include="Messages\Message_GoBack.cs" />
-    <Compile Include="Messages\Message_BossCollision.cs" />
+    <Compile Include="Messages\Message_Collision.cs" />
     <Compile Include="Messages\Message_Attack.cs" />
     <Compile Include="Messages\Message_SceneSwitch.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Scenes\GameOverScene.cs" />
     <Compile Include="Scenes\GameScene.cs" />
     <Compile Include="Scenes\TitleScene.cs" />
     <Compile Include="StoryBoard.cs" />
