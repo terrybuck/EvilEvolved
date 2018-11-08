@@ -28,8 +28,6 @@ namespace EvilEvolved
     {
         public bool IsAllImagesLoaded = false;
 
-        //       GenericScene gs = new GenericScene("test");
-
         public MainPage()
         {
             Focus(FocusState.Programmatic);
@@ -55,6 +53,7 @@ namespace EvilEvolved
 
             #endregion
 
+            // set scene
             CanvasControl cc = sender;
             TitleScene ts = new TitleScene((int)cc.RenderSize.Width, (int)cc.RenderSize.Height);
             StoryBoard.AddScene(ts);

@@ -9,8 +9,16 @@ using Windows.UI.Xaml;
 
 namespace EvilutionClass
 {
+    /// <summary>
+    /// The scene that contains the main game
+    /// </summary>
     public class GameScene : GenericScene
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="width"> width of the rendered canvas</param>
+        /// <param name="height"> height of the rendered canvas</param>
         public GameScene(int width, int height) : base("Main Game Scene")
         {
             this._width = width;
@@ -18,6 +26,11 @@ namespace EvilutionClass
             SetupScene();
         }
 
+        /// <summary>
+        /// Update the scene
+        /// </summary>
+        /// <param name="dt"> A delta time since the last update was called </param>
+        /// <param name="input"> Generic input </param>
         public override void Update(TimeSpan dt, GenericInput input)
         {
             foreach (GenericItem gi in objects)
@@ -35,13 +48,31 @@ namespace EvilutionClass
                    HeroHitbox = gi.BoundingRectangle;
                 }
                                
-                if (gi is Arrow && !(gi is BossAttack))
+                if (gi is Attack)
                 {
- 
-                    if (RectHelper.Intersect(BossHitbox, gi.BoundingRectangle) != Rect.Empty)
+                    Attack attack = (Attack)gi;
+                    switch (attack.Type)
                     {
-                        Message_BossCollision boss_collision = new Message_BossCollision("Arrow", gi);
-                        InputManager.AddInputItem(boss_collision);
+                        case (Attack.AttackType.Hero_Arrow):
+                            {
+
+                                if (RectHelper.Intersect(BossHitbox, gi.BoundingRectangle) != Rect.Empty)
+                                {
+                                    Message_Collision boss_collision = new Message_Collision("Arrow", gi);
+                                    InputManager.AddInputItem(boss_collision);
+                                }
+                                break;
+                            }
+                        case (Attack.AttackType.Boss_Arrow):
+                            {
+                                if (RectHelper.Intersect(HeroHitbox, gi.BoundingRectangle) != Rect.Empty)
+                                {
+                                    Message_Collision hero_collision = new Message_Collision("Arrow", gi);
+                                    InputManager.AddInputItem(hero_collision);
+                                }
+                                break;
+
+                            }
                     }
 
                 }
@@ -57,14 +88,14 @@ namespace EvilutionClass
                 {
                     case (Message_Attack.AttackType.Hero_Arrow):
                         {
-                            Arrow arrow = new Arrow(mhe.Name, mhe.DirectionX, mhe.DirectionY, mhe.Location);
-                            arrow.SetBitmapFromImageDictionary("Arrow");
-                            this.AddObject(arrow);
+                            Attack attack = new Attack(mhe.Name, mhe.DirectionX, mhe.DirectionY, mhe.Location, Attack.AttackType.Hero_Arrow, 100);
+                            attack.SetBitmapFromImageDictionary("Arrow");
+                            this.AddObject(attack);
                             break;
                         }
                     case (Message_Attack.AttackType.Boss_Arrow):
                         {
-                            BossAttack arrow = new BossAttack(mhe.Name, mhe.DirectionX, mhe.DirectionY, mhe.Location);
+                            Attack arrow = new Attack(mhe.Name, mhe.DirectionX, mhe.DirectionY, mhe.Location, Attack.AttackType.Boss_Arrow, 200);
                             arrow.SetBitmapFromImageDictionary("Arrow");
                             this.AddObject(arrow);
                             break;
@@ -72,9 +103,9 @@ namespace EvilutionClass
                 }
             }
 
-            if (input is Message_BossCollision)
+            if (input is Message_Collision)
             {
-                Message_BossCollision arrowLocation = (Message_BossCollision)input;
+                Message_Collision arrowLocation = (Message_Collision)input;
                 objects.Remove(arrowLocation.CollisionItem);
             }
 

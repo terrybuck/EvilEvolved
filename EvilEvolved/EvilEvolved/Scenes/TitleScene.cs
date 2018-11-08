@@ -8,8 +8,16 @@ using Windows.UI;
 
 namespace EvilutionClass
 {
+    /// <summary>
+    /// A title scene where users can choose to start a new game, see high scores etc...
+    /// </summary>
     public class TitleScene : GenericScene
     {
+        /// <summary>
+        /// Title scene initializer
+        /// </summary>
+        /// <param name="width"></param>
+        /// <param name="height"></param>
         public TitleScene(int width, int height) : base("Generic Title Scene")
         {
             this._width = width;
@@ -17,9 +25,12 @@ namespace EvilutionClass
             SetupScene();
         }
 
+
         public override void Update(TimeSpan dt, GenericInput input)
         {
             base.Update(dt, input);
+ //           CenterObject(_title_label, true, false);
+ //           CenterObject(_start_button);
         }
 
         public void SetupScene()
@@ -45,11 +56,6 @@ namespace EvilutionClass
             this.AddObject(_top_score_button);
             this.AddObject(_credits_button);
 
-            //Random r = new Random();
-            //GenericItem item = new GenericItem("Arrow");
-            //item.Location = new System.Numerics.Vector2(r.Next(0, 1000), r.Next(0, 800));
-            //item.SetBitmapFromImageDictionary("Arrow");
-            //this.AddObject(item);
 
             // event callbacks
             _start_button.ButtonClick += _start_button_ButtonClick;

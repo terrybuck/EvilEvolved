@@ -18,7 +18,7 @@ namespace EvilutionClass
         /// </summary>
         /// <param name="Attack">The name of the scene we want to switch to.</param>
         /// <param name="location"> The location of the hero at the time of attack</param>
-        public Message_Attack(string attack, int directionX, int directionY, Vector2 location, AttackType type)
+        public Message_Attack(string attack, float directionX, float directionY, Vector2 location, AttackType type, int range)
             : base("Attack")
         {
             Location = location;
@@ -26,11 +26,13 @@ namespace EvilutionClass
             DirectionY = directionY;
             DirectionX = directionX;
             Type = type;
+            Range = range;
         }
 
         public Vector2 Location { get; set; }
-        public int DirectionX { get; set; }
-        public int DirectionY { get; set; }
+        public float DirectionX { get; set; }
+        public float DirectionY { get; set; }
         public AttackType Type { get; set; }
+        public int Range { get; set; }
     }
 }

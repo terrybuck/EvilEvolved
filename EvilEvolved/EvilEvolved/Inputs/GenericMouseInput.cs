@@ -6,12 +6,20 @@ using System.Threading.Tasks;
 
 namespace EvilutionClass
 {
+    /// <summary>
+    /// A class that takes in mouse inputs
+    /// </summary>
     public class MouseGenericInput : GenericInput
     {
+        //types  of mouse interactions
         public enum MouseGenericInputType { unknown, MouseMove, MousePressed, MouseReleased, MouseClick };
         public enum MouseGenericButtonType { None, Left, Middle, Right };
 
-
+        /// <summary>
+        /// initialise mouse inputs
+        /// </summary>
+        /// <param name="x"> x location of mouse on the canvas</param>
+        /// <param name="y"> y location of mouse on the canvas</param>
         public MouseGenericInput(float x, float y) : base("mouse_input")
         {
             this.X = x;
@@ -27,7 +35,7 @@ namespace EvilutionClass
         }
 
 
-        //Properties
+        #region -----[Properties]
         public float X { get; set; }
         public float Y { get; set; }
 
@@ -39,7 +47,7 @@ namespace EvilutionClass
 
         public MouseGenericInputType MouseInputType { get; set; }
         public MouseGenericButtonType MouseButtonType { get; set; }
-
+        #endregion
 
     }
 }

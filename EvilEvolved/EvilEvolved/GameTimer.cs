@@ -69,11 +69,11 @@ namespace EvilutionClass
                             StoryBoard.CurrentScene.Update(TimeSpan.Zero, gi);
                             gi = InputManager.PeekAndTake(typeof(Message_Attack));
                         }                        
-                        gi = InputManager.PeekAndTake(typeof(Message_BossCollision));
-                        while (gi is Message_BossCollision)
+                        gi = InputManager.PeekAndTake(typeof(Message_Collision));
+                        while (gi is Message_Collision)
                         {
                             StoryBoard.CurrentScene.Update(TimeSpan.Zero, gi);
-                            gi = InputManager.PeekAndTake(typeof(Message_BossCollision));
+                            gi = InputManager.PeekAndTake(typeof(Message_Collision));
                         }
                     }
                 }

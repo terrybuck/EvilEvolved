@@ -11,9 +11,15 @@ using Windows.Foundation;
 
 namespace EvilutionClass
 {
+    /// <summary>
+    /// The GenericItem is the basic building block of a Scene.
+    /// </summary>
     public class GenericItem
     {
-        //Constructor, default name is empty string if name is not provided
+        /// <summary>
+        /// Creates a basic GenericItem.
+        /// </summary>
+        /// <param name="name">The name of the GenericItem.</param>
         public GenericItem(string name = "")
         {
             this.Name = name;
@@ -47,7 +53,10 @@ namespace EvilutionClass
             }
         }
 
-
+        /// <summary>
+        /// Set the Bitmap of the GenericItem to the Bitmap inside the ContentPipeline (Image Dictionary).
+        /// </summary>
+        /// <param name="key">The unique id of the Bitmap to source.</param>
         public bool SetBitmapFromImageDictionary(string key)
         {
             CanvasBitmap cb = null;
@@ -61,10 +70,10 @@ namespace EvilutionClass
         }
 
         /// <summary>
-        /// 
+        /// Set the size of the GenericItem.
         /// </summary>
-        /// <param name="width"></param>
-        /// <param name="height"></param>
+        /// <param name="width">The width to set.</param>
+        /// <param name="height">The height to set.</param>
         public void SetSize(uint width, uint height)
         {
             BitmapSize new_size;

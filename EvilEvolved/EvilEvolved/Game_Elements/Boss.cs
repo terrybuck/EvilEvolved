@@ -23,26 +23,35 @@ namespace EvilutionClass
             DirectionX = 0;
         }
 
+        /// <summary>
+        /// Update the Attack item
+        /// </summary>
+        /// <param name="dt"> A delta time since the last update was called</param>
+        /// <param name="input">A GenericInput to process.</param>
         public override void Update(TimeSpan dt, GenericInput input)
         {
+            //boss moves in a random direction
             Random r = new Random();
             DirectionX = (float)(r.Next(-100, 100)) / 100.0f;
             DirectionY = (float)(r.Next(-100, 100)) / 100.0f;
 
+            //boss attacks on a timer
             TimeSinceAttack = DateTime.Now - LastAttack;
 
                 if (TimeSinceAttack.Seconds > TimeBetweenAttacks)
                 {
-                    Message_Attack BossAttack = new Message_Attack("Boss_Attack", -1, 1, this.Location, Message_Attack.AttackType.Boss_Arrow);
+                    Message_Attack BossAttack = new Message_Attack("Boss_Attack", -1, 1, this.Location, Message_Attack.AttackType.Boss_Arrow, 200);
                     InputManager.AddInputItem(BossAttack);
                     LastAttack = DateTime.Now;
                 }
-
+            
+                //Update bosses location on call to update
             this.Location = new Vector2(this.Location.X + (float)(DirectionX * Velocity * dt.Milliseconds), this.Location.Y + (float)(DirectionY * Velocity * dt.Milliseconds));
 
 
         }
-        //properties
+        #region -----[Properties]
+
         public int TimeBetweenAttacks { get; set; }
         DateTime LastAttack { get; set; }
         TimeSpan TimeSinceAttack { get; set; }
@@ -50,6 +59,8 @@ namespace EvilutionClass
         public float DirectionX { get; set; }
         public float DirectionY { get; set; }
         public Vector2 HeroLocation { get; set; }
+
+        #endregion
 
     }
 }
