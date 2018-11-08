@@ -1,7 +1,11 @@
 # Evilution
 2D Game where one attempts to thwart an ever evolving evil monster
 
-This isn't a real readme, more of an intro to the steps taken, and thought process behind making Evilution.
+Use W,A,S,D to move around and click the mouse button (any mouse button) to fire an arrow
+
+Have Fun! Or dont.. There isn't much to this game yet...
+
+Additional information
 
 I started out by following the Windows Universal Applications : Win2D Development tutorials to create some generic classes and basic skeletal structure for the game.
 
