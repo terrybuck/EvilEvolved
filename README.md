@@ -1,7 +1,7 @@
 # Evilution
 2D Game where one attempts to thwart an ever evolving evil monster
 
-Use W,A,S,D to move around and click the mouse button (any mouse button) to fire an arrow
+Use W,A,S,D to move around and click the mouse button (any mouse button) to fire an arrow. Arrows fire in the direction your character is moving, so they only fire while moving.
 
 Have Fun! Or dont.. There isn't much to this game yet...
 
