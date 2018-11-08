@@ -22,7 +22,7 @@ using Windows.System;
 using static EvilutionClass.MouseGenericInput;
 using static EvilutionClass.GenericKeyboardInput;
 
-namespace EvilEvolved
+namespace Evilution
 {
     public sealed partial class MainPage : Page
     {
