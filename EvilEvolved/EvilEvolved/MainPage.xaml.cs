@@ -47,7 +47,7 @@ namespace EvilEvolved
 
             #region -------[Load images]
 
-            await ImageManager.AddImage("Hero", @"Assets/imageedit_4_4742766674.gif");
+            await ImageManager.AddImage("Hero", @"Assets/Hero.gif");
             await ImageManager.AddImage("Arrow", @"Assets/Arrow.png");
             await ImageManager.AddImage("Boss", @"Assets/BossEdit.png");
 

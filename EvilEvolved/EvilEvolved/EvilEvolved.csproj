@@ -131,7 +131,7 @@
   <ItemGroup>
     <Content Include="Assets\arrow.png" />
     <Content Include="Assets\BossEdit.png" />
-    <Content Include="Assets\imageedit_4_4742766674.gif" />
+    <Content Include="Assets\Hero.gif" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />
