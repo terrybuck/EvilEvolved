@@ -23,14 +23,18 @@ namespace EvilutionClass
         {
             this._width = width;
             this._height = height;
-            Boss_CurrentHealth = Boss_MaxHealth;
+            
             Boss_MaxHealth = 500.0f;
-            Hero_CurrentHealth = Hero_MaxHealth;
+            Boss_CurrentHealth = Boss_MaxHealth;
+            
             Hero_MaxHealth = 500.0f;
+            Hero_CurrentHealth = Hero_MaxHealth;
+
             LastHeroCollision = DateTime.Now;
             Hero_iFrames = 50;
             LastBossCollision = DateTime.Now;
             Boss_iFrames = 50;
+            Boss_Level_Up = false;
             SetupScene();
         }
 
@@ -49,6 +53,13 @@ namespace EvilutionClass
                 //give the boss the Hero's location and update the scene with the location of the boss
                 if (gi is Boss boss)
                 {
+                    if (Boss_Level_Up)
+                    {
+                        boss.Level += 1;
+                        boss.TimeBetweenAttacks = 250 + 750 / boss.Level;
+                        boss.Velocity += (1.0f / 60.0f);
+                        Boss_Level_Up = false;
+                    }
                     boss.HeroLocation = new Vector2((float)HeroHitbox.Left + (float)(HeroHitbox.Width / 2), (float)HeroHitbox.Y + (float)(HeroHitbox.Height / 2));
                     BossHitbox = gi.BoundingRectangle;     
                 }
@@ -146,15 +157,20 @@ namespace EvilutionClass
                 }
                 if(Hero_CurrentHealth <= 0.0f)
                 {
+                    Boss_MaxHealth = 500.0f;
+                    Hero_MaxHealth = 500.0f;
+                    Boss_CurrentHealth = Boss_MaxHealth;
                     Hero_CurrentHealth = Hero_MaxHealth;
+                    objects.Clear();
+                    SetupScene();
                     Message_SceneSwitch mss = new Message_SceneSwitch("Game Over Scene");
                     InputManager.AddInputItem(mss);
                 }
                 if (Boss_CurrentHealth <= 0.0f)
                 {
+                    Boss_Level_Up = true;
+                    Boss_MaxHealth += 100;
                     Boss_CurrentHealth = Boss_MaxHealth;
-                    Message_SceneSwitch mss = new Message_SceneSwitch("Game Over Scene");
-                    InputManager.AddInputItem(mss);
                 }
             }
 
@@ -193,5 +209,6 @@ namespace EvilutionClass
         TimeSpan TimeSinceBossCollision { get; set; }
         DateTime LastBossCollision { get; set; }
         int Boss_iFrames { get; set; }
+        bool Boss_Level_Up { get; set; }
     }
 }

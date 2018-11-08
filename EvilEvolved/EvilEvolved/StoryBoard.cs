@@ -22,7 +22,7 @@ namespace EvilutionClass
         /// <param name="input">The input item if any.</param>
         public static bool Update(TimeSpan dt, GenericInput input)
         {
-            // The STORYBOAD should only response to Low Level Game Events like SceneSwitch
+            // The STORYBOARD should only response to Low Level Game Events like SceneSwitch
             if (input is Message_SceneSwitch)
             {
                 Message_SceneSwitch mss = input as Message_SceneSwitch;

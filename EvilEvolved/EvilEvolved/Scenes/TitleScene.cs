@@ -75,7 +75,7 @@ namespace EvilutionClass
                 InputManager.AddInputItem(mss);
             }
             void _start_button_ButtonClick(object sender, EvilutionButton_Event e)
-            {
+            { 
                 // create the scene switch message to switch the current scene to the main game scene
                 Message_SceneSwitch mss = new Message_SceneSwitch("Main Game Scene");
                 InputManager.AddInputItem(mss);
