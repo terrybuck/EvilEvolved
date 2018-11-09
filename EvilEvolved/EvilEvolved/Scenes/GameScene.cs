@@ -5,6 +5,7 @@ using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.Foundation;
+using Windows.UI;
 using Windows.UI.Xaml;
 
 namespace EvilutionClass
@@ -24,17 +25,27 @@ namespace EvilutionClass
             this._width = width;
             this._height = height;
             
+            //sets the bosses health
             Boss_MaxHealth = 500.0f;
             Boss_CurrentHealth = Boss_MaxHealth;
             
+            //sets the hero's health
             Hero_MaxHealth = 500.0f;
             Hero_CurrentHealth = Hero_MaxHealth;
 
+            //variables used to determine if the hero is invulnerable
             LastHeroCollision = DateTime.Now;
             Hero_iFrames = 50;
+
+            //variables used to determine if the boss is invulnerable
             LastBossCollision = DateTime.Now;
             Boss_iFrames = 50;
             Boss_Level_Up = false;
+
+            //Keep track of score
+            Score = 0.0f;
+
+            //Draw the initialized scene
             SetupScene();
         }
 
@@ -57,7 +68,7 @@ namespace EvilutionClass
                     {
                         boss.Level += 1;
                         boss.TimeBetweenAttacks = 250 + 750 / boss.Level;
-                        boss.Velocity += (1.0f / 60.0f);
+                        boss.Velocity += (0.5f / 60.0f);
                         Boss_Level_Up = false;
                     }
                     boss.HeroLocation = new Vector2((float)HeroHitbox.Left + (float)(HeroHitbox.Width / 2), (float)HeroHitbox.Y + (float)(HeroHitbox.Height / 2));
@@ -150,6 +161,8 @@ namespace EvilutionClass
                         }
                     case (Attack.AttackType.Hero_Arrow):
                         {
+                            Score += attackInfo.Damage;
+                            _score_label.UpdateText("SCORE: " + Score);
                             Boss_CurrentHealth -= attackInfo.Damage;
                             objects.Remove(attackInfo.CollisionItem);
                             break;
@@ -163,6 +176,7 @@ namespace EvilutionClass
                     Hero_CurrentHealth = Hero_MaxHealth;
                     objects.Clear();
                     SetupScene();
+                    Score = 0.0f;
                     Message_SceneSwitch mss = new Message_SceneSwitch("Game Over Scene");
                     InputManager.AddInputItem(mss);
                 }
@@ -179,6 +193,14 @@ namespace EvilutionClass
 
         public void SetupScene()
         {
+
+
+            _score_label = new EvilutionLabel("SCORE: " + Score, Colors.White, (uint)(this._width * 0.90f), 100);
+            _score_label.Y = 20;
+            _score_label.FontSize = 50;
+            CenterObject(_score_label, true, false);
+            this.AddObject(_score_label);
+
             Hero hero = new Hero("Hero");
             hero.Location = new System.Numerics.Vector2(700,700);
             hero.SetBitmapFromImageDictionary("Hero");
@@ -193,6 +215,8 @@ namespace EvilutionClass
 
         }
 
+
+
         //properties
         Rect HeroHitbox;
         Rect BossHitbox;
@@ -203,12 +227,19 @@ namespace EvilutionClass
         public float Boss_CurrentHealth { get; set; }
         public float Hero_MaxHealth { get; set; }
         public float Hero_CurrentHealth { get; set; }
+
+        //properties to set I-Frames for hero and boss so they dont get hit multiple times by 1 attack
         TimeSpan TimeSinceHeroCollision { get; set; }
         DateTime LastHeroCollision { get; set; }
         int Hero_iFrames { get; set; }
         TimeSpan TimeSinceBossCollision { get; set; }
         DateTime LastBossCollision { get; set; }
         int Boss_iFrames { get; set; }
+
+        //indicates to the boss that he has died and thereby leveled up
         bool Boss_Level_Up { get; set; }
+
+        private EvilutionLabel _score_label;
+        float Score { get; set; }
     }
 }

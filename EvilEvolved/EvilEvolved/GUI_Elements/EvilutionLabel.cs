@@ -37,6 +37,12 @@ namespace EvilutionClass
             base.Update(dt, gi);
         }
 
+        public void UpdateText(string text)
+        {
+            this.Text = text;
+            //this.Draw();
+        }
+
         /// <summary>
         /// Draw.
         /// </summary>
