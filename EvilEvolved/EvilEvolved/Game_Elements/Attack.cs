@@ -40,15 +40,25 @@ namespace EvilutionClass
         /// <param name="input">A GenericInput to process.</param>
         public override void Update(TimeSpan dt, GenericInput input)
         {
+            UpdateLocation(dt);
+        }
+        //public override void Update(TimeSpan dt, GenericMessage message)
+        //{
+        //    UpdateLocation(dt);
+        //}
+
+        private void UpdateLocation(TimeSpan dt)
+        {
+
             this.Location = new Vector2(this.Location.X + (float)(DirectionX * Velocity * dt.Milliseconds), this.Location.Y + (float)(DirectionY * Velocity * dt.Milliseconds));
+
 
             //Distance = Math.Sqrt((double)((Location.X - Origin.X) * (Location.X - Origin.X) + (Location.Y - Origin.Y) * (Location.Y - Origin.Y)));
 
             //if (Distance > Range)
             //{
-                
-            //}
 
+            //}
         }
 
         #region ------[Properties]

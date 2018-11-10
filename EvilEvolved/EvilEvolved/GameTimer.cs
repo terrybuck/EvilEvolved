@@ -58,6 +58,7 @@ namespace EvilutionClass
                     if (null != StoryBoard.CurrentScene)
                     {
                         StoryBoard.CurrentScene.Update(dt, gi);
+                        StoryBoard.CurrentScene.Update(dt, gm);
                         gi = InputManager.PeekAndTake(typeof(MouseGenericInput));
                         while (gi is MouseGenericInput)
                         {
@@ -67,13 +68,13 @@ namespace EvilutionClass
                         gm = MessageManager.PeekAndTake(typeof(Message_Attack));
                         while (gm is Message_Attack)
                         {
-                            StoryBoard.CurrentScene.Update(TimeSpan.Zero, gi);
+                            StoryBoard.CurrentScene.Update(TimeSpan.Zero, gm);
                             gm = MessageManager.PeekAndTake(typeof(Message_Attack));
                         }                        
                         gi = InputManager.PeekAndTake(typeof(Message_Collision));
                         while (gm is Message_Collision)
                         {
-                            StoryBoard.CurrentScene.Update(TimeSpan.Zero, gi);
+                            StoryBoard.CurrentScene.Update(TimeSpan.Zero, gm);
                             gm = MessageManager.PeekAndTake(typeof(Message_Collision));
                         }
                     }

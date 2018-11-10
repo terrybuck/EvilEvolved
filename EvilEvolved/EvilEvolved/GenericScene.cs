@@ -26,7 +26,7 @@ namespace EvilutionClass
         /// </summary>
         /// <param name="dt">A delta time since the last update.</param>
         /// <param name="gi">A GenericInput to process.</param>
-        public override void Update(TimeSpan dt, GenericInput input, GenericMessage message)
+        public override void Update(TimeSpan dt, GenericInput input)
         {
             foreach (GenericItem gi in objects)
             {
@@ -43,6 +43,14 @@ namespace EvilutionClass
                 this.MiddleButton = mgi.IsMiddleButtonPress;
                 this.RightButton = mgi.IsRightButtonPress;
 
+            }
+        }
+
+        public override void Update(TimeSpan dt, GenericMessage message)
+        {
+            foreach (GenericItem gi in objects)
+            {
+                gi.Update(dt, message);
             }
         }
 

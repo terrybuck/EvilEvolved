@@ -31,7 +31,12 @@ namespace EvilutionClass
         ///Update the GenericItem
         ///</summary>
         ///<param name= "dt"> A delta time since the last update was called.</param>
-       public virtual void Update(TimeSpan dt, GenericInput input, GenericMessage message)
+       public virtual void Update(TimeSpan dt, GenericInput input)
+        {
+
+        }
+
+        public virtual void Update(TimeSpan dt, GenericMessage message)
         {
 
         }

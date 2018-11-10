@@ -21,7 +21,7 @@ namespace EvilutionClass
             : base(name)
         {
             //hero's speed and initial direction
-            Velocity = (float)(10.0/60.0);
+            Velocity = (float)(15.0/60.0);
             DirectionY = 0;
             DirectionX = 0;
         }

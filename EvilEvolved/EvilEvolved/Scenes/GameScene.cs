@@ -58,7 +58,7 @@ namespace EvilutionClass
         /// </summary>
         /// <param name="dt"> A delta time since the last update was called </param>
         /// <param name="input"> Generic input </param>
-        public override void Update(TimeSpan dt, GenericInput input, GenericMessage message)
+        public override void Update(TimeSpan dt, GenericInput input)
         {
             foreach (GenericItem gi in objects)
             {
@@ -126,68 +126,76 @@ namespace EvilutionClass
                 }
 
             }
+        }
 
-            if (message is Message_Attack)
+        public override void Update(TimeSpan dt, GenericMessage message)
+        {
+            foreach (GenericItem gi in objects)
             {
-
-                Message_Attack mhe = (Message_Attack)message;
-
-                switch (mhe.Type)
-                {
-                    case (Message_Attack.AttackType.Hero_Arrow):
-                        {
-                            //TODO: add range and damage properties to a type of attack and pass it to the item rather than use magic numbers
-                            Attack attack = new Attack(mhe.Name, mhe.DirectionX, mhe.DirectionY, mhe.Location, Attack.AttackType.Hero_Arrow, 100, 100.0f);
-                            attack.SetBitmapFromImageDictionary("Arrow");
-                            this.AddObject(attack);
-                            break;
-                        }
-                    case (Message_Attack.AttackType.Boss_Arrow):
-                        {
-                            Attack arrow = new Attack(mhe.Name, mhe.DirectionX, mhe.DirectionY, mhe.Location, Attack.AttackType.Boss_Arrow, 200, 100.0f);
-                            arrow.SetBitmapFromImageDictionary("Arrow");
-                            this.AddObject(arrow);
-                            break;
-                        }
-                }
+                //update each generic item
+                gi.Update(dt, message);
             }
+                if (message is Message_Attack)
+                {
 
-            if ( message is Message_Collision)
-            {
-                Message_Collision attackInfo = (Message_Collision)message;
-                switch(attackInfo.Type)
-                {
-                    case (Attack.AttackType.Boss_Arrow):
-                        {
-                            Hero_CurrentHealth -= attackInfo.Damage;
-                            objects.Remove(attackInfo.CollisionItem);
-                            break;
-                        }
-                    case (Attack.AttackType.Hero_Arrow):
-                        {
-                            Score += attackInfo.Damage;
-                            _score_label.UpdateText("SCORE: " + Score);
-                            Boss_CurrentHealth -= attackInfo.Damage;
-                            objects.Remove(attackInfo.CollisionItem);
-                            break;
-                        }
+                    Message_Attack mhe = (Message_Attack)message;
+
+                    switch (mhe.Type)
+                    {
+                        case (Message_Attack.AttackType.Hero_Arrow):
+                            {
+                                //TODO: add range and damage properties to a type of attack and pass it to the item rather than use magic numbers
+                                Attack attack = new Attack(mhe.Name, mhe.DirectionX, mhe.DirectionY, mhe.Location, Attack.AttackType.Hero_Arrow, 100, 100.0f);
+                                attack.SetBitmapFromImageDictionary("Arrow");
+                                this.AddObject(attack);
+                                break;
+                            }
+                        case (Message_Attack.AttackType.Boss_Arrow):
+                            {
+                                Attack arrow = new Attack(mhe.Name, mhe.DirectionX, mhe.DirectionY, mhe.Location, Attack.AttackType.Boss_Arrow, 200, 100.0f);
+                                arrow.SetBitmapFromImageDictionary("Arrow");
+                                this.AddObject(arrow);
+                                break;
+                            }
+                    }
                 }
-                if(Hero_CurrentHealth <= 0.0f)
+
+                if (message is Message_Collision)
                 {
-                    objects.Clear();
-                    SetupScene();
-                    Message_SceneSwitch mss = new Message_SceneSwitch("Game Over Scene");
-                    MessageManager.AddMessageItem(mss);
-                }
-                if (Boss_CurrentHealth <= 0.0f)
-                {
-                    Boss_Level_Up = true;
-                    Boss_MaxHealth += 100;
-                    Boss_CurrentHealth = Boss_MaxHealth;
-                }
+                    Message_Collision attackInfo = (Message_Collision)message;
+                    switch (attackInfo.Type)
+                    {
+                        case (Attack.AttackType.Boss_Arrow):
+                            {
+                                Hero_CurrentHealth -= attackInfo.Damage;
+                                objects.Remove(attackInfo.CollisionItem);
+                                break;
+                            }
+                        case (Attack.AttackType.Hero_Arrow):
+                            {
+                                Score += attackInfo.Damage;
+                                _score_label.UpdateText("SCORE: " + Score);
+                                Boss_CurrentHealth -= attackInfo.Damage;
+                                objects.Remove(attackInfo.CollisionItem);
+                                break;
+                            }
+                    }
+                    if (Hero_CurrentHealth <= 0.0f)
+                    {
+                        objects.Clear();
+                        SetupScene();
+                        Message_SceneSwitch mss = new Message_SceneSwitch("Game Over Scene");
+                        MessageManager.AddMessageItem(mss);
+                    }
+                    if (Boss_CurrentHealth <= 0.0f)
+                    {
+                        Boss_Level_Up = true;
+                        Boss_MaxHealth += 100;
+                        Boss_CurrentHealth = Boss_MaxHealth;
+                    }
+                
+
             }
-
-
         }
 
         public void SetupScene()
