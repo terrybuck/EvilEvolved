@@ -11,7 +11,7 @@ namespace EvilutionClass
     /// the previous scene. For example, they are done modifying a item and want to go back
     /// to the title scene.
     /// </summary>
-    public class Message_GoBack : GenericInput
+    public class Message_GoBack : GenericMessage
     {
         public Message_GoBack()
             : base("GO BACK")

@@ -43,7 +43,7 @@ namespace EvilutionClass
                 if (TimeSinceAttack.TotalMilliseconds > TimeBetweenAttacks)
                 {
                     Message_Attack BossAttack = new Message_Attack("Boss_Attack", DirectionX, DirectionY, this.Location, Message_Attack.AttackType.Boss_Arrow, 200, 100.0f);
-                    InputManager.AddInputItem(BossAttack);
+                    MessageManager.AddMessageItem(BossAttack);
                     LastAttack = DateTime.Now;
                 }
             

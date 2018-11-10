@@ -35,12 +35,17 @@ namespace EvilutionClass
 
         public void SetupScene()
         {
+            GenericItem title = new GenericItem("Title");
+            title.Location = new System.Numerics.Vector2(500, 200);
+            title.SetBitmapFromImageDictionary("Title");
+            this.AddObject(title);
+            CenterObject(title, true, false);
 
-            // design the scene manually          
-            _title_label = new EvilutionLabel("EVILUTION", Colors.White, (uint)(this._width * 0.90f), 100);
-            _title_label.Y = 20;
-            _title_label.FontSize = 50;
-            CenterObject(_title_label, true, false);
+            //// design the scene manually          
+            //_title_label = new EvilutionLabel("EVILUTION", Colors.White, (uint)(this._width * 0.90f), 100);
+            //_title_label.Y = 20;
+            //_title_label.FontSize = 50;
+            //CenterObject(_title_label, true, false);
 
 
             _start_button = new EvilutionButton("New Game", Colors.White, 350, 50);
@@ -51,7 +56,7 @@ namespace EvilutionClass
             _top_score_button.Location = new Vector2(_start_button.Location.X, _start_button.Location.Y + _start_button.Size.Height + 10);
             _credits_button.Location = new Vector2(_top_score_button.Location.X, _top_score_button.Location.Y + _top_score_button.Size.Height + 10);
 
-            this.AddObject(_title_label);
+            //this.AddObject(_title_label);
             this.AddObject(_start_button);
             this.AddObject(_top_score_button);
             this.AddObject(_credits_button);
@@ -66,23 +71,23 @@ namespace EvilutionClass
             {
                 // create the scene switch message to switch the current scene to the credits scene
                 Message_SceneSwitch mss = new Message_SceneSwitch("Credits Scene");
-                InputManager.AddInputItem(mss);
+                MessageManager.AddMessageItem(mss);
             }
             void _top_score_button_ButtonClick(object sender, EvilutionButton_Event e)
             {
                 // create the scene switch message to switch the current scene to the top score scene
                 Message_SceneSwitch mss = new Message_SceneSwitch("Top Score Scene");
-                InputManager.AddInputItem(mss);
+                MessageManager.AddMessageItem(mss);
             }
             void _start_button_ButtonClick(object sender, EvilutionButton_Event e)
             { 
                 // create the scene switch message to switch the current scene to the main game scene
                 Message_SceneSwitch mss = new Message_SceneSwitch("Main Game Scene");
-                InputManager.AddInputItem(mss);
+                MessageManager.AddMessageItem(mss);
             }
 
         }
-        private EvilutionLabel _title_label;
+        //private EvilutionLabel _title_label;
         private EvilutionButton _start_button;
         private EvilutionButton _top_score_button;
         private EvilutionButton _credits_button;

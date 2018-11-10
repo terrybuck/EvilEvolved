@@ -11,7 +11,7 @@ namespace EvilutionClass
     /// <summary>
     /// A message that is sent if a collision is detected between attacks and their target
     /// </summary>
-    public class Message_Collision : EvilutionClass.GenericInput
+    public class Message_Collision : GenericMessage
     {
         /// <summary>
         /// Message Constructor.

@@ -26,7 +26,7 @@ namespace EvilutionClass
         /// </summary>
         /// <param name="dt">A delta time since the last update.</param>
         /// <param name="gi">A GenericInput to process.</param>
-        public override void Update(TimeSpan dt, GenericInput input)
+        public override void Update(TimeSpan dt, GenericInput input, GenericMessage message)
         {
             foreach (GenericItem gi in objects)
             {

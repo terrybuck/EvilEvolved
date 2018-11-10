@@ -14,12 +14,13 @@ namespace EvilutionClass
     public static class InputManager
     {
         private static object input_queue_lock = new object();
+//        private static object message_queue_lock = new object();
 
-        /// <summary>
-        /// Returns the current GenericInput for processing.
-        /// </summary>
-        /// <returns>A GenericInput that needs to be process, null if the InputQueque is empty.</returns>
-        public static GenericInput Update()
+                    /// <summary>
+                    /// Returns the current GenericInput for processing.
+                    /// </summary>
+                    /// <returns>A GenericInput that needs to be process, null if the InputQueque is empty.</returns>
+                    public static GenericInput Update()
         {
             lock(input_queue_lock)
             {

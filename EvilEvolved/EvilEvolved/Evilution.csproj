@@ -98,6 +98,7 @@
     <Compile Include="Game_Elements\Attack.cs" />
     <Compile Include="Game_Elements\Boss.cs" />
     <Compile Include="Game_Elements\Hero.cs" />
+    <Compile Include="GenericMessage.cs" />
     <Compile Include="GUI_Elements\EvilutionButton.cs" />
     <Compile Include="GUI_Elements\EvilutionLabel.cs" />
     <Compile Include="ImageManager.cs" />
@@ -112,6 +113,7 @@
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Math\DetermineDistance.cs" />
+    <Compile Include="MessageManager.cs" />
     <Compile Include="Messages\Message_GoBack.cs" />
     <Compile Include="Messages\Message_Collision.cs" />
     <Compile Include="Messages\Message_Attack.cs" />
@@ -130,6 +132,7 @@
   <ItemGroup>
     <Content Include="Assets\arrow.png" />
     <Content Include="Assets\BossEdit.png" />
+    <Content Include="Assets\Evilution.png" />
     <Content Include="Assets\Hero.gif" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />

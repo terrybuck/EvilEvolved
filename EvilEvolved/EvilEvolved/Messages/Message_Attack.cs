@@ -10,7 +10,7 @@ namespace EvilutionClass
     /// <summary>
     /// A Message telling the GameEngine that we need to switch the current scene to a specific scene in the StoryBoard.
     /// </summary>
-    public class Message_Attack : EvilutionClass.GenericInput
+    public class Message_Attack : GenericMessage
     {
         public enum AttackType { none, Hero_Arrow, Boss_Arrow}
         /// <summary>

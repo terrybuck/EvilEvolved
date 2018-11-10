@@ -20,12 +20,12 @@ namespace EvilutionClass
         /// </summary>
         /// <param name="dt">The delta time.</param>
         /// <param name="input">The input item if any.</param>
-        public static bool Update(TimeSpan dt, GenericInput input)
+        public static bool Update(TimeSpan dt, GenericMessage message)
         {
             // The STORYBOARD should only response to Low Level Game Events like SceneSwitch
-            if (input is Message_SceneSwitch)
+            if (message is Message_SceneSwitch)
             {
-                Message_SceneSwitch mss = input as Message_SceneSwitch;
+                Message_SceneSwitch mss = message as Message_SceneSwitch;
 
                 // find the scene
                 if (SceneDictionary.ContainsKey(mss.TargetScene))
@@ -40,7 +40,7 @@ namespace EvilutionClass
 
                 return true;
             }
-            else if (input is Message_GoBack)
+            else if (message is Message_GoBack)
             {
                 // check to see if the history list is empty
                 if (SceneHistory.Count == 0)

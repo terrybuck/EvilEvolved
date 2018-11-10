@@ -9,7 +9,7 @@ namespace EvilutionClass
     /// <summary>
     /// A Message telling the GameEngine that we need to switch the current scene to a specific scene in the StoryBoard.
     /// </summary>
-    public class Message_SceneSwitch : GenericInput
+    public class Message_SceneSwitch : GenericMessage
     {
         /// <summary>
         /// Message Constructor.

@@ -16,7 +16,7 @@ namespace EvilutionClass
     public class GameScene : GenericScene
     {
         /// <summary>
-        /// 
+        /// Main game scene initializer
         /// </summary>
         /// <param name="width"> width of the rendered canvas</param>
         /// <param name="height"> height of the rendered canvas</param>
@@ -24,7 +24,9 @@ namespace EvilutionClass
         {
             this._width = width;
             this._height = height;
+ 
             
+
             //sets the bosses health
             Boss_MaxHealth = 500.0f;
             Boss_CurrentHealth = Boss_MaxHealth;
@@ -42,6 +44,8 @@ namespace EvilutionClass
             Boss_iFrames = 50;
             Boss_Level_Up = false;
 
+
+
             //Keep track of score
             Score = 0.0f;
 
@@ -54,7 +58,7 @@ namespace EvilutionClass
         /// </summary>
         /// <param name="dt"> A delta time since the last update was called </param>
         /// <param name="input"> Generic input </param>
-        public override void Update(TimeSpan dt, GenericInput input)
+        public override void Update(TimeSpan dt, GenericInput input, GenericMessage message)
         {
             foreach (GenericItem gi in objects)
             {
@@ -72,15 +76,15 @@ namespace EvilutionClass
                         Boss_Level_Up = false;
                     }
                     boss.HeroLocation = new Vector2((float)HeroHitbox.Left + (float)(HeroHitbox.Width / 2), (float)HeroHitbox.Y + (float)(HeroHitbox.Height / 2));
-                    BossHitbox = gi.BoundingRectangle;     
+                    BossHitbox = gi.BoundingRectangle;
                 }
 
                 //update the scene with the location of the hero
                 if (gi is Hero)
                 {
-                   HeroHitbox = gi.BoundingRectangle;
+                    HeroHitbox = gi.BoundingRectangle;
                 }
-                
+
                 //find out if any of the attacks landed
                 if (gi is Attack)
                 {
@@ -93,11 +97,11 @@ namespace EvilutionClass
                                 if (RectHelper.Intersect(BossHitbox, gi.BoundingRectangle) != Rect.Empty)
                                 {
                                     TimeSinceBossCollision = DateTime.Now - LastBossCollision;
-                                    LastBossCollision = DateTime.Now;
                                     if (TimeSinceBossCollision.TotalMilliseconds > Boss_iFrames)
                                     {
                                         Message_Collision boss_collision = new Message_Collision("Arrow", gi, Attack.AttackType.Hero_Arrow, attack.Damage);
-                                        InputManager.AddInputItem(boss_collision);
+                                        MessageManager.AddMessageItem(boss_collision);
+                                        LastBossCollision = DateTime.Now;
                                     }
                                 }
                                 break;
@@ -107,11 +111,11 @@ namespace EvilutionClass
                                 if (RectHelper.Intersect(HeroHitbox, gi.BoundingRectangle) != Rect.Empty)
                                 {
                                     TimeSinceHeroCollision = DateTime.Now - LastHeroCollision;
-                                    LastHeroCollision = DateTime.Now;
                                     if (TimeSinceHeroCollision.TotalMilliseconds > Hero_iFrames)
                                     {
                                         Message_Collision hero_collision = new Message_Collision("Arrow", gi, Attack.AttackType.Boss_Arrow, attack.Damage);
-                                        InputManager.AddInputItem(hero_collision);
+                                        MessageManager.AddMessageItem(hero_collision);
+                                        LastHeroCollision = DateTime.Now;
                                     }
                                 }
                                 break;
@@ -120,13 +124,13 @@ namespace EvilutionClass
                     }
 
                 }
-               
+
             }
 
-            if (input is Message_Attack)
+            if (message is Message_Attack)
             {
 
-                Message_Attack mhe = (Message_Attack)input;
+                Message_Attack mhe = (Message_Attack)message;
 
                 switch (mhe.Type)
                 {
@@ -148,9 +152,9 @@ namespace EvilutionClass
                 }
             }
 
-            if (input is Message_Collision)
+            if ( message is Message_Collision)
             {
-                Message_Collision attackInfo = (Message_Collision)input;
+                Message_Collision attackInfo = (Message_Collision)message;
                 switch(attackInfo.Type)
                 {
                     case (Attack.AttackType.Boss_Arrow):
@@ -170,15 +174,10 @@ namespace EvilutionClass
                 }
                 if(Hero_CurrentHealth <= 0.0f)
                 {
-                    Boss_MaxHealth = 500.0f;
-                    Hero_MaxHealth = 500.0f;
-                    Boss_CurrentHealth = Boss_MaxHealth;
-                    Hero_CurrentHealth = Hero_MaxHealth;
                     objects.Clear();
                     SetupScene();
-                    Score = 0.0f;
                     Message_SceneSwitch mss = new Message_SceneSwitch("Game Over Scene");
-                    InputManager.AddInputItem(mss);
+                    MessageManager.AddMessageItem(mss);
                 }
                 if (Boss_CurrentHealth <= 0.0f)
                 {
@@ -194,6 +193,12 @@ namespace EvilutionClass
         public void SetupScene()
         {
 
+            Boss_MaxHealth = 500.0f;
+            Hero_MaxHealth = 500.0f;
+            Boss_CurrentHealth = Boss_MaxHealth;
+            Hero_CurrentHealth = Hero_MaxHealth;
+
+            Score = 0.0f;
 
             _score_label = new EvilutionLabel("SCORE: " + Score, Colors.White, (uint)(this._width * 0.90f), 100);
             _score_label.Y = 20;

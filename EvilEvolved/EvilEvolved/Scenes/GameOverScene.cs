@@ -57,7 +57,7 @@ namespace EvilutionClass
             {
                 // create the scene switch message to switch the current scene to the main game scene
                 Message_SceneSwitch mss = new Message_SceneSwitch("Generic Title Scene");
-                InputManager.AddInputItem(mss);
+                MessageManager.AddMessageItem(mss);
             }
 
         }

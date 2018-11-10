@@ -47,8 +47,9 @@ namespace EvilutionClass
 
                 //get the current input from the input manager
                 GenericInput gi = InputManager.Update();
+                GenericMessage gm = MessageManager.Update();
 
-                if (StoryBoard.Update(dt, gi))
+                if (StoryBoard.Update(dt, gm))
                 {
 
                 }
@@ -63,17 +64,17 @@ namespace EvilutionClass
                             StoryBoard.CurrentScene.Update(TimeSpan.Zero, gi);
                             gi = InputManager.PeekAndTake(typeof(MouseGenericInput));
                         }
-                        gi = InputManager.PeekAndTake(typeof(Message_Attack));
-                        while (gi is Message_Attack)
+                        gm = MessageManager.PeekAndTake(typeof(Message_Attack));
+                        while (gm is Message_Attack)
                         {
                             StoryBoard.CurrentScene.Update(TimeSpan.Zero, gi);
-                            gi = InputManager.PeekAndTake(typeof(Message_Attack));
+                            gm = MessageManager.PeekAndTake(typeof(Message_Attack));
                         }                        
                         gi = InputManager.PeekAndTake(typeof(Message_Collision));
-                        while (gi is Message_Collision)
+                        while (gm is Message_Collision)
                         {
                             StoryBoard.CurrentScene.Update(TimeSpan.Zero, gi);
-                            gi = InputManager.PeekAndTake(typeof(Message_Collision));
+                            gm = MessageManager.PeekAndTake(typeof(Message_Collision));
                         }
                     }
                 }

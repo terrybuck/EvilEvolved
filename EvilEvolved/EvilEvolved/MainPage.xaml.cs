@@ -50,6 +50,7 @@ namespace Evilution
             await ImageManager.AddImage("Hero", @"Assets/Hero.gif");
             await ImageManager.AddImage("Arrow", @"Assets/Arrow.png");
             await ImageManager.AddImage("Boss", @"Assets/BossEdit.png");
+            await ImageManager.AddImage("Title", @"Assets/Evilution.png");
 
             #endregion
 
