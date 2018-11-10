@@ -35,17 +35,15 @@ namespace EvilutionClass
         {
 
             // design the scene manually          
-            _title_label = new EvilutionLabel("Game Over", Colors.White, (uint)(this._width * 0.90f), 100);
-            _title_label.Y = 20;
-            _title_label.FontSize = 50;
-            CenterObject(_title_label, true, false);
+            GenericItem title = new GenericItem("Title");
+            title.Location = new System.Numerics.Vector2(500, 200);
+            title.SetBitmapFromImageDictionary("GameOver");
+            this.AddObject(title);
+            CenterObject(title, true, false);
 
 
             _start_button = new EvilutionButton("Main Menu", Colors.White, 350, 50);
-
             CenterObject(_start_button);
-
-            this.AddObject(_title_label);
             this.AddObject(_start_button);
 
 
@@ -61,7 +59,6 @@ namespace EvilutionClass
             }
 
         }
-        private EvilutionLabel _title_label;
         private EvilutionButton _start_button;
     }
 }
