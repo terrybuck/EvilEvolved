@@ -4,6 +4,8 @@ using System.Linq;
 using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.Media.Core;
+using Windows.Media.Playback;
 using Windows.UI;
 
 namespace EvilutionClass
@@ -33,25 +35,29 @@ namespace EvilutionClass
  //           CenterObject(_start_button);
         }
 
+
         public void SetupScene()
         {
+            // design the scene manually   
+            //Title scene is the only sene that starts playing audio by default
+            if (AudioManager.AudioDictionary.TryGetValue("Generic Title Scene", out mp))
+            {
+                mp.Play();
+            }
+
+            //Evilution Title
             GenericItem title = new GenericItem("Title");
             title.Location = new System.Numerics.Vector2(500, 200);
             title.SetBitmapFromImageDictionary("Title");
             this.AddObject(title);
             CenterObject(title, true, false);
 
-            //// design the scene manually          
-            //_title_label = new EvilutionLabel("EVILUTION", Colors.White, (uint)(this._width * 0.90f), 100);
-            //_title_label.Y = 20;
-            //_title_label.FontSize = 50;
-            //CenterObject(_title_label, true, false);
-
-
+            //Buttons
             _start_button = new EvilutionButton("New Game", Colors.White, 350, 50);
-            _top_score_button = new EvilutionButton("View The Current Top Scores", Colors.White, 350, 50);
+            _top_score_button = new EvilutionButton("Top Scores", Colors.White, 350, 50);
             _credits_button = new EvilutionButton("Credits", Colors.DarkGray, 350, 50);
 
+            //Center Buttons
             CenterObject(_start_button);
             _top_score_button.Location = new Vector2(_start_button.Location.X, _start_button.Location.Y + _start_button.Size.Height + 10);
             _credits_button.Location = new Vector2(_top_score_button.Location.X, _top_score_button.Location.Y + _top_score_button.Size.Height + 10);
@@ -80,7 +86,12 @@ namespace EvilutionClass
                 MessageManager.AddMessageItem(mss);
             }
             void _start_button_ButtonClick(object sender, EvilutionButton_Event e)
-            { 
+            {
+                if (null != mp)
+                {
+                    mp.Pause();
+                    mp.PlaybackSession.Position = TimeSpan.Zero;
+                }
                 // create the scene switch message to switch the current scene to the main game scene
                 Message_SceneSwitch mss = new Message_SceneSwitch("Main Game Scene");
                 MessageManager.AddMessageItem(mss);

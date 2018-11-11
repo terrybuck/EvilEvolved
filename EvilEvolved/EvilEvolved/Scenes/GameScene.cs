@@ -5,6 +5,8 @@ using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.Foundation;
+using Windows.Media.Playback;
+using Windows.Media;
 using Windows.UI;
 using Windows.UI.Xaml;
 
@@ -60,6 +62,11 @@ namespace EvilutionClass
         /// <param name="input"> Generic input </param>
         public override void Update(TimeSpan dt, GenericInput input)
         {
+            if(mp.PlaybackSession.PlaybackState != MediaPlaybackState.Playing)
+            {
+                mp.PlaybackSession.Position = TimeSpan.Zero;
+                mp.Play();
+            }
             foreach (GenericItem gi in objects)
             {
                 //update each generic item
@@ -182,6 +189,12 @@ namespace EvilutionClass
                     }
                     if (Hero_CurrentHealth <= 0.0f)
                     {
+                        if (null != mp)
+                        {
+                            mp.Pause();
+                            mp.PlaybackSession.Position = TimeSpan.Zero;
+                        }
+
                         objects.Clear();
                         SetupScene();
                         Message_SceneSwitch mss = new Message_SceneSwitch("Game Over Scene");
@@ -200,7 +213,6 @@ namespace EvilutionClass
 
         public void SetupScene()
         {
-
             Boss_MaxHealth = 500.0f;
             Hero_MaxHealth = 500.0f;
             Boss_CurrentHealth = Boss_MaxHealth;

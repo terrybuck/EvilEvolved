@@ -53,6 +53,11 @@ namespace EvilutionClass
 
             void _start_button_ButtonClick(object sender, EvilutionButton_Event e)
             {
+                if (null != mp)
+                {
+                    mp.Pause();
+                    mp.PlaybackSession.Position = TimeSpan.Zero;
+                }
                 // create the scene switch message to switch the current scene to the main game scene
                 Message_SceneSwitch mss = new Message_SceneSwitch("Generic Title Scene");
                 MessageManager.AddMessageItem(mss);

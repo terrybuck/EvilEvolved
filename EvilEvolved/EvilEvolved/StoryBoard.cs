@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.Media.Playback;
 
 namespace EvilutionClass
 {
@@ -22,6 +23,7 @@ namespace EvilutionClass
         /// <param name="input">The input item if any.</param>
         public static bool Update(TimeSpan dt, GenericMessage message)
         {
+            
             // The STORYBOARD should only response to Low Level Game Events like SceneSwitch
             if (message is Message_SceneSwitch)
             {
@@ -36,6 +38,9 @@ namespace EvilutionClass
                     // switch and kill the message
                     CurrentScene = SceneDictionary[mss.TargetScene];
                     CurrentScene.Reset();
+
+                    if(AudioManager.AudioDictionary.TryGetValue(mss.TargetScene, out CurrentScene.mp))
+                        CurrentScene.mp.Play();
                 }
 
                 return true;
@@ -90,5 +95,6 @@ namespace EvilutionClass
         /// The StoryBoard history.  This acts like a something of a web history.
         /// </summary>
         public static Stack<GenericScene> SceneHistory = new Stack<GenericScene>();
+
     }
 }

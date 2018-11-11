@@ -21,6 +21,8 @@ using Windows.Graphics.Imaging;
 using Windows.System;
 using static EvilutionClass.MouseGenericInput;
 using static EvilutionClass.GenericKeyboardInput;
+using Windows.Media.Playback;
+using Windows.Media.Core;
 
 namespace Evilution
 {
@@ -45,6 +47,9 @@ namespace Evilution
             //set parent canvas for image manager
             ImageManager.ParentCanvas = sender;
 
+
+
+
             #region -------[Load images]
 
             await ImageManager.AddImage("Hero", @"Assets/Hero.gif");
@@ -52,6 +57,14 @@ namespace Evilution
             await ImageManager.AddImage("Boss", @"Assets/BossEdit.png");
             await ImageManager.AddImage("Title", @"Assets/Evilution.png");
             await ImageManager.AddImage("GameOver", @"Assets/GameOver.png");
+
+            #endregion
+
+            #region -------[Load audio]
+
+            await AudioManager.AddAudio("Generic Title Scene", "TitleTheme.mp3");
+            await AudioManager.AddAudio("Main Game Scene", "BattleTheme.mp3");
+            await AudioManager.AddAudio("Game Over Scene", "GameOver.mp3");
 
             #endregion
 

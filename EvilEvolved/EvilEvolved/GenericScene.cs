@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using Microsoft.Graphics.Canvas;
-
+using Windows.Media.Playback;
 
 namespace EvilutionClass
 {
@@ -127,6 +127,7 @@ namespace EvilutionClass
             
         }
 
+
         #region [Helpers Functions -------------------------------------------]
 
         /// <summary>
@@ -170,6 +171,8 @@ namespace EvilutionClass
         protected int _width;
         protected int _height;
 
+        public MediaPlayer mp;
+
         #endregion
 
         //TODO: remove on release or turn into test cases
@@ -185,6 +188,5 @@ namespace EvilutionClass
         public bool IsSKeyPress { get; set; }
         public bool IsDKeyPress { get; set; }
         #endregion
-
     }
 }

@@ -25,7 +25,7 @@ namespace EvilutionClass
         public EvilutionButton(string text = "", Color foreground_color = default(Color), uint width = 100, uint height = 50)
             : base(text, foreground_color, width, height)
         {
-            this.HighlightBorderColor = Colors.Lime;
+            this.HighlightBorderColor = Colors.OrangeRed;
         }
 
         /// <summary>
@@ -77,24 +77,31 @@ namespace EvilutionClass
             // the bounding rectangle
             Windows.Foundation.Rect r = new Windows.Foundation.Rect(Location.X, Location.Y, Size.Width, Size.Height);
 
-            // draw the border
-            if (IsHover)
-            {
-                cds.DrawRectangle(r, HighlightBorderColor);
-            }
-            else
-            {
-                cds.DrawRectangle(r, BorderColor);
-            }
-
             // create the text description
             Microsoft.Graphics.Canvas.Text.CanvasTextFormat ctf = new Microsoft.Graphics.Canvas.Text.CanvasTextFormat();
             ctf.VerticalAlignment = Microsoft.Graphics.Canvas.Text.CanvasVerticalAlignment.Center;
             ctf.HorizontalAlignment = Microsoft.Graphics.Canvas.Text.CanvasHorizontalAlignment.Center;
-            ctf.FontSize = this.FontSize;
+            ctf.FontSize = 26;
+            ctf.FontFamily = "Snap ITC";
 
-            // draw the text
-            cds.DrawText(Text, r, ForegroundColor, ctf);
+            // draw the border
+            if (IsHover)
+            {
+         //       cds.DrawRectangle(r, HighlightBorderColor);
+                // draw the text
+                cds.DrawText(Text, r, HighlightBorderColor, ctf);
+            }
+            else
+            {
+         //       cds.DrawRectangle(r, BorderColor);
+                // draw the text
+                cds.DrawText(Text, r, ForegroundColor, ctf);
+            }
+
+
+
+
+
         }
 
         /// <summary>
