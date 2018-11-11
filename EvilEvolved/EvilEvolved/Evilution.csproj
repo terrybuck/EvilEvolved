@@ -8,7 +8,7 @@
     <OutputType>AppContainerExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>EvilEvolved</RootNamespace>
-    <AssemblyName>EvilEvolved</AssemblyName>
+    <AssemblyName>Evilution</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.17134.0</TargetPlatformVersion>
@@ -134,10 +134,14 @@
     <Content Include="Assets\arrow.png" />
     <Content Include="Assets\BattleTheme.mp3" />
     <Content Include="Assets\BossEdit.png" />
+    <Content Include="Assets\Boss_Hurt.png" />
     <Content Include="Assets\Evilution.png" />
     <Content Include="Assets\GameOver.mp3" />
     <Content Include="Assets\GameOver.png" />
     <Content Include="Assets\Hero.gif" />
+    <Content Include="Assets\Hero_Left_1.gif" />
+    <Content Include="Assets\Hero_Right_1.gif" />
+    <Content Include="Assets\Hero_Up_1.gif" />
     <Content Include="Assets\TitleTheme.mp3" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />

@@ -37,7 +37,10 @@ namespace EvilutionClass
             if (input is GenericKeyboardInput)
             {
                 GenericKeyboardInput gki = (GenericKeyboardInput)input;
+                DirectionIn = new Vector2(DirectionX, DirectionY);
                 DetermineDirection(gki);
+                DirectionOut = new Vector2(DirectionX, DirectionY);
+                AnimateHero();
             } 
 
             //on mouse click launch an attack
@@ -99,11 +102,47 @@ namespace EvilutionClass
             }
         }
 
+        public void AnimateHero()
+        {
+            if (DirectionChanged())
+            {
+                if (DirectionY < 0)
+                {
+                    this.SetBitmapFromImageDictionary("Hero_Up_1");
+                }
+                else if (DirectionY > 0)
+                {
+                    this.SetBitmapFromImageDictionary("Hero");
+                }
+                else if (DirectionX > 0)
+                {
+                    this.SetBitmapFromImageDictionary("Hero_Right_1");
+                }
+                else
+                {
+                    this.SetBitmapFromImageDictionary("Hero_Left_1");
+                }
+            }
+        }
+
+        private bool DirectionChanged()
+        {
+            return (DirectionIn != DirectionOut);
+        }
+
+
         #region -----[Properties]
         public float Velocity { get; set; }
         public float DirectionX { get; set; }
         public float DirectionY { get; set; }
+
+        private Vector2 DirectionIn;
+        private Vector2 DirectionOut;
+
+
         public int Hitpoints { get; set; }
+        DateTime LastAnimation { get; set; }
+        TimeSpan TimeSinceAnimation { get; set; }
         #endregion
 
 

@@ -233,7 +233,7 @@ namespace EvilutionClass
             HeroHitbox = hero.BoundingRectangle;
 
             Boss boss = new Boss("Boss");
-            boss.Location = new System.Numerics.Vector2(1000, 70);
+            boss.Location = new System.Numerics.Vector2(1000, 150);
             boss.SetBitmapFromImageDictionary("Boss");
             this.AddObject(boss);
             BossHitbox = boss.BoundingRectangle;

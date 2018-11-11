@@ -31,8 +31,6 @@ namespace EvilutionClass
         public override void Update(TimeSpan dt, GenericInput input)
         {
             base.Update(dt, input);
- //           CenterObject(_title_label, true, false);
- //           CenterObject(_start_button);
         }
 
 

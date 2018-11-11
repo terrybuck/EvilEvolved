@@ -94,7 +94,6 @@ namespace EvilutionClass
         {
         }
 
-
         //Properties
         public string Name { get; set; }
         public Vector2 Location { get; set; }
