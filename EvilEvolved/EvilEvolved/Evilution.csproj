@@ -99,6 +99,7 @@
     <Compile Include="Game_Elements\Attack.cs" />
     <Compile Include="Game_Elements\Boss.cs" />
     <Compile Include="Game_Elements\Hero.cs" />
+    <Compile Include="Game_Elements\Sprite.cs" />
     <Compile Include="GenericMessage.cs" />
     <Compile Include="GUI_Elements\EvilutionButton.cs" />
     <Compile Include="GUI_Elements\EvilutionLabel.cs" />

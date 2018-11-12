@@ -58,6 +58,7 @@ namespace EvilutionClass
             ctf.VerticalAlignment = Microsoft.Graphics.Canvas.Text.CanvasVerticalAlignment.Center;
             ctf.HorizontalAlignment = Microsoft.Graphics.Canvas.Text.CanvasHorizontalAlignment.Center;
             ctf.FontSize = FontSize;
+            ctf.FontFamily = "Snap ITC";
 
             // draw the text
             cds.DrawText(Text, r, ForegroundColor, ctf);

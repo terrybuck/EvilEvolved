@@ -10,7 +10,7 @@ using Windows.Graphics.Imaging;
 
 namespace EvilutionClass
 {
-    public class Hero : GenericItem
+    public class Hero : Sprite
     {
 
         /// <summary>
@@ -24,6 +24,11 @@ namespace EvilutionClass
             Velocity = (float)(15.0/60.0);
             DirectionY = 0;
             DirectionX = 0;
+            ArrowRange = 100;
+            ArrowDamage = 100.0f;
+            MaxHealth = 500.0f;
+            CurrentHealth = MaxHealth;
+
         }
 
         /// <summary>
@@ -51,12 +56,12 @@ namespace EvilutionClass
                 if (mgi.MouseInputType == MouseGenericInput.MouseGenericInputType.MouseClick && (DirectionX*DirectionX + DirectionY * DirectionY) != 0)
                 {
                     // create the scene switch message to switch the current scene to the top score scene
-                    Message_Attack heroAttack = new Message_Attack("Arrow", this.DirectionX, this.DirectionY, Location, Message_Attack.AttackType.Hero_Arrow, 100, 100.0f);
+                    Message_Attack heroAttack = new Message_Attack("Arrow", this.DirectionX, this.DirectionY, Location, Message_Attack.AttackType.Hero_Arrow, ArrowRange, ArrowDamage);
                     MessageManager.AddMessageItem(heroAttack);
                 }
             }
             //update hero location 
-            this.Location = new Vector2(this.Location.X + (float)(DirectionX * Velocity * dt.Milliseconds), this.Location.Y + (float)(DirectionY * Velocity * dt.Milliseconds));
+            SetLocation(dt);
         }
 
         /// <summary>
@@ -76,10 +81,6 @@ namespace EvilutionClass
             {
                 this.DirectionY += 1;
             }
-            //if (!gki.IsWKeyPress && !gki.IsSKeyPress || gki.IsWKeyPress && gki.IsSKeyPress)
-            //{
-            //    this.DirectionY = 0;
-            //}
             if (gki.IsAKeyPress)
             {
                 this.DirectionX -= 1;
@@ -88,10 +89,6 @@ namespace EvilutionClass
             {
                 this.DirectionX += 1;
             }
-            //if (!gki.IsAKeyPress && !gki.IsDKeyPress || gki.IsAKeyPress && gki.IsDKeyPress)
-            //{
-            //    this.DirectionX = 0;
-            //}
 
             //normally id take sqrt(x^2/x^2+y^2) but knowing that x is 1 or -1 and y is -1 or 1 we can cheat :)
             //this way the comp does less math, and we dont need to extract the negative to get the direction.. woohoo
@@ -132,17 +129,16 @@ namespace EvilutionClass
 
 
         #region -----[Properties]
-        public float Velocity { get; set; }
-        public float DirectionX { get; set; }
-        public float DirectionY { get; set; }
 
         private Vector2 DirectionIn;
         private Vector2 DirectionOut;
 
-
-        public int Hitpoints { get; set; }
         DateTime LastAnimation { get; set; }
         TimeSpan TimeSinceAnimation { get; set; }
+
+        int ArrowRange;
+        float ArrowDamage;
+
         #endregion
 
 

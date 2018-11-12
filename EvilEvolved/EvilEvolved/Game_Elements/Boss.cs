@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace EvilutionClass
 {
-    class Boss : GenericItem
+    public class Boss : Sprite
     {
         /// <summary>
         /// Create a Monster/Boss for the hero to battle against.
@@ -19,11 +19,15 @@ namespace EvilutionClass
 
             TimeBetweenAttacks = 1000;
             LastAttack = DateTime.Now;
+
             Velocity = (float)(1.0 / 60.0);
             DirectionY = 0;
             DirectionX = 0;
-            //MaxHealth = 500.0f;
-            //CurrentHealth = 500.0f;
+
+            LastCollision = DateTime.Now;
+
+            MaxHealth = 500.0f;
+            CurrentHealth = 500.0f;
 
         }
 
@@ -46,9 +50,9 @@ namespace EvilutionClass
                     MessageManager.AddMessageItem(BossAttack);
                     LastAttack = DateTime.Now;
                 }
-            
-                //Update bosses location on call to update
-            this.Location = new Vector2(this.Location.X + (float)(DirectionX * Velocity * dt.Milliseconds), this.Location.Y + (float)(DirectionY * Velocity * dt.Milliseconds));
+
+            //Update bosses location on call to update
+            SetLocation(dt);
 
         }
 
@@ -84,11 +88,9 @@ namespace EvilutionClass
         public int TimeBetweenAttacks { get; set; }
         DateTime LastAttack { get; set; }
         TimeSpan TimeSinceAttack { get; set; }
-        public float Velocity { get; set; }
-        public float DirectionX { get; set; }
-        public float DirectionY { get; set; }
         public Vector2 HeroLocation { get; set; }
         public int Level { get; set; }
+        public bool HurtImage = false;
 
         #endregion
 

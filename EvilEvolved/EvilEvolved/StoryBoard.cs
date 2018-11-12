@@ -27,6 +27,12 @@ namespace EvilutionClass
             // The STORYBOARD should only response to Low Level Game Events like SceneSwitch
             if (message is Message_SceneSwitch)
             {
+                if (null != CurrentScene.mp)
+                {
+                    CurrentScene.mp.Pause();
+                    CurrentScene.mp.PlaybackSession.Position = TimeSpan.Zero;
+                }
+
                 Message_SceneSwitch mss = message as Message_SceneSwitch;
 
                 // find the scene

@@ -34,7 +34,7 @@ namespace EvilutionClass
         }
 
 
-        public void SetupScene()
+        public override void SetupScene()
         {
             // design the scene manually   
             //Title scene is the only sene that starts playing audio by default
@@ -85,17 +85,11 @@ namespace EvilutionClass
             }
             void _start_button_ButtonClick(object sender, EvilutionButton_Event e)
             {
-                if (null != mp)
-                {
-                    mp.Pause();
-                    mp.PlaybackSession.Position = TimeSpan.Zero;
-                }
                 // create the scene switch message to switch the current scene to the main game scene
                 Message_SceneSwitch mss = new Message_SceneSwitch("Main Game Scene");
                 MessageManager.AddMessageItem(mss);
             }
-
-        }
+    }
         //private EvilutionLabel _title_label;
         private EvilutionButton _start_button;
         private EvilutionButton _top_score_button;

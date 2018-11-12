@@ -9,6 +9,7 @@ using Windows.Media.Playback;
 using Windows.Media;
 using Windows.UI;
 using Windows.UI.Xaml;
+using Microsoft.Graphics.Canvas;
 
 namespace EvilutionClass
 {
@@ -26,27 +27,6 @@ namespace EvilutionClass
         {
             this._width = width;
             this._height = height;
- 
-            
-
-            //sets the bosses health
-            Boss_MaxHealth = 500.0f;
-            Boss_CurrentHealth = Boss_MaxHealth;
-            
-            //sets the hero's health
-            Hero_MaxHealth = 500.0f;
-            Hero_CurrentHealth = Hero_MaxHealth;
-
-            //variables used to determine if the hero is invulnerable
-            LastHeroCollision = DateTime.Now;
-            Hero_iFrames = 50;
-
-            //variables used to determine if the boss is invulnerable
-            LastBossCollision = DateTime.Now;
-            Boss_iFrames = 50;
-            Boss_Level_Up = false;
-
-
 
             //Keep track of score
             Score = 0.0f;
@@ -62,35 +42,35 @@ namespace EvilutionClass
         /// <param name="input"> Generic input </param>
         public override void Update(TimeSpan dt, GenericInput input)
         {
-            if(mp.PlaybackSession.PlaybackState != MediaPlaybackState.Playing)
+            if (mp.PlaybackSession.PlaybackState != MediaPlaybackState.Playing)
             {
                 mp.PlaybackSession.Position = TimeSpan.Zero;
                 mp.Play();
+            }
+
+            foreach (Hero hero in heros)
+            {
+                //update each generic item
+                hero.Update(dt, input);
+            }
+            foreach (Boss boss in villains)
+            {
+                //update each generic item
+                boss.Update(dt, input);
+                boss.TimeSinceCollision = DateTime.Now - boss.LastCollision;
+                if(boss.TimeSinceCollision.TotalMilliseconds > 300 && boss.HurtImage)
+                {
+                    boss.SetBitmapFromImageDictionary("Boss");
+                }
+                foreach (Hero hero in heros)
+                {
+                    boss.HeroLocation = hero.Location;
+                }
             }
             foreach (GenericItem gi in objects)
             {
                 //update each generic item
                 gi.Update(dt, input);
-
-                //give the boss the Hero's location and update the scene with the location of the boss
-                if (gi is Boss boss)
-                {
-                    if (Boss_Level_Up)
-                    {
-                        boss.Level += 1;
-                        boss.TimeBetweenAttacks = 250 + 750 / boss.Level;
-                        boss.Velocity += (0.5f / 60.0f);
-                        Boss_Level_Up = false;
-                    }
-                    boss.HeroLocation = new Vector2((float)HeroHitbox.Left + (float)(HeroHitbox.Width / 2), (float)HeroHitbox.Y + (float)(HeroHitbox.Height / 2));
-                    BossHitbox = gi.BoundingRectangle;
-                }
-
-                //update the scene with the location of the hero
-                if (gi is Hero)
-                {
-                    HeroHitbox = gi.BoundingRectangle;
-                }
 
                 //find out if any of the attacks landed
                 if (gi is Attack)
@@ -100,29 +80,36 @@ namespace EvilutionClass
                     {
                         case (Attack.AttackType.Hero_Arrow):
                             {
-
-                                if (RectHelper.Intersect(BossHitbox, gi.BoundingRectangle) != Rect.Empty)
+                                foreach (Boss boss in villains)
                                 {
-                                    TimeSinceBossCollision = DateTime.Now - LastBossCollision;
-                                    if (TimeSinceBossCollision.TotalMilliseconds > Boss_iFrames)
+                                    if (RectHelper.Intersect(boss.BoundingRectangle, gi.BoundingRectangle) != Rect.Empty)
                                     {
-                                        Message_Collision boss_collision = new Message_Collision("Arrow", gi, Attack.AttackType.Hero_Arrow, attack.Damage);
-                                        MessageManager.AddMessageItem(boss_collision);
-                                        LastBossCollision = DateTime.Now;
+                                        boss.TimeSinceCollision = DateTime.Now - boss.LastCollision;
+                                        if (boss.TimeSinceCollision.TotalMilliseconds > boss.iFrames)
+                                        {
+                                            Message_Collision boss_collision = new Message_Collision("Arrow", gi, Attack.AttackType.Hero_Arrow, attack.Damage);
+                                            MessageManager.AddMessageItem(boss_collision);
+                                            boss.LastCollision = DateTime.Now;
+                                            boss.SetBitmapFromImageDictionary("BossHurt");
+                                            boss.HurtImage = true;
+                                        }
                                     }
                                 }
                                 break;
                             }
                         case (Attack.AttackType.Boss_Arrow):
                             {
-                                if (RectHelper.Intersect(HeroHitbox, gi.BoundingRectangle) != Rect.Empty)
+                                foreach (Hero hero in heros)
                                 {
-                                    TimeSinceHeroCollision = DateTime.Now - LastHeroCollision;
-                                    if (TimeSinceHeroCollision.TotalMilliseconds > Hero_iFrames)
+                                    if (RectHelper.Intersect(hero.BoundingRectangle, gi.BoundingRectangle) != Rect.Empty)
                                     {
-                                        Message_Collision hero_collision = new Message_Collision("Arrow", gi, Attack.AttackType.Boss_Arrow, attack.Damage);
-                                        MessageManager.AddMessageItem(hero_collision);
-                                        LastHeroCollision = DateTime.Now;
+                                        hero.TimeSinceCollision = DateTime.Now - hero.LastCollision;
+                                        if (hero.TimeSinceCollision.TotalMilliseconds > hero.iFrames)
+                                        {
+                                            Message_Collision hero_collision = new Message_Collision("Arrow", gi, Attack.AttackType.Boss_Arrow, attack.Damage);
+                                            MessageManager.AddMessageItem(hero_collision);
+                                            hero.LastCollision = DateTime.Now;
+                                        }
                                     }
                                 }
                                 break;
@@ -142,7 +129,18 @@ namespace EvilutionClass
                 //update each generic item
                 gi.Update(dt, message);
             }
-                if (message is Message_Attack)
+            foreach (Hero hero in heros)
+            {
+                //update each generic item
+                hero.Update(dt, message);
+            }
+            foreach (Boss boss in villains)
+            {
+                //update each generic item
+                boss.Update(dt, message);
+            }
+
+            if (message is Message_Attack)
                 {
 
                     Message_Attack mhe = (Message_Attack)message;
@@ -173,52 +171,123 @@ namespace EvilutionClass
                     switch (attackInfo.Type)
                     {
                         case (Attack.AttackType.Boss_Arrow):
+                        {
+                            foreach (Hero hero in heros)
                             {
-                                Hero_CurrentHealth -= attackInfo.Damage;
+                                hero.CurrentHealth -= attackInfo.Damage;
                                 objects.Remove(attackInfo.CollisionItem);
-                                break;
                             }
+                            break;
+                        }
                         case (Attack.AttackType.Hero_Arrow):
+                            {
+                            foreach (Boss boss in villains)
                             {
                                 Score += attackInfo.Damage;
                                 _score_label.UpdateText("SCORE: " + Score);
-                                Boss_CurrentHealth -= attackInfo.Damage;
+                                boss.CurrentHealth -= attackInfo.Damage;
                                 objects.Remove(attackInfo.CollisionItem);
+                            }
                                 break;
                             }
                     }
-                    if (Hero_CurrentHealth <= 0.0f)
+                foreach (Hero hero in heros)
+                {
+                    if (hero.CurrentHealth <= 0.0f)
                     {
-                        if (null != mp)
-                        {
-                            mp.Pause();
-                            mp.PlaybackSession.Position = TimeSpan.Zero;
-                        }
-
-                        objects.Clear();
-                        SetupScene();
+                        game_over = true;
+                        break;
+                    }
+                }
+                if (game_over)
+                { 
                         Message_SceneSwitch mss = new Message_SceneSwitch("Game Over Scene");
                         MessageManager.AddMessageItem(mss);
-                    }
-                    if (Boss_CurrentHealth <= 0.0f)
-                    {
-                        Boss_Level_Up = true;
-                        Boss_MaxHealth += 100;
-                        Boss_CurrentHealth = Boss_MaxHealth;
-                    }
-                
+                }
 
+                foreach (Boss boss in villains)
+                {
+                    if (boss.CurrentHealth <= 0.0f)
+                    {
+                        boss.Level += 1;
+                        boss.MaxHealth += 100;
+                        boss.CurrentHealth = boss.MaxHealth;
+                    }
+
+                }
             }
         }
 
-        public void SetupScene()
+        public override void Reset()
         {
-            Boss_MaxHealth = 500.0f;
-            Hero_MaxHealth = 500.0f;
-            Boss_CurrentHealth = Boss_MaxHealth;
-            Hero_CurrentHealth = Hero_MaxHealth;
+            objects.Clear();
+            heros.Clear();
+            villains.Clear();
+            SetupScene();
+        }
+
+
+        public override bool AddObject(GenericItem gi)
+        {
+            if (gi is Hero)
+            {
+                if (null == heros)
+                    return false;
+                int size_before_add = heros.Count;
+                Hero hero = (Hero)gi;
+                heros.Add(hero);
+                int size_after_add = heros.Count;
+                if (size_after_add > size_before_add)
+                    return true;
+            }
+            if (gi is Boss)
+            {
+                if (null == villains)
+                    return false;
+                int size_before_add = villains.Count;
+                Boss boss = (Boss)gi;
+                villains.Add(boss);
+                int size_after_add = villains.Count;
+                if (size_after_add > size_before_add)
+                    return true;
+            }
+            else
+            {
+                if (null == objects)
+                    return false;
+
+                int size_before_add = objects.Count;
+                objects.Add(gi);
+                int size_after_add = objects.Count;
+                if (size_after_add > size_before_add)
+                    return true;
+            }
+            return false;
+
+        }
+        public override void Draw(CanvasDrawingSession cds)
+        {
+
+            foreach (GenericItem gi in objects)
+            {
+                gi.Draw(cds);
+            }
+            foreach (Hero hero in heros)
+            {
+                hero.Draw(cds);
+            }
+            foreach (Boss boss in villains)
+            {
+                boss.Draw(cds);
+            }
+
+        }
+
+        public override void SetupScene()
+        {
 
             Score = 0.0f;
+            game_over = false;
 
             _score_label = new EvilutionLabel("SCORE: " + Score, Colors.White, (uint)(this._width * 0.90f), 100);
             _score_label.Y = 20;
@@ -227,44 +296,28 @@ namespace EvilutionClass
             this.AddObject(_score_label);
 
             Hero hero = new Hero("Hero");
-            hero.Location = new System.Numerics.Vector2(700,700);
+            hero.Location = new System.Numerics.Vector2(700, 700);
             hero.SetBitmapFromImageDictionary("Hero");
             this.AddObject(hero);
-            HeroHitbox = hero.BoundingRectangle;
+
 
             Boss boss = new Boss("Boss");
             boss.Location = new System.Numerics.Vector2(1000, 150);
             boss.SetBitmapFromImageDictionary("Boss");
             this.AddObject(boss);
-            BossHitbox = boss.BoundingRectangle;
 
         }
 
-
-
         //properties
-        Rect HeroHitbox;
-        Rect BossHitbox;
 
-        //currently making the scene keep the hero and boss health.... I dont like this but it's simple for now and limits the input messages needed
-        //I'd prefer to have the Hero and Boss HP as attributes of the hero and Boss
-        public float Boss_MaxHealth { get; set; }
-        public float Boss_CurrentHealth { get; set; }
-        public float Hero_MaxHealth { get; set; }
-        public float Hero_CurrentHealth { get; set; }
+        //Makeing seperate lists for heros/villains
+        protected List<Hero> heros = new List<Hero>();
+        protected List<Boss> villains = new List<Boss>();
+        bool game_over = false;
 
-        //properties to set I-Frames for hero and boss so they dont get hit multiple times by 1 attack
-        TimeSpan TimeSinceHeroCollision { get; set; }
-        DateTime LastHeroCollision { get; set; }
-        int Hero_iFrames { get; set; }
-        TimeSpan TimeSinceBossCollision { get; set; }
-        DateTime LastBossCollision { get; set; }
-        int Boss_iFrames { get; set; }
-
-        //indicates to the boss that he has died and thereby leveled up
-        bool Boss_Level_Up { get; set; }
 
         private EvilutionLabel _score_label;
         float Score { get; set; }
+
     }
 }

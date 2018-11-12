@@ -17,7 +17,7 @@ namespace EvilutionClass
         /// </summary>
         /// <param name="name">The name of the scene if any.</param>
         public GenericScene(string name)
-            :base(name)
+            : base(name)
         {
         }
 
@@ -88,7 +88,7 @@ namespace EvilutionClass
         /// </summary>
         /// <param name="gi">A GenericItem to add.</param>
         /// <returns>Returns true if the object was successfully inserted.  Else false.</returns>
-        public bool AddObject(GenericItem gi)
+        public virtual bool AddObject(GenericItem gi)
         {
             if (null == objects)
                 return false;
@@ -124,7 +124,7 @@ namespace EvilutionClass
             if (size_after_remove < size_before_remove)
                 return true;
             return false;
-            
+
         }
 
 
@@ -164,6 +164,17 @@ namespace EvilutionClass
         }
 
         #endregion
+
+        public virtual void SetupScene()
+        {
+        }
+
+        public override void Reset()
+        {
+            objects.Clear();
+            SetupScene();
+        }
+
 
         #region [Properties --------------------------------------------------]
         protected List<GenericItem> objects = new List<GenericItem>();
