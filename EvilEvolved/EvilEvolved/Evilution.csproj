@@ -100,6 +100,7 @@
     <Compile Include="Game_Elements\Boss.cs" />
     <Compile Include="Game_Elements\Hero.cs" />
     <Compile Include="Game_Elements\Sprite.cs" />
+    <Compile Include="Game_Elements\Villain.cs" />
     <Compile Include="GenericMessage.cs" />
     <Compile Include="GUI_Elements\EvilutionButton.cs" />
     <Compile Include="GUI_Elements\EvilutionLabel.cs" />
@@ -143,6 +144,8 @@
     <Content Include="Assets\Hero_Left_1.gif" />
     <Content Include="Assets\Hero_Right_1.gif" />
     <Content Include="Assets\Hero_Up_1.gif" />
+    <Content Include="Assets\MinionLeft.png" />
+    <Content Include="Assets\MinionRight.png" />
     <Content Include="Assets\TitleTheme.mp3" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />

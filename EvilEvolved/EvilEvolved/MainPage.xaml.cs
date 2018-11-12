@@ -56,8 +56,13 @@ namespace Evilution
             await ImageManager.AddImage("Hero_Up_1", @"Assets/Hero_Up_1.gif");
             await ImageManager.AddImage("Hero_Right_1", @"Assets/Hero_Right_1.gif");
             await ImageManager.AddImage("Hero_Left_1", @"Assets/Hero_Left_1.gif");
-
             await ImageManager.AddImage("Hero", @"Assets/Hero.gif");
+
+            //Minion Images
+            await ImageManager.AddImage("MinionLeft", @"Assets/MinionLeft.png");
+            await ImageManager.AddImage("MinionRight", @"Assets/MinionRight.png");
+
+            //
             await ImageManager.AddImage("Arrow", @"Assets/Arrow.png");
             await ImageManager.AddImage("Boss", @"Assets/BossEdit.png");
             await ImageManager.AddImage("BossHurt", @"Assets/Boss_Hurt.png");

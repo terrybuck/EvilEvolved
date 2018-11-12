@@ -53,18 +53,23 @@ namespace EvilutionClass
                 //update each generic item
                 hero.Update(dt, input);
             }
-            foreach (Boss boss in villains)
+            foreach (Villain villain in villains)
             {
-                //update each generic item
-                boss.Update(dt, input);
-                boss.TimeSinceCollision = DateTime.Now - boss.LastCollision;
-                if(boss.TimeSinceCollision.TotalMilliseconds > 300 && boss.HurtImage)
+                //reset the bosses hit image to default image after 300ms of no hits
+                if (villain is Boss)
                 {
-                    boss.SetBitmapFromImageDictionary("Boss");
+                    //update each generic item
+                    villain.Update(dt, input);
+                    villain.TimeSinceCollision = DateTime.Now - villain.LastCollision;
+                    if (villain.TimeSinceCollision.TotalMilliseconds > 300 && villain.HurtImage)
+                    {
+                        villain.SetBitmapFromImageDictionary("Boss");
+                    }
                 }
+                //update the hero's location to each villain
                 foreach (Hero hero in heros)
                 {
-                    boss.HeroLocation = hero.Location;
+                    villain.HeroLocation = hero.Location;
                 }
             }
             foreach (GenericItem gi in objects)
@@ -72,7 +77,7 @@ namespace EvilutionClass
                 //update each generic item
                 gi.Update(dt, input);
 
-                //find out if any of the attacks landed
+                //find out if any of the attacks hit the villains or hero
                 if (gi is Attack)
                 {
                     Attack attack = (Attack)gi;
@@ -80,18 +85,21 @@ namespace EvilutionClass
                     {
                         case (Attack.AttackType.Hero_Arrow):
                             {
-                                foreach (Boss boss in villains)
+                                foreach (Villain villain in villains)
                                 {
-                                    if (RectHelper.Intersect(boss.BoundingRectangle, gi.BoundingRectangle) != Rect.Empty)
+                                    if (RectHelper.Intersect(villain.BoundingRectangle, gi.BoundingRectangle) != Rect.Empty)
                                     {
-                                        boss.TimeSinceCollision = DateTime.Now - boss.LastCollision;
-                                        if (boss.TimeSinceCollision.TotalMilliseconds > boss.iFrames)
+                                        villain.TimeSinceCollision = DateTime.Now - villain.LastCollision;
+                                        if (villain.TimeSinceCollision.TotalMilliseconds > villain.iFrames)
                                         {
-                                            Message_Collision boss_collision = new Message_Collision("Arrow", gi, Attack.AttackType.Hero_Arrow, attack.Damage);
-                                            MessageManager.AddMessageItem(boss_collision);
-                                            boss.LastCollision = DateTime.Now;
-                                            boss.SetBitmapFromImageDictionary("BossHurt");
-                                            boss.HurtImage = true;
+                                            Message_Collision villain_collision = new Message_Collision("Arrow", gi, villain);
+                                            MessageManager.AddMessageItem(villain_collision);
+                                            villain.LastCollision = DateTime.Now;
+                                            if (villain is Boss)
+                                            {
+                                                villain.SetBitmapFromImageDictionary("BossHurt");
+                                                villain.HurtImage = true;
+                                            }
                                         }
                                     }
                                 }
@@ -106,7 +114,7 @@ namespace EvilutionClass
                                         hero.TimeSinceCollision = DateTime.Now - hero.LastCollision;
                                         if (hero.TimeSinceCollision.TotalMilliseconds > hero.iFrames)
                                         {
-                                            Message_Collision hero_collision = new Message_Collision("Arrow", gi, Attack.AttackType.Boss_Arrow, attack.Damage);
+                                            Message_Collision hero_collision = new Message_Collision("Arrow", gi, hero);
                                             MessageManager.AddMessageItem(hero_collision);
                                             hero.LastCollision = DateTime.Now;
                                         }
@@ -141,82 +149,90 @@ namespace EvilutionClass
             }
 
             if (message is Message_Attack)
+            {
+                Message_Attack mhe = (Message_Attack)message;
+
+                switch (mhe.Type)
                 {
-
-                    Message_Attack mhe = (Message_Attack)message;
-
-                    switch (mhe.Type)
-                    {
-                        case (Message_Attack.AttackType.Hero_Arrow):
-                            {
-                                //TODO: add range and damage properties to a type of attack and pass it to the item rather than use magic numbers
-                                Attack attack = new Attack(mhe.Name, mhe.DirectionX, mhe.DirectionY, mhe.Location, Attack.AttackType.Hero_Arrow, 100, 100.0f);
-                                attack.SetBitmapFromImageDictionary("Arrow");
-                                this.AddObject(attack);
-                                break;
-                            }
-                        case (Message_Attack.AttackType.Boss_Arrow):
-                            {
-                                Attack arrow = new Attack(mhe.Name, mhe.DirectionX, mhe.DirectionY, mhe.Location, Attack.AttackType.Boss_Arrow, 200, 100.0f);
-                                arrow.SetBitmapFromImageDictionary("Arrow");
-                                this.AddObject(arrow);
-                                break;
-                            }
-                    }
-                }
-
-                if (message is Message_Collision)
-                {
-                    Message_Collision attackInfo = (Message_Collision)message;
-                    switch (attackInfo.Type)
-                    {
-                        case (Attack.AttackType.Boss_Arrow):
+                    case (Message_Attack.AttackType.Hero_Arrow):
                         {
-                            foreach (Hero hero in heros)
-                            {
-                                hero.CurrentHealth -= attackInfo.Damage;
-                                objects.Remove(attackInfo.CollisionItem);
-                            }
+                            //TODO: add range and damage properties to a type of attack and pass it to the item rather than use magic numbers
+                            Attack attack = new Attack(mhe.Name, mhe.DirectionX, mhe.DirectionY, mhe.Location, Attack.AttackType.Hero_Arrow, 100, 100.0f);
+                            attack.SetBitmapFromImageDictionary("Arrow");
+                            this.AddObject(attack);
                             break;
                         }
-                        case (Attack.AttackType.Hero_Arrow):
-                            {
-                            foreach (Boss boss in villains)
-                            {
-                                Score += attackInfo.Damage;
-                                _score_label.UpdateText("SCORE: " + Score);
-                                boss.CurrentHealth -= attackInfo.Damage;
-                                objects.Remove(attackInfo.CollisionItem);
-                            }
-                                break;
-                            }
-                    }
-                foreach (Hero hero in heros)
-                {
-                    if (hero.CurrentHealth <= 0.0f)
-                    {
-                        game_over = true;
-                        break;
-                    }
-                }
-                if (game_over)
-                { 
-                        Message_SceneSwitch mss = new Message_SceneSwitch("Game Over Scene");
-                        MessageManager.AddMessageItem(mss);
-                }
-
-                foreach (Boss boss in villains)
-                {
-                    if (boss.CurrentHealth <= 0.0f)
-                    {
-                        boss.Level += 1;
-                        boss.MaxHealth += 100;
-                        boss.CurrentHealth = boss.MaxHealth;
-                    }
-
+                    case (Message_Attack.AttackType.Minion_Arrow):
+                        {
+                            Attack arrow = new Attack(mhe.Name, mhe.DirectionX, mhe.DirectionY, mhe.Location, Attack.AttackType.Boss_Arrow, 200, 100.0f);
+                            arrow.SetBitmapFromImageDictionary("Arrow");
+                            this.AddObject(arrow);
+                            break;
+                        }
                 }
             }
+
+            //if two generic items on the canvas have collided find out what collided and apply aprpriate damage
+            if (message is Message_Collision)
+            {
+                Message_Collision attackInfo = (Message_Collision)message;
+
+                if (attackInfo.CollisionObject is Attack)
+                {
+                    Attack attack = (Attack)attackInfo.CollisionObject;
+
+                    if (attackInfo.Victim is Boss)
+                    {
+                        Boss boss = (Boss)attackInfo.Victim;
+                            boss.CurrentHealth -= attack.Damage;
+                            Score += attack.Damage;
+                            _score_label.UpdateText("SCORE: " + Score);
+                            objects.Remove(attackInfo.CollisionObject);
+                      
+                        if (boss.CurrentHealth <= 0.0f)
+                        {
+                            boss.Level += 1;
+                            boss.MaxHealth += 100;
+                            boss.CurrentHealth = boss.MaxHealth;
+                        }
+
+                    }
+                    else if (attackInfo.Victim is Villain)
+                    {
+                        objects.Remove(attackInfo.Victim);
+                        objects.Remove(attackInfo.CollisionObject);
+                    }
+                    else if (attackInfo.Victim is Hero)
+                    {
+                        Hero hero = (Hero)attackInfo.Victim;
+                        hero.CurrentHealth -= attack.Damage;
+                        objects.Remove(attackInfo.CollisionObject);
+                        if (hero.CurrentHealth <= 0)
+                        {
+                            heros.Remove(hero);
+                            //add tombstone?
+                            if (heros.Count <= 0)
+                            {
+                                game_over = true;
+                            }
+                        }
+                    }
+                }
+            }
+
+            if (game_over)
+            {
+                Message_SceneSwitch mss = new Message_SceneSwitch("Game Over Scene");
+                MessageManager.AddMessageItem(mss);
+            }
         }
+
+
+
+
+
+
+        
 
         public override void Reset()
         {

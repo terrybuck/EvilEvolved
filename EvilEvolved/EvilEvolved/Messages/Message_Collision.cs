@@ -18,18 +18,16 @@ namespace EvilutionClass
         /// </summary>
         /// <param name="Attack">The name of the scene we want to switch to.</param>
         /// <param name="Hitbox"> The bounding rectangle on the arrow</param>
-        public Message_Collision(string name, GenericItem gi, Attack.AttackType type, float damage)
+        public Message_Collision(string name, GenericItem collision_object, GenericItem victim)
             : base("Collision")
         {
             this.Name = name;
-            this.CollisionItem = gi;
-            this.Type = type;
-            this.Damage = damage;
+            this.CollisionObject = collision_object;
+            this.Victim = victim;
         }
 
-        public GenericItem CollisionItem;
-        public Attack.AttackType Type;
-        public float Damage;
+        public GenericItem CollisionObject;
+        public GenericItem Victim;
 
     }
 }

@@ -12,7 +12,7 @@ namespace EvilutionClass
     /// </summary>
     public class Message_Attack : GenericMessage
     {
-        public enum AttackType { none, Hero_Arrow, Boss_Arrow}
+        public enum AttackType { none, Hero_Arrow, Boss_Arrow, Minion_Arrow}
         /// <summary>
         /// Message Constructor.
         /// </summary>

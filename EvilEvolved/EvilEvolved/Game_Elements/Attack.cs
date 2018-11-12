@@ -9,7 +9,7 @@ namespace EvilutionClass
 {
     public class Attack : GenericItem
     {
-        public enum AttackType { none, Hero_Arrow, Boss_Arrow }
+        public enum AttackType { none, Hero_Arrow, Boss_Arrow, Minion_Arrow }
 
         /// <summary>
         /// creates an "attack" item that will cause damage when it collides with characters.
