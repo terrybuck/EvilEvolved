@@ -25,7 +25,7 @@ namespace EvilutionClass
             CurrentHealth = 500.0f;
             Level = 1;
             LastSpawn = DateTime.Now;
-            TimeBetweenSpawns = 5000;
+            TimeBetweenSpawns = 10000;
             Damage = 100.0f;
             Range = 200;
 

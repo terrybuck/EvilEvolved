@@ -17,7 +17,7 @@ namespace EvilutionClass
             : base(name)
         {
 
-            TimeBetweenAttacks = 2000;
+            TimeBetweenAttacks = 3000;
             LastAttack = DateTime.Now;
 
             Velocity = (float)(5.0 / 60.0);
