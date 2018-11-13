@@ -31,7 +31,7 @@ namespace EvilutionClass
         /// <param name="input">A GenericInput to process.</param>
         public override void Update(TimeSpan dt, GenericInput input)
         {
-            
+            SetLocation(dt);
         }
 
         public void SetLocation(TimeSpan dt)

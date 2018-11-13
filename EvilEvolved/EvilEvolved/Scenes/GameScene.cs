@@ -55,11 +55,10 @@ namespace EvilutionClass
             }
             foreach (Villain villain in villains)
             {
+                villain.Update(dt, input);
                 //reset the bosses hit image to default image after 300ms of no hits
                 if (villain is Boss)
                 {
-                    //update each generic item
-                    villain.Update(dt, input);
                     villain.TimeSinceCollision = DateTime.Now - villain.LastCollision;
                     if (villain.TimeSinceCollision.TotalMilliseconds > 300 && villain.HurtImage)
                     {
@@ -142,10 +141,10 @@ namespace EvilutionClass
                 //update each generic item
                 hero.Update(dt, message);
             }
-            foreach (Boss boss in villains)
+            foreach (Villain villain in villains)
             {
                 //update each generic item
-                boss.Update(dt, message);
+                villain.Update(dt, message);
             }
 
             if (message is Message_Attack)
@@ -199,7 +198,8 @@ namespace EvilutionClass
                     }
                     else if (attackInfo.Victim is Villain)
                     {
-                        objects.Remove(attackInfo.Victim);
+                        Villain villain = (Villain)attackInfo.Victim;
+                        villains.Remove(villain);
                         objects.Remove(attackInfo.CollisionObject);
                     }
                     else if (attackInfo.Victim is Hero)
@@ -219,11 +219,23 @@ namespace EvilutionClass
                     }
                 }
             }
-
             if (game_over)
             {
                 Message_SceneSwitch mss = new Message_SceneSwitch("Game Over Scene");
                 MessageManager.AddMessageItem(mss);
+            }
+
+            if(message is Message_SpawnMinions)
+            {
+                Message_SpawnMinions spawn = (Message_SpawnMinions)message;
+                Random r = new Random();
+                for (int i = 0; i < spawn.NumberOfMinions; i++)
+                {
+                    Villain villain = new Villain("minion");
+                    villain.Location = new System.Numerics.Vector2(r.Next(0, 1000), r.Next(0, 800));
+                    villain.SetBitmapFromImageDictionary("MinionLeft");
+                    this.AddObject(villain);
+                }
             }
         }
 
@@ -256,13 +268,13 @@ namespace EvilutionClass
                 if (size_after_add > size_before_add)
                     return true;
             }
-            if (gi is Boss)
+            if (gi is Villain)
             {
                 if (null == villains)
                     return false;
                 int size_before_add = villains.Count;
-                Boss boss = (Boss)gi;
-                villains.Add(boss);
+                Villain villain = (Villain)gi;
+                villains.Add(villain);
                 int size_after_add = villains.Count;
                 if (size_after_add > size_before_add)
                     return true;
@@ -292,9 +304,9 @@ namespace EvilutionClass
             {
                 hero.Draw(cds);
             }
-            foreach (Boss boss in villains)
+            foreach (Villain villain in villains)
             {
-                boss.Draw(cds);
+                villain.Draw(cds);
             }
 
         }
@@ -328,7 +340,7 @@ namespace EvilutionClass
 
         //Makeing seperate lists for heros/villains
         protected List<Hero> heros = new List<Hero>();
-        protected List<Boss> villains = new List<Boss>();
+        protected List<Villain> villains = new List<Villain>();
         bool game_over = false;
 
 

@@ -121,6 +121,7 @@
     <Compile Include="Messages\Message_Collision.cs" />
     <Compile Include="Messages\Message_Attack.cs" />
     <Compile Include="Messages\Message_SceneSwitch.cs" />
+    <Compile Include="Messages\Message_SpawnMinions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Scenes\GameOverScene.cs" />
     <Compile Include="Scenes\GameScene.cs" />

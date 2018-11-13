@@ -17,7 +17,7 @@ namespace EvilutionClass
             : base(name)
         {
 
-            TimeBetweenAttacks = 500;
+            TimeBetweenAttacks = 2000;
             LastAttack = DateTime.Now;
 
             Velocity = (float)(5.0 / 60.0);
@@ -28,6 +28,9 @@ namespace EvilutionClass
 
             MaxHealth = 100.0f;
             CurrentHealth = 100.0f;
+
+            Damage = 50.0f;
+            Range = 100;
 
         }
 
@@ -46,7 +49,7 @@ namespace EvilutionClass
 
             if (TimeSinceAttack.TotalMilliseconds > TimeBetweenAttacks)
             {
-                Message_Attack VillainAttack = new Message_Attack("Villain_Attack", DirectionX, DirectionY, this.Location, Message_Attack.AttackType.Minion_Arrow, 200, 100.0f);
+                Message_Attack VillainAttack = new Message_Attack("Villain_Attack", DirectionX, DirectionY, this.Location, Message_Attack.AttackType.Minion_Arrow, 200, Damage);
                 MessageManager.AddMessageItem(VillainAttack);
                 LastAttack = DateTime.Now;
             }
@@ -89,8 +92,9 @@ namespace EvilutionClass
         DateTime LastAttack { get; set; }
         TimeSpan TimeSinceAttack { get; set; }
         public Vector2 HeroLocation { get; set; }
-        public int Level { get; set; }
         public bool HurtImage = false;
+        public float Damage;
+        public int Range;
 
         #endregion
 

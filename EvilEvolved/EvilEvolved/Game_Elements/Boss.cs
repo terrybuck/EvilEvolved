@@ -10,7 +10,7 @@ namespace EvilutionClass
     public class Boss : Villain
     {
         /// <summary>
-        /// Create a Monster/Boss for the hero to battle against.
+        /// Create a Boss for the hero to battle against.
         /// </summary>
         /// <param name="name">The name of the scene if any.</param>
         public Boss(string name)
@@ -23,13 +23,32 @@ namespace EvilutionClass
             DirectionX = 0;
             MaxHealth = 500.0f;
             CurrentHealth = 500.0f;
+            Level = 1;
+            LastSpawn = DateTime.Now;
+            TimeBetweenSpawns = 5000;
+            Damage = 100.0f;
+            Range = 200;
 
         }
 
         public override void Update(TimeSpan dt, GenericInput input)
         {
             base.Update(dt, input);
+
+            SpawnTimer = DateTime.Now - LastSpawn;
+            if(SpawnTimer.TotalMilliseconds > TimeBetweenSpawns)
+            {
+                Message_SpawnMinions spawn = new Message_SpawnMinions(Level);
+                MessageManager.AddMessageItem(spawn);
+                LastSpawn = DateTime.Now;
+            }
+
         }
 
+        //Properties
+        public int Level { get; set; }
+        TimeSpan SpawnTimer;
+        DateTime LastSpawn;
+        int TimeBetweenSpawns;
     }
 }
