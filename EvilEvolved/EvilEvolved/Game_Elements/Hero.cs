@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Graphics.Imaging;
+using Windows.UI;
 
 namespace EvilutionClass
 {
@@ -21,13 +22,25 @@ namespace EvilutionClass
             : base(name)
         {
             //hero's speed and initial direction
-            Velocity = (float)(15.0/60.0);
+            Velocity = (float)(15.0 / 60.0);
             DirectionY = 0;
             DirectionX = 0;
             ArrowRange = 100;
             ArrowDamage = 100.0f;
             MaxHealth = 500.0f;
             CurrentHealth = MaxHealth;
+            HealthBar = new Windows.Foundation.Rect(Location.X - 10, Location.Y -10, 50, 5);
+
+
+        }
+
+        public override void Draw(CanvasDrawingSession cds)
+        {
+            base.Draw(cds);
+
+            //Draw Healthbar
+            cds.DrawRectangle(HealthBar, Colors.Red);
+            cds.FillRectangle((float)HealthBar.Left, (float)HealthBar.Top, (float)HealthBar.Width*CurrentHealth/MaxHealth, (float)HealthBar.Height, Colors.Red);
 
         }
 
@@ -46,14 +59,14 @@ namespace EvilutionClass
                 DetermineDirection(gki);
                 DirectionOut = new Vector2(DirectionX, DirectionY);
                 AnimateHero();
-            } 
+            }
 
             //on mouse click launch an attack
             if (input is MouseGenericInput)
             {
                 MouseGenericInput mgi = (MouseGenericInput)input;
 
-                if (mgi.MouseInputType == MouseGenericInput.MouseGenericInputType.MouseClick && (DirectionX*DirectionX + DirectionY * DirectionY) != 0)
+                if (mgi.MouseInputType == MouseGenericInput.MouseGenericInputType.MouseClick && (DirectionX * DirectionX + DirectionY * DirectionY) != 0)
                 {
 
 
@@ -64,6 +77,7 @@ namespace EvilutionClass
             }
             //update hero location 
             SetLocation(dt);
+            HealthBar = new Windows.Foundation.Rect(Location.X - 10, Location.Y - 10, 50, 5);
         }
 
         /// <summary>
@@ -130,6 +144,9 @@ namespace EvilutionClass
         }
 
 
+
+
+
         #region -----[Properties]
 
         public List<Attack> attacks = new List<Attack>();
@@ -143,8 +160,33 @@ namespace EvilutionClass
         int ArrowRange;
         float ArrowDamage;
 
+        Windows.Foundation.Rect HealthBar;
+
         #endregion
 
 
     }
+
+    public class HealthBar : EvilutionLabel
+    {
+        public HealthBar()
+            :base("", default(Color),50, 5)
+            {
+                BorderColor = Colors.Red;
+                FillColor = Colors.Red;
+
+        }
+
+        public override void Draw(CanvasDrawingSession cds)
+        {
+            base.Draw(cds);
+            Windows.Foundation.Rect r = new Windows.Foundation.Rect(Location.X, Location.Y, Size.Width , Size.Height);
+
+            cds.FillRectangle(r, FillColor);
+        }
+
+        //properties
+        Color FillColor;
+    }
+
 }

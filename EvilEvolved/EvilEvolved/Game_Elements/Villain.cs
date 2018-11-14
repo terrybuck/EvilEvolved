@@ -49,7 +49,7 @@ namespace EvilutionClass
 
             if (TimeSinceAttack.TotalMilliseconds > TimeBetweenAttacks)
             {
-                Message_Attack VillainAttack = new Message_Attack("Villain_Attack", DirectionX, DirectionY, this.Location, Message_Attack.AttackType.Minion_Arrow, 200, Damage);
+                Message_Attack VillainAttack = new Message_Attack("Villain_Attack", DirectionX, DirectionY, this.Location, Message_Attack.AttackType.Minion_Arrow, Range, Damage);
                 MessageManager.AddMessageItem(VillainAttack);
                 LastAttack = DateTime.Now;
             }

@@ -11,7 +11,7 @@ namespace EvilutionClass
 {
     public class GameTimer
     {
-        public GameTimer(CanvasControl surface = null, int UPS = 60, int FPS = 30)
+        public GameTimer(CanvasControl surface = null, int UPS = 120, int FPS = 60)
         {
 
             UpdateTimer = new DispatcherTimer();

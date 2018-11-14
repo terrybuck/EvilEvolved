@@ -163,7 +163,7 @@ namespace EvilutionClass
                         }
                     case (Message_Attack.AttackType.Minion_Arrow):
                         {
-                            Attack arrow = new Attack(mhe.Name, mhe.DirectionX, mhe.DirectionY, mhe.Location, Attack.AttackType.Boss_Arrow, 200, 100.0f);
+                            Attack arrow = new Attack(mhe.Name, mhe.DirectionX, mhe.DirectionY, mhe.Location, Attack.AttackType.Boss_Arrow, mhe.Range, mhe.Damage);
                             arrow.SetBitmapFromImageDictionary("Arrow");
                             this.AddObject(arrow);
                             break;
@@ -180,6 +180,7 @@ namespace EvilutionClass
                 {
                     Attack attack = (Attack)attackInfo.CollisionObject;
 
+                    //if the boss is hit by an attack, increase score, reduce bosses health and remove the attack
                     if (attackInfo.Victim is Boss)
                     {
                         Boss boss = (Boss)attackInfo.Victim;
@@ -196,12 +197,14 @@ namespace EvilutionClass
                         }
 
                     }
+                    // if the attack hit a minion, remove the attack and the minion
                     else if (attackInfo.Victim is Villain)
                     {
                         Villain villain = (Villain)attackInfo.Victim;
                         villains.Remove(villain);
                         objects.Remove(attackInfo.CollisionObject);
                     }
+                    //if the attack hit the hero, reduce hero's health and check for game over
                     else if (attackInfo.Victim is Hero)
                     {
                         Hero hero = (Hero)attackInfo.Victim;
@@ -210,7 +213,8 @@ namespace EvilutionClass
                         if (hero.CurrentHealth <= 0)
                         {
                             heros.Remove(hero);
-                            //add tombstone?
+                            //add tombstone image where hero died?
+                            // If all heroes (spelled correctly this time) have died it's game over
                             if (heros.Count <= 0)
                             {
                                 game_over = true;
@@ -218,7 +222,8 @@ namespace EvilutionClass
                         }
                     }
                 }
-            }
+            }            
+            // switch to game over scene
             if (game_over)
             {
                 Message_SceneSwitch mss = new Message_SceneSwitch("Game Over Scene");
@@ -238,12 +243,6 @@ namespace EvilutionClass
                 }
             }
         }
-
-
-
-
-
-
         
 
         public override void Reset()
@@ -338,7 +337,7 @@ namespace EvilutionClass
 
         //properties
 
-        //Makeing seperate lists for heros/villains
+        //Making seperate lists for heros/villains
         protected List<Hero> heros = new List<Hero>();
         protected List<Villain> villains = new List<Villain>();
         bool game_over = false;
