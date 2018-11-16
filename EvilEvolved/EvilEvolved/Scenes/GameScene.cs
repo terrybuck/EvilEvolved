@@ -248,7 +248,7 @@ namespace EvilutionClass
                 for (int i = 0; i < spawn.NumberOfMinions; i++)
                 {
                     Villain villain = new Villain("minion");
-                    villain.Location = new System.Numerics.Vector2(r.Next(0, 1000), r.Next(0, 800));
+                    villain.Location = new System.Numerics.Vector2(r.Next(0, _width), r.Next(0, _height));
                     villain.SetBitmapFromImageDictionary("MinionLeft");
                     this.AddObject(villain);
                 }
@@ -349,6 +349,8 @@ namespace EvilutionClass
             Hero hero = new Hero("Hero");
             hero.Location = new System.Numerics.Vector2(700, 700);
             hero.SetBitmapFromImageDictionary("Hero");
+            hero.LimitX = this._width;
+            hero.LimitY = this._height;
             this.AddObject(hero);      
 
             Boss boss = new Boss("Boss");

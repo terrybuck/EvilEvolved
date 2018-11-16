@@ -110,6 +110,7 @@ namespace EvilutionClass
                 this.DirectionX += 1;
             }
 
+
             //normally id take sqrt(x^2/x^2+y^2) but knowing that x is 1 or -1 and y is -1 or 1 we can cheat :)
             //this way the comp does less math, and we dont need to extract the negative to get the direction.. woohoo
             if (DirectionX != 0 && DirectionY != 0)

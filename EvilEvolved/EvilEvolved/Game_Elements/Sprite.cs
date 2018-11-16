@@ -22,6 +22,8 @@ namespace EvilutionClass
             DirectionX = 0;
             LastCollision = DateTime.Now;
             iFrames = 50;
+            LimitX = 10000;
+            LimitY = 10000;
         }
 
         /// <summary>
@@ -36,7 +38,28 @@ namespace EvilutionClass
 
         public void SetLocation(TimeSpan dt)
         {
+
+            if (BoundingRectangle.Top <= 0 && DirectionY < 0)
+            {
+                DirectionY = 0;
+            }
+
+            if (BoundingRectangle.Bottom >= LimitY && DirectionY > 0)
+            {
+                DirectionY = 0;
+            }
+            if (BoundingRectangle.Left <= 0 && DirectionX < 0)
+            {
+                DirectionX = 0;
+            }
+            if (BoundingRectangle.Right >= LimitX && DirectionX > 0)
+            {
+                DirectionX = 0;
+            }
+
+
             this.Location = new Vector2(this.Location.X + (float)(DirectionX * Velocity * dt.Milliseconds), this.Location.Y + (float)(DirectionY * Velocity * dt.Milliseconds));
+
         }
 
         #region -----[Properties]
@@ -54,6 +77,10 @@ namespace EvilutionClass
         public float DirectionY { get; set; }
 
         public int Hitpoints { get; set; }
+
+        public int LimitX { get; set; }
+        public int LimitY { get; set; }
+
         #endregion
 
 
