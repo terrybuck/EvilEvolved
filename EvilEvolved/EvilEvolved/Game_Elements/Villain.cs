@@ -89,8 +89,8 @@ namespace EvilutionClass
         #region -----[Properties]
 
         public int TimeBetweenAttacks { get; set; }
-        DateTime LastAttack { get; set; }
-        TimeSpan TimeSinceAttack { get; set; }
+        protected DateTime LastAttack { get; set; }
+        protected TimeSpan TimeSinceAttack { get; set; }
         public Vector2 HeroLocation { get; set; }
         public bool HurtImage = false;
         public float Damage;
