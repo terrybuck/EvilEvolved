@@ -150,6 +150,9 @@ namespace EvilutionClass
 
 
         #region [Properties --------------------------------------------------]
+
+        public float Score { get; set; }
+
         protected List<GenericItem> objects = new List<GenericItem>();
 
         protected int _width;

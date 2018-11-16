@@ -102,5 +102,6 @@ namespace EvilutionClass
         /// </summary>
         public static Stack<GenericScene> SceneHistory = new Stack<GenericScene>();
 
+
     }
 }

@@ -31,12 +31,15 @@ namespace EvilutionClass
             base.Update(dt, input);
         }
 
+        /// <summary>
+        /// Set up the initial state of the scene
+        /// </summary>
         public override void SetupScene()
         {
 
             // design the scene manually          
             GenericItem title = new GenericItem("Title");
-            title.Location = new System.Numerics.Vector2(500, 200);
+            title.Location = new System.Numerics.Vector2(500, 100);
             title.SetBitmapFromImageDictionary("GameOver");
             this.AddObject(title);
             CenterObject(title, true, false);
@@ -45,6 +48,15 @@ namespace EvilutionClass
             _start_button = new EvilutionButton("Main Menu", Colors.White, 350, 50);
             CenterObject(_start_button);
             this.AddObject(_start_button);
+
+            if(StoryBoard.SceneHistory.Count > 0)
+                Score = StoryBoard.SceneHistory.Peek().Score;
+
+            _score_label = new EvilutionLabel("SCORE: " + Score, Colors.White, (uint)(this._width * 0.90f), 100);
+            _score_label.Y = _start_button.Y - 200;
+            _score_label.FontSize = 50;
+            CenterObject(_score_label, true, false);
+            this.AddObject(_score_label);
 
 
 
@@ -59,6 +71,8 @@ namespace EvilutionClass
             }
 
         }
+
+        private EvilutionLabel _score_label;
         private EvilutionButton _start_button;
     }
 }

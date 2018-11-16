@@ -33,7 +33,9 @@ namespace EvilutionClass
             base.Update(dt, input);
         }
 
-
+        /// <summary>
+        /// Setup the initial state of the scene
+        /// </summary>
         public override void SetupScene()
         {
             // design the scene manually   
@@ -60,7 +62,6 @@ namespace EvilutionClass
             _top_score_button.Location = new Vector2(_start_button.Location.X, _start_button.Location.Y + _start_button.Size.Height + 10);
             _credits_button.Location = new Vector2(_top_score_button.Location.X, _top_score_button.Location.Y + _top_score_button.Size.Height + 10);
 
-            //this.AddObject(_title_label);
             this.AddObject(_start_button);
             this.AddObject(_top_score_button);
             this.AddObject(_credits_button);
@@ -90,7 +91,7 @@ namespace EvilutionClass
                 MessageManager.AddMessageItem(mss);
             }
     }
-        //private EvilutionLabel _title_label;
+
         private EvilutionButton _start_button;
         private EvilutionButton _top_score_button;
         private EvilutionButton _credits_button;

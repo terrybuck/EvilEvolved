@@ -52,7 +52,7 @@ namespace EvilutionClass
             // test rectangle
             Windows.Foundation.Rect r = new Windows.Foundation.Rect(Location.X, Location.Y, Size.Width, Size.Height);
 
-            cds.DrawRectangle(r, BorderColor);
+            //cds.DrawRectangle(r, BorderColor);
 
             Microsoft.Graphics.Canvas.Text.CanvasTextFormat ctf = new Microsoft.Graphics.Canvas.Text.CanvasTextFormat();
             ctf.VerticalAlignment = Microsoft.Graphics.Canvas.Text.CanvasVerticalAlignment.Center;

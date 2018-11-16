@@ -36,6 +36,10 @@ namespace EvilutionClass
 
         }
 
+        ///<summary>
+        ///Update the GenericItem
+        ///</summary>
+        ///<param name= "dt"> A delta time since the last update was called.</param>
         public virtual void Update(TimeSpan dt, GenericMessage message)
         {
 
@@ -94,7 +98,8 @@ namespace EvilutionClass
         {
         }
 
-        //Properties
+        #region -----[Properties]
+
         public string Name { get; set; }
         public Vector2 Location { get; set; }
         public CanvasBitmap Bitmap { get; set; }
@@ -126,6 +131,6 @@ namespace EvilutionClass
             }
         }
 
-
+        #endregion
     }
 }

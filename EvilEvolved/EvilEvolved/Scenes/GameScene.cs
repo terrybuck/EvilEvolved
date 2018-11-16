@@ -10,6 +10,12 @@ using Windows.Media;
 using Windows.UI;
 using Windows.UI.Xaml;
 using Microsoft.Graphics.Canvas;
+using Windows.Graphics.Imaging;
+using Microsoft.Graphics.Canvas.Effects;
+using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Media.Imaging;
+using Windows.UI.Xaml.Shapes;
 
 namespace EvilutionClass
 {
@@ -36,7 +42,7 @@ namespace EvilutionClass
         }
 
         /// <summary>
-        /// Update the scene
+        /// Update the scene based on inputs
         /// </summary>
         /// <param name="dt"> A delta time since the last update was called </param>
         /// <param name="input"> Generic input </param>
@@ -129,6 +135,11 @@ namespace EvilutionClass
             }
         }
 
+        /// <summary>
+        /// Updates the scene based on incoming messages
+        /// </summary>
+        /// <param name="dt">Delta time since thew last update was called</param>
+        /// <param name="message"> incoming message</param>
         public override void Update(TimeSpan dt, GenericMessage message)
         {
             foreach (GenericItem gi in objects)
@@ -155,8 +166,8 @@ namespace EvilutionClass
                 {
                     case (Message_Attack.AttackType.Hero_Arrow):
                         {
-                            //TODO: add range and damage properties to a type of attack and pass it to the item rather than use magic numbers
-                            Attack attack = new Attack(mhe.Name, mhe.DirectionX, mhe.DirectionY, mhe.Location, Attack.AttackType.Hero_Arrow, 100, 100.0f);
+                            //(Terry)TODO: add rotation to arrows, this might require using something other than CanvasBitmap images
+                            Attack attack = new Attack(mhe.Name, mhe.DirectionX, mhe.DirectionY, mhe.Location, Attack.AttackType.Hero_Arrow, mhe.Range, mhe.Damage);
                             attack.SetBitmapFromImageDictionary("Arrow");
                             this.AddObject(attack);
                             break;
@@ -244,7 +255,9 @@ namespace EvilutionClass
             }
         }
         
-
+        /// <summary>
+        /// Reset clears all items and sets up the scene again 
+        /// </summary>
         public override void Reset()
         {
             objects.Clear();
@@ -253,7 +266,11 @@ namespace EvilutionClass
             SetupScene();
         }
 
-
+        /// <summary>
+        /// Adds a generic item to the appropriate list so that id=t can be displayed and interacted with on screne
+        /// </summary>
+        /// <param name="gi"> generic item to add to scene </param>
+        /// <returns></returns>
         public override bool AddObject(GenericItem gi)
         {
             if (gi is Hero)
@@ -292,6 +309,10 @@ namespace EvilutionClass
             return false;
 
         }
+        /// <summary>
+        /// Draws all the items to the canvas
+        /// </summary>
+        /// <param name="cds"></param>
         public override void Draw(CanvasDrawingSession cds)
         {
 
@@ -310,6 +331,9 @@ namespace EvilutionClass
 
         }
 
+        /// <summary>
+        /// builds the initial scene
+        /// </summary>
         public override void SetupScene()
         {
 
@@ -325,8 +349,7 @@ namespace EvilutionClass
             Hero hero = new Hero("Hero");
             hero.Location = new System.Numerics.Vector2(700, 700);
             hero.SetBitmapFromImageDictionary("Hero");
-            this.AddObject(hero);
-
+            this.AddObject(hero);      
 
             Boss boss = new Boss("Boss");
             boss.Location = new System.Numerics.Vector2(1000, 150);
@@ -340,11 +363,10 @@ namespace EvilutionClass
         //Making seperate lists for heros/villains
         protected List<Hero> heros = new List<Hero>();
         protected List<Villain> villains = new List<Villain>();
-        bool game_over = false;
 
-
+        bool game_over = false; //(Terry)TODO: I might make game over an event handler in the hero class?
         private EvilutionLabel _score_label;
-        float Score { get; set; }
 
     }
+
 }
