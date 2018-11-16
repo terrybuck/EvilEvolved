@@ -26,8 +26,12 @@ namespace EvilutionClass
             this.Victim = victim;
         }
 
+        #region -----[Properties]
+
         public GenericItem CollisionObject;
         public GenericItem Victim;
+
+        #endregion
 
     }
 }

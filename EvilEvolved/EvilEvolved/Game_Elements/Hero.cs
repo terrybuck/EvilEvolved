@@ -34,6 +34,10 @@ namespace EvilutionClass
 
         }
 
+        /// <summary>
+        /// Draw the bitmap and healthbar of the hero
+        /// </summary>
+        /// <param name="cds"></param>
         public override void Draw(CanvasDrawingSession cds)
         {
             base.Draw(cds);
@@ -115,9 +119,13 @@ namespace EvilutionClass
             }
         }
 
+        /// <summary>
+        /// currently draws the hero in the direction he should be facing
+        /// (Terry) TODO: create a generic sprite animation class and play an animation in the direction of travel
+        /// </summary>
         public void AnimateHero()
         {
-            if (DirectionChanged())
+            if (DirectionIn != DirectionOut)
             {
                 if (DirectionY < 0)
                 {
@@ -138,14 +146,14 @@ namespace EvilutionClass
             }
         }
 
-        private bool DirectionChanged()
-        {
-            return (DirectionIn != DirectionOut);
-        }
-
-
-
-
+        ///// <summary>
+        ///// Determine if the hero has changed direction....kind of unnecessary...
+        ///// </summary>
+        ///// <returns></returns>
+        //private bool DirectionChanged()
+        //{
+        //    return (DirectionIn != DirectionOut);
+        //}
 
         #region -----[Properties]
 
@@ -154,11 +162,11 @@ namespace EvilutionClass
         private Vector2 DirectionIn;
         private Vector2 DirectionOut;
 
-        DateTime LastAnimation { get; set; }
-        TimeSpan TimeSinceAnimation { get; set; }
+        //DateTime LastAnimation { get; set; }
+        //TimeSpan TimeSinceAnimation { get; set; }
 
-        int ArrowRange;
-        float ArrowDamage;
+        private readonly int ArrowRange;
+        private readonly float ArrowDamage;
 
         Windows.Foundation.Rect HealthBar;
 
@@ -166,27 +174,4 @@ namespace EvilutionClass
 
 
     }
-
-    public class HealthBar : EvilutionLabel
-    {
-        public HealthBar()
-            :base("", default(Color),50, 5)
-            {
-                BorderColor = Colors.Red;
-                FillColor = Colors.Red;
-
-        }
-
-        public override void Draw(CanvasDrawingSession cds)
-        {
-            base.Draw(cds);
-            Windows.Foundation.Rect r = new Windows.Foundation.Rect(Location.X, Location.Y, Size.Width , Size.Height);
-
-            cds.FillRectangle(r, FillColor);
-        }
-
-        //properties
-        Color FillColor;
-    }
-
 }

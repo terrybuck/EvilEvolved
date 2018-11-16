@@ -67,11 +67,8 @@ namespace EvilutionClass
         #region [Properties --------------------------------------------------]
 
         public Color ForegroundColor { get; set; }
-
         public Color BorderColor { get; set; }
-
         public string Text { get; set; }
-
         public float FontSize { get; set; }
 
         #endregion

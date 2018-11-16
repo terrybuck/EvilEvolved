@@ -155,9 +155,11 @@ namespace EvilutionClass
 
         protected List<GenericItem> objects = new List<GenericItem>();
 
+        // Size of scene
         protected int _width;
         protected int _height;
 
+        //each scene has it's own background music
         public MediaPlayer mp;
 
         #endregion

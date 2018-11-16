@@ -358,14 +358,16 @@ namespace EvilutionClass
 
         }
 
-        //properties
+        #region -----[Properties]
 
         //Making seperate lists for heros/villains
-        protected List<Hero> heros = new List<Hero>();
-        protected List<Villain> villains = new List<Villain>();
+        private List<Hero> heros = new List<Hero>();
+        private List<Villain> villains = new List<Villain>();
 
-        bool game_over = false; //(Terry)TODO: I might make game over an event handler in the hero class?
+        private bool game_over = false; //(Terry)TODO: I might make game over an event handler in the hero class?
         private EvilutionLabel _score_label;
+
+        #endregion
 
     }
 

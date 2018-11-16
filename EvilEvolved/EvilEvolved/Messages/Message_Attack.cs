@@ -12,6 +12,7 @@ namespace EvilutionClass
     /// </summary>
     public class Message_Attack : GenericMessage
     {
+        // (Terry) TODO: can probably just use Attack.AttackType, change this later
         public enum AttackType { none, Hero_Arrow, Boss_Arrow, Minion_Arrow}
         /// <summary>
         /// Message Constructor.
@@ -30,11 +31,15 @@ namespace EvilutionClass
             Damage = damage;
         }
 
+        #region -----[Properties]
+
         public Vector2 Location { get; set; }
         public float DirectionX { get; set; }
         public float DirectionY { get; set; }
         public AttackType Type { get; set; }
         public int Range { get; set; }
         public float Damage { get; set; }
+
+        #endregion
     }
 }

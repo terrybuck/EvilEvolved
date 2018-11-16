@@ -9,8 +9,14 @@ using Microsoft.Graphics.Canvas.UI.Xaml;
 
 namespace EvilutionClass
 {
+    /// <summary>
+    /// The timer that dictates the Game Loop.
+    /// </summary>
     public class GameTimer
     {
+        /// <summary>
+        /// GameTimer constructor, sets default values.
+        /// </summary>
         public GameTimer(CanvasControl surface = null, int UPS = 120, int FPS = 60)
         {
 
@@ -31,6 +37,11 @@ namespace EvilutionClass
 
         }
 
+        /// <summary>
+        /// Update timer for the game, this should run 120 times a second (default).
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         void UpdateTimer_Tick(object sender, object e)
         {
             if (!IsUpdating)
@@ -97,21 +108,16 @@ namespace EvilutionClass
             }
         }
 
-        //Properties
-        public bool IsUpdating = false;
+        #region -----[Properties]
 
+        private bool IsUpdating = false;
         private DispatcherTimer UpdateTimer;
+        private TimeSpan TotalAppTime;
+        private DateTime LastUpdateTime;
+        private DateTime LastDrawTime;
+        private TimeSpan TimeBetweenDraw;
+        private CanvasControl ParentCanvas;
 
-        public TimeSpan TotalAppTime { get; set; }
-
-        public DateTime LastUpdateTime { get; set; }
-
-        public DateTime LastDrawTime { get; set; }
-
-        public TimeSpan TimeBetweenDraw { get; set; }
-
-        public CanvasControl ParentCanvas { get; set; }
-
-
+        #endregion
     }
 }

@@ -45,10 +45,13 @@ namespace EvilutionClass
 
         }
 
-        //Properties
+        #region -----[Properties]
+
         public int Level { get; set; }
-        TimeSpan SpawnTimer;
-        DateTime LastSpawn;
-        int TimeBetweenSpawns;
+        private TimeSpan SpawnTimer;
+        private DateTime LastSpawn;
+        private int TimeBetweenSpawns; //(Terry)TODO: consider making this readonly or decrease spawn time/level instead of increasing # of spawns
+
+        #endregion
     }
 }

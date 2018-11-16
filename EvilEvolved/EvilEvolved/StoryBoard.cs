@@ -94,8 +94,6 @@ namespace EvilutionClass
         /// </summary>
         public static GenericScene CurrentScene { get; set; }
 
-        // TODO:
-        // Remove Scene
 
         /// <summary>
         /// The StoryBoard history.  This acts like a something of a web history.
