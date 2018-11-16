@@ -95,7 +95,7 @@ namespace Evilution
 
             IsAllImagesLoaded = true;
 
-            GameTimer gt = new GameTimer(sender, 60, 30);
+            GameTimer gt = new GameTimer(sender, 120, 100);
 
         }
 

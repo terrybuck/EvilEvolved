@@ -43,7 +43,6 @@ namespace EvilutionClass
             {
                 DirectionY = 0;
             }
-
             if (BoundingRectangle.Bottom >= LimitY && DirectionY > 0)
             {
                 DirectionY = 0;
