@@ -11,16 +11,11 @@ namespace EvilutionClass
     /// </summary>
     public class FindClockwiseAngle
     {
-        public FindClockwiseAngle(float directionX, float directionY)
+        public float FindAngle(float directionX, float directionY)
         {
-            DirectionX = directionX;
-            DirectionY = directionY;
-        }
-        public float FindAngle()
-        {
-            if (0.0f == DirectionX)
+            if (0.0f == directionX)
             {
-                if(DirectionY < 0)
+                if(directionY < 0)
                 {
                     return 0.0f;
                 }
@@ -29,20 +24,17 @@ namespace EvilutionClass
                     return 180.0f;
                 }
             }
-            else if(DirectionX > 0.0f)
+            else if(directionX > 0.0f)
             {
-                float angle = 90.0f + (float)Math.Atan2((double)DirectionY, (double)DirectionX);
+                float angle = 90.0f + (float)Math.Atan2((double)directionY, (double)directionX);
                 return angle;
             }
             else
             {
-                float angle = 270.0f + (float)Math.Atan2((double)DirectionY, (double)DirectionX);
+                float angle = 270.0f + (float)Math.Atan2((double)directionY, (double)directionX);
                 return angle;
             }
 
         }
-
-        float DirectionX;
-        float DirectionY;
 }
 }

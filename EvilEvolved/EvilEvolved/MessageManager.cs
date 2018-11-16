@@ -45,15 +45,10 @@ namespace EvilutionClass
             lock (Message_queue_lock)
             {
                 int count_before_add = MessageQueue.Count;
-
                 MessageQueue.Enqueue(gm);
-
                 int count_after_add = MessageQueue.Count;
+                return (count_after_add > count_before_add);
 
-                if (count_after_add > count_before_add)
-                    return true;
-                else
-                    return false;
             }
         }
 

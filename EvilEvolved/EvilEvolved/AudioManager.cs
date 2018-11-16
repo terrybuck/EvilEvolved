@@ -39,12 +39,8 @@ namespace EvilutionClass
             int size_before_add = AudioDictionary.Count;
             AudioDictionary.Add(key, mp);
             int size_after_add = AudioDictionary.Count;
-            if (size_before_add < size_after_add)
-            {
-                return true;
-            }
-
-            return false;
+            return (size_before_add < size_after_add);
+         
         }
 
     }

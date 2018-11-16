@@ -36,12 +36,8 @@ namespace EvilutionClass
             int size_before_add = ImageDictionary.Count;
             ImageDictionary.Add(key, cb);
             int size_after_add = ImageDictionary.Count;
-            if (size_before_add<size_after_add)
-            {
-                return true;
-            }
+            return (size_before_add < size_after_add);
 
-            return false;
         }
 
         static public CanvasControl ParentCanvas = null;

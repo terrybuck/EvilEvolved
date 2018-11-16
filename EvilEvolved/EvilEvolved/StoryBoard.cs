@@ -83,10 +83,8 @@ namespace EvilutionClass
             SceneDictionary.Add(gs.Name, gs);
             int size_after_add = SceneDictionary.Count;
 
-            if (size_after_add > size_before_add)
-                return true;
+            return (size_after_add > size_before_add);
 
-            return false;
         }
 
         /// <summary>

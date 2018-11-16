@@ -76,15 +76,10 @@ namespace EvilutionClass
             lock (input_queue_lock)
             {
                 int count_before_add = InputQueue.Count;
-
                 InputQueue.Enqueue(gi);
-
                 int count_after_add = InputQueue.Count;
+                return (count_after_add > count_before_add);
 
-                if (count_after_add > count_before_add)
-                    return true;
-                else
-                    return false;
             }
         }
 
