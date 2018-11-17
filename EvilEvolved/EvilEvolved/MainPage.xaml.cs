@@ -1,56 +1,43 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
+﻿using System.Numerics;
 using Windows.UI.Xaml;
-using Windows.UI;
 using Windows.UI.Xaml.Controls;
 using Microsoft.Graphics.Canvas.UI.Xaml;
-using Microsoft.Graphics.Canvas;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
-
 using EvilutionClass;
-using Windows.Graphics.Imaging;
 using Windows.System;
-using static EvilutionClass.MouseGenericInput;
-using static EvilutionClass.GenericKeyboardInput;
-using Windows.Media.Playback;
-using Windows.Media.Core;
 
 namespace Evilution
 {
     public sealed partial class MainPage : Page
     {
-        public bool IsAllImagesLoaded = false;
+        private readonly GameTimer _gameTimer;
+        private Vector2 _screenSize;
 
         public MainPage()
         {
             Focus(FocusState.Programmatic);
             this.InitializeComponent();
+
+            _gameTimer = new GameTimer();
         }
+
+        private void OnGameLoopStarting(ICanvasAnimatedControl sender, object args)
+        {
+
+        }
+
 
         /// <summary>
         /// Assets are loaded in from the CreateResources method
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="args"></param>
-        private async void CanvasControl_CreateResources(CanvasControl sender, Microsoft.Graphics.Canvas.UI.CanvasCreateResourcesEventArgs args)
+        private async void OnCreateResources(CanvasAnimatedControl sender, Microsoft.Graphics.Canvas.UI.CanvasCreateResourcesEventArgs args)
         {
+            _screenSize = new Vector2((float)Cvs.Size.Width, (float)Cvs.Size.Height);
 
             //set parent canvas for image manager
             ImageManager.ParentCanvas = sender;
-
-
-
-
-            #region -------[Load images]
 
             //Animated Hero Images
             await ImageManager.AddImage("Hero_Up_1", @"Assets/Hero_Up_1.gif");
@@ -69,34 +56,28 @@ namespace Evilution
             await ImageManager.AddImage("Title", @"Assets/Evilution.png");
             await ImageManager.AddImage("GameOver", @"Assets/GameOver.png");
 
-            #endregion
-
-            #region -------[Load audio]
-
             await AudioManager.AddAudio("Generic Title Scene", "TitleTheme.mp3");
             await AudioManager.AddAudio("Main Game Scene", "BattleTheme.mp3");
             await AudioManager.AddAudio("Game Over Scene", "GameOver.mp3");
 
-            #endregion
 
-            // set scene
-            CanvasControl cc = sender;
-            TitleScene ts = new TitleScene((int)cc.RenderSize.Width, (int)cc.RenderSize.Height);
+            // set up the scene
+            var ts = new TitleScene((int)this._screenSize.X, (int)this._screenSize.Y);
             StoryBoard.AddScene(ts);
             StoryBoard.CurrentScene = ts;
 
             //create scenes
-            GameScene game_scene = new GameScene((int)cc.RenderSize.Width, (int)cc.RenderSize.Height);
-            GameOverScene game_over_scene = new GameOverScene((int)cc.RenderSize.Width, (int)cc.RenderSize.Height);
+            var game_scene = new GameScene((int)this._screenSize.X, (int)this._screenSize.Y);
+            var game_over_scene = new GameOverScene((int)this._screenSize.X, (int)this._screenSize.Y);
 
             //add scenes to storyboard
             StoryBoard.AddScene(game_scene);
             StoryBoard.AddScene(game_over_scene);
+        }
 
-            IsAllImagesLoaded = true;
-
-            GameTimer gt = new GameTimer(sender, 120, 100);
-
+        private void OnUpdate(ICanvasAnimatedControl sender, CanvasAnimatedUpdateEventArgs args)
+        {
+            this._gameTimer.OnUpdate(sender);
         }
 
         /// <summary>
@@ -104,10 +85,10 @@ namespace Evilution
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="args"></param>
-        void CanvasControl_Draw(CanvasControl sender, CanvasDrawEventArgs args)
+        void OnDraw(ICanvasAnimatedControl sender, CanvasAnimatedDrawEventArgs args)
         {
             // get the drawing session
-            CanvasDrawingSession cds = args.DrawingSession;
+            var cds = args.DrawingSession;
 
             if (null != StoryBoard.CurrentScene)
             {
@@ -115,15 +96,20 @@ namespace Evilution
             }
         }
 
+        private void OnGameLoopStopped(ICanvasAnimatedControl sender, object args)
+        {
+
+        }
+
         #region ----------[Mouse inputs]
 
         private void CanvasControl_PointerMoved(object sender, PointerRoutedEventArgs e)
         {
-            Windows.UI.Input.PointerPoint p = e.GetCurrentPoint((UIElement)sender);
+            var p = e.GetCurrentPoint((UIElement)sender);
 
-            MouseGenericInput mgi = new MouseGenericInput((float)p.Position.X, (float)p.Position.Y);
+            var mgi = new MouseGenericInput((float)p.Position.X, (float)p.Position.Y);
             mgi.Name = "mouse_move";
-            mgi.MouseInputType = MouseGenericInputType.MouseMove;
+            mgi.MouseInputType = MouseGenericInput.MouseGenericInputType.MouseMove;
             mgi.IsLeftButtonPress = p.Properties.IsLeftButtonPressed;
             mgi.IsMiddleButtonPress = p.Properties.IsMiddleButtonPressed;
             mgi.IsRightButtonPress = p.Properties.IsRightButtonPressed;
@@ -138,11 +124,11 @@ namespace Evilution
             e.Handled = true;
             
 
-            Windows.UI.Input.PointerPoint p = e.GetCurrentPoint((UIElement)sender);
+            var p = e.GetCurrentPoint((UIElement)sender);
 
-            MouseGenericInput mgi = new MouseGenericInput((float)p.Position.X, (float)p.Position.Y);
+            var mgi = new MouseGenericInput((float)p.Position.X, (float)p.Position.Y);
             mgi.Name = "mouse_down";
-            mgi.MouseInputType = MouseGenericInputType.MousePressed;
+            mgi.MouseInputType = MouseGenericInput.MouseGenericInputType.MousePressed;
             mgi.IsLeftButtonPress = p.Properties.IsLeftButtonPressed;
             mgi.IsMiddleButtonPress = p.Properties.IsMiddleButtonPressed;
             mgi.IsRightButtonPress = p.Properties.IsRightButtonPressed;
@@ -153,11 +139,11 @@ namespace Evilution
 
         private void CanvasControl_PointerReleased(object sender, PointerRoutedEventArgs e)
         {
-            Windows.UI.Input.PointerPoint p = e.GetCurrentPoint((UIElement)sender);
+            var p = e.GetCurrentPoint((UIElement)sender);
 
-            MouseGenericInput mgi = new MouseGenericInput((float)p.Position.X, (float)p.Position.Y);
+            var mgi = new MouseGenericInput((float)p.Position.X, (float)p.Position.Y);
             mgi.Name = "mouse_up";
-            mgi.MouseInputType = MouseGenericInputType.MouseReleased;
+            mgi.MouseInputType = MouseGenericInput.MouseGenericInputType.MouseReleased;
             mgi.IsLeftButtonPress = p.Properties.IsLeftButtonPressed;
             mgi.IsMiddleButtonPress = p.Properties.IsMiddleButtonPressed;
             mgi.IsRightButtonPress = p.Properties.IsRightButtonPressed;
@@ -175,12 +161,12 @@ namespace Evilution
         {
             e.Handled = true;
 
-            GenericKeyboardInput gki = new GenericKeyboardInput();
+            var gki = new GenericKeyboardInput();
 
-            bool CheckW = Windows.UI.Core.CoreWindow.GetForCurrentThread().GetAsyncKeyState(VirtualKey.W).HasFlag(Windows.UI.Core.CoreVirtualKeyStates.Down);
-            bool CheckA = Windows.UI.Core.CoreWindow.GetForCurrentThread().GetAsyncKeyState(VirtualKey.A).HasFlag(Windows.UI.Core.CoreVirtualKeyStates.Down);
-            bool CheckS = Windows.UI.Core.CoreWindow.GetForCurrentThread().GetAsyncKeyState(VirtualKey.S).HasFlag(Windows.UI.Core.CoreVirtualKeyStates.Down);
-            bool CheckD = Windows.UI.Core.CoreWindow.GetForCurrentThread().GetAsyncKeyState(VirtualKey.D).HasFlag(Windows.UI.Core.CoreVirtualKeyStates.Down);
+            var CheckW = Windows.UI.Core.CoreWindow.GetForCurrentThread().GetAsyncKeyState(VirtualKey.W).HasFlag(Windows.UI.Core.CoreVirtualKeyStates.Down);
+            var CheckA = Windows.UI.Core.CoreWindow.GetForCurrentThread().GetAsyncKeyState(VirtualKey.A).HasFlag(Windows.UI.Core.CoreVirtualKeyStates.Down);
+            var CheckS = Windows.UI.Core.CoreWindow.GetForCurrentThread().GetAsyncKeyState(VirtualKey.S).HasFlag(Windows.UI.Core.CoreVirtualKeyStates.Down);
+            var CheckD = Windows.UI.Core.CoreWindow.GetForCurrentThread().GetAsyncKeyState(VirtualKey.D).HasFlag(Windows.UI.Core.CoreVirtualKeyStates.Down);
 
             gki.IsWKeyPress = CheckW;
             gki.IsAKeyPress = CheckA;
@@ -189,17 +175,18 @@ namespace Evilution
             InputManager.AddInputItem(gki);
 
         }
+
         private void CanvasControl_KeyUp(object sender, KeyRoutedEventArgs e)
         {
             e.Handled = true;
 
-            GenericKeyboardInput gki = new GenericKeyboardInput();
+            var gki = new GenericKeyboardInput();
 
 
-            bool CheckW = Windows.UI.Core.CoreWindow.GetForCurrentThread().GetAsyncKeyState(VirtualKey.W).HasFlag(Windows.UI.Core.CoreVirtualKeyStates.Down);
-            bool CheckA = Windows.UI.Core.CoreWindow.GetForCurrentThread().GetAsyncKeyState(VirtualKey.A).HasFlag(Windows.UI.Core.CoreVirtualKeyStates.Down);
-            bool CheckS = Windows.UI.Core.CoreWindow.GetForCurrentThread().GetAsyncKeyState(VirtualKey.S).HasFlag(Windows.UI.Core.CoreVirtualKeyStates.Down);
-            bool CheckD = Windows.UI.Core.CoreWindow.GetForCurrentThread().GetAsyncKeyState(VirtualKey.D).HasFlag(Windows.UI.Core.CoreVirtualKeyStates.Down);
+            var CheckW = Windows.UI.Core.CoreWindow.GetForCurrentThread().GetAsyncKeyState(VirtualKey.W).HasFlag(Windows.UI.Core.CoreVirtualKeyStates.Down);
+            var CheckA = Windows.UI.Core.CoreWindow.GetForCurrentThread().GetAsyncKeyState(VirtualKey.A).HasFlag(Windows.UI.Core.CoreVirtualKeyStates.Down);
+            var CheckS = Windows.UI.Core.CoreWindow.GetForCurrentThread().GetAsyncKeyState(VirtualKey.S).HasFlag(Windows.UI.Core.CoreVirtualKeyStates.Down);
+            var CheckD = Windows.UI.Core.CoreWindow.GetForCurrentThread().GetAsyncKeyState(VirtualKey.D).HasFlag(Windows.UI.Core.CoreVirtualKeyStates.Down);
 
             gki.IsWKeyPress = CheckW;
             gki.IsAKeyPress = CheckA;

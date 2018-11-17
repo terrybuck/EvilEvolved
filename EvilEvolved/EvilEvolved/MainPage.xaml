@@ -5,20 +5,24 @@
     xmlns:canvas="using:Microsoft.Graphics.Canvas.UI.Xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:Windows10FallCreatorsUpdate="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractPresent(Windows.Foundation.UniversalApiContract, 5)"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-        <canvas:CanvasControl Draw="CanvasControl_Draw" 
-                              ClearColor="Black" 
-                              CreateResources="CanvasControl_CreateResources" 
-                              PointerMoved="CanvasControl_PointerMoved" 
-                              PointerPressed="CanvasControl_PointerPressed" 
-                              PointerReleased="CanvasControl_PointerReleased" 
-                              KeyDown="CanvasControl_KeyDown" 
-                              KeyUp="CanvasControl_KeyUp"
-                              IsTabStop="True"
-                              />
+        <canvas:CanvasAnimatedControl
+            x:Name="Cvs"
+            ClearColor="Black"
+            IsFixedTimeStep="False"
+            CreateResources="OnCreateResources"
+            Draw="OnDraw"
+            GameLoopStarting="OnGameLoopStarting"
+            GameLoopStopped="OnGameLoopStopped"
+            Update="OnUpdate"
+            PointerMoved="CanvasControl_PointerMoved"
+            PointerPressed="CanvasControl_PointerPressed"
+            PointerReleased="CanvasControl_PointerReleased"
+            KeyDown="CanvasControl_KeyDown"
+            KeyUp="CanvasControl_KeyUp"
+            IsTabStop="True" />
     </Grid>
 </Page>
