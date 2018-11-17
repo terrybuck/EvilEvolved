@@ -1,21 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Numerics;
-using System.Text;
-using System.Threading.Tasks;
-using Windows.Foundation;
 using Windows.Media.Playback;
-using Windows.Media;
 using Windows.UI;
-using Windows.UI.Xaml;
 using Microsoft.Graphics.Canvas;
-using Windows.Graphics.Imaging;
-using Microsoft.Graphics.Canvas.Effects;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Media.Imaging;
-using Windows.UI.Xaml.Shapes;
 
 namespace EvilutionClass
 {
@@ -92,7 +79,10 @@ namespace EvilutionClass
                             {
                                 foreach (Villain villain in villains)
                                 {
-                                    if (RectHelper.Intersect(villain.BoundingRectangle, gi.BoundingRectangle) != Rect.Empty)
+                                    var villainRect = villain.BoundingRectangle;
+                                    villainRect.Intersect(gi.BoundingRectangle);
+
+                                    if (!villainRect.IsEmpty)
                                     {
                                         villain.TimeSinceCollision = DateTime.Now - villain.LastCollision;
                                         if (villain.TimeSinceCollision.TotalMilliseconds > villain.iFrames)
@@ -114,7 +104,10 @@ namespace EvilutionClass
                             {
                                 foreach (Hero hero in heros)
                                 {
-                                    if (RectHelper.Intersect(hero.BoundingRectangle, gi.BoundingRectangle) != Rect.Empty)
+                                    var heroRect = hero.BoundingRectangle;
+                                    heroRect.Intersect(gi.BoundingRectangle);
+
+                                    if (!heroRect.IsEmpty)
                                     {
                                         hero.TimeSinceCollision = DateTime.Now - hero.LastCollision;
                                         if (hero.TimeSinceCollision.TotalMilliseconds > hero.iFrames)
