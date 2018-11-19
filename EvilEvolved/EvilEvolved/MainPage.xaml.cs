@@ -5,6 +5,14 @@ using Microsoft.Graphics.Canvas.UI.Xaml;
 using Windows.UI.Xaml.Input;
 using EvilutionClass;
 using Windows.System;
+using Windows.UI.Text;
+using System;
+using System.Threading.Tasks;
+using Windows.UI;
+using static EvilutionClass.GameOverScene;
+using static EvilutionClass.GameScene;
+using static EvilutionClass.Hero;
+using Windows.Storage;
 
 namespace Evilution
 {
@@ -26,6 +34,22 @@ namespace Evilution
 
         }
 
+        private async Task<string> InputTextDialogAsync(string title)
+        {
+            TextBox inputTextBox = new TextBox();
+            inputTextBox.AcceptsReturn = false;
+            inputTextBox.Height = 32;
+            ContentDialog dialog = new ContentDialog();
+            dialog.Content = inputTextBox;
+            dialog.Title = title;
+            dialog.IsSecondaryButtonEnabled = true;
+            dialog.PrimaryButtonText = "Ok";
+            dialog.SecondaryButtonText = "Cancel";
+            if (await dialog.ShowAsync() == ContentDialogResult.Primary)
+                return inputTextBox.Text;
+            else
+                return "";
+        }
 
         /// <summary>
         /// Assets are loaded in from the CreateResources method
@@ -34,6 +58,7 @@ namespace Evilution
         /// <param name="args"></param>
         private async void OnCreateResources(CanvasAnimatedControl sender, Microsoft.Graphics.Canvas.UI.CanvasCreateResourcesEventArgs args)
         {
+
             _screenSize = new Vector2((float)Cvs.Size.Width, (float)Cvs.Size.Height);
 
             //set parent canvas for image manager
@@ -60,6 +85,9 @@ namespace Evilution
             await AudioManager.AddAudio("Main Game Scene", "BattleTheme.mp3");
             await AudioManager.AddAudio("Game Over Scene", "GameOver.mp3");
 
+            Storage.CreateFile();
+            Storage.ReadFile();
+            storageFile = await Storage.Storage_Folder.GetFileAsync("highscores.txt");
 
             // set up the scene
             var ts = new TitleScene((int)this._screenSize.X, (int)this._screenSize.Y);
@@ -69,10 +97,13 @@ namespace Evilution
             //create scenes
             var game_scene = new GameScene((int)this._screenSize.X, (int)this._screenSize.Y);
             var game_over_scene = new GameOverScene((int)this._screenSize.X, (int)this._screenSize.Y);
+            var top_score_scene = new HighScoreScene((int)this._screenSize.X, (int)this._screenSize.Y);
 
             //add scenes to storyboard
             StoryBoard.AddScene(game_scene);
             StoryBoard.AddScene(game_over_scene);
+            StoryBoard.AddScene(top_score_scene);
+
         }
 
         private void OnUpdate(ICanvasAnimatedControl sender, CanvasAnimatedUpdateEventArgs args)
@@ -94,12 +125,18 @@ namespace Evilution
             {
                 StoryBoard.CurrentScene.Draw(cds);
             }
+
         }
 
         private void OnGameLoopStopped(ICanvasAnimatedControl sender, object args)
         {
 
         }
+
+        //private async void OnGameOver(object sender, GameOverEvent args)
+        //{
+        //    string text = await InputTextDialogAsync("You've got a high score, please enter your name:");
+        //}
 
         #region ----------[Mouse inputs]
 
@@ -197,5 +234,11 @@ namespace Evilution
         }
 
         #endregion
+
+        //HighScore Variables
+        //public static float HighScore;
+        public static string STRHighScore;
+        StorageFile storageFile;
+
     }
 }

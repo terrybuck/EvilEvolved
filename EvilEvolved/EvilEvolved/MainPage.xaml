@@ -24,5 +24,6 @@
             KeyDown="CanvasControl_KeyDown"
             KeyUp="CanvasControl_KeyUp"
             IsTabStop="True" />
+
     </Grid>
 </Page>
